@@ -1,0 +1,32 @@
+{
+	"name"        : "rudra/annotations",
+	"description" : "Script to scan all classes in Project",
+	"version"     : "1.0.0-dev",
+	"type"        : "library",
+	"keywords"    : [
+		"rudra",
+		"annotations"
+	],
+	"license"     : "MIT",
+	"authors"     : [
+		{
+			"name"    : "Erik Amaru Ortiz",
+			"email"   : "aortiz.erik@gmail.com"
+		}
+	],
+	"support"     : {
+		"email": "jagepard@yandex.ru",
+		"skype": "jagepard.ru"
+	},
+	"require"     : {
+		"php": ">=7.0"
+	},
+	"require-dev" : {
+		"codeception/codeception": "*"
+	},
+	"autoload"    : {
+		"psr-4": {
+			"Rudra\\": "src/"
+		}
+	}
+}
