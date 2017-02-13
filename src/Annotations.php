@@ -43,7 +43,6 @@ class Annotations extends AbstractAnnotations
                     $this->handleComma($args);
                 } // TODO: описать работу с массивом параметров
 
-                !d($this->getValue());
                 $annotations[$name][] = $this->getValue();
             }
         }
