@@ -33,8 +33,6 @@ class Annotations extends AbstractAnnotations
      */
     protected function parseAnnotations($docBlock)
     {
-        $annotations = [];
-
         if (preg_match_all('#@(?<name>[A-Za-z_-]+)[\s\t]*\((?<args>.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
             for ($i = 0; $i < count($matches[0]); $i++) {
@@ -45,6 +43,7 @@ class Annotations extends AbstractAnnotations
                     $this->handleComma($args);
                 } // TODO: описать работу с массивом параметров
 
+                !d($this->getValue());
                 $annotations[$name][] = $this->getValue();
             }
         }
@@ -54,6 +53,7 @@ class Annotations extends AbstractAnnotations
 
     /**
      * Ищем ','
+     *
      * @param $args
      */
     protected function handleComma($args)
@@ -71,6 +71,7 @@ class Annotations extends AbstractAnnotations
 
     /**
      * Ищем '='
+     *
      * @param $comma
      */
     protected function handleEvo($comma)
@@ -82,6 +83,8 @@ class Annotations extends AbstractAnnotations
             }
 
             $this->setValue(trim($evo[0]), trim($evoMatch[1]));
+        } else {
+            $this->setValue('string', $comma);
         }
     }
 
@@ -99,7 +102,11 @@ class Annotations extends AbstractAnnotations
      */
     public function setValue($key, $value)
     {
-        $this->value[$key] = $value;
+        if ('string' == $key) {
+            $this->value = $value;
+        } else {
+            $this->value[$key] = $value;
+        }
     }
 
 }
