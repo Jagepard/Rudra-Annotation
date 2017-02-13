@@ -33,6 +33,8 @@ class Annotations extends AbstractAnnotations
      */
     protected function parseAnnotations($docBlock)
     {
+        $annotations = [];
+
         if (preg_match_all('#@(?<name>[A-Za-z_-]+)[\s\t]*\((?<args>.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
             for ($i = 0; $i < count($matches[0]); $i++) {
@@ -40,16 +42,8 @@ class Annotations extends AbstractAnnotations
                 $args = trim($matches['args'][$i]);
 
                 if (preg_match('#=[\s\t]*{#', $args) == false) {
-                    if (strpos($args, ',') !== false) {
-                        $commas = explode(',', $args);
-                        foreach ($commas as $comma) {
-                            $this->handleComma($comma);
-                        }
-                    } else {
-                        $comma = $args;
-                        $this->handleComma($comma);
-                    }
-                }
+                    $this->handleComma($args);
+                } // TODO: описать работу с массивом параметров
 
                 $annotations[$name][] = $this->getValue();
             }
@@ -59,13 +53,27 @@ class Annotations extends AbstractAnnotations
     }
 
     /**
-     * Ищем '='
-     *
-     * @param $comma
-     *
-     * @return mixed
+     * Ищем ','
+     * @param $args
      */
-    protected function handleComma($comma)
+    protected function handleComma($args)
+    {
+        if (strpos($args, ',') !== false) {
+            $commas = explode(',', $args);
+            foreach ($commas as $comma) {
+                $this->handleEvo($comma);
+            }
+        } else {
+            $comma = $args;
+            $this->handleEvo($comma);
+        }
+    }
+
+    /**
+     * Ищем '='
+     * @param $comma
+     */
+    protected function handleEvo($comma)
     {
         if (strpos($comma, '=') !== false) {
             $evo = explode('=', $comma);
