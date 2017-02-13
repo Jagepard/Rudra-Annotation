@@ -23,35 +23,41 @@ namespace Rudra;
  */
 class Annotations
 {
+
     /**
      * Static array to store already parsed annotations
+     *
      * @var array
      */
     private static $annotationCache;
 
     /**
      * Indicates that annotations should has strict behavior, 'false' by default
+     *
      * @var boolean
      */
     private $strict = false;
 
     /**
      * Stores the default namespace for Objects instance, usually used on methods like getMethodAnnotationsObjects()
+     *
      * @var string
      */
     public $defaultNamespace = '';
 
     /**
      * Sets strict variable to true/false
+     *
      * @param bool $value boolean value to indicate that annotations to has strict behavior
      */
     public function setStrict($value)
     {
-        $this->strict = (bool) $value;
+        $this->strict = (bool)$value;
     }
 
     /**
      * Sets default namespace to use in object instantiation
+     *
      * @param string $namespace default namespace
      */
     public function setDefaultNamespace($namespace)
@@ -61,6 +67,7 @@ class Annotations
 
     /**
      * Gets default namespace used in object instantiation
+     *
      * @return string $namespace default namespace
      */
     public function getDefaultAnnotationNamespace()
@@ -71,13 +78,14 @@ class Annotations
     /**
      * Gets all anotations with pattern @SomeAnnotation() from a given class
      *
-     * @param  string $className             class name to get annotations
+     * @param  string $className class name to get annotations
+     *
      * @return array  self::$annotationCache all annotated elements
      */
     public static function getClassAnnotations($className)
     {
         if (!isset(self::$annotationCache[$className])) {
-            $class = new \ReflectionClass($className);
+            $class                             = new \ReflectionClass($className);
             self::$annotationCache[$className] = self::parseAnnotations($class->getDocComment());
         }
 
@@ -87,15 +95,16 @@ class Annotations
     /**
      * Gets all anotations with pattern @SomeAnnotation() from a determinated method of a given class
      *
-     * @param  string $className             class name
-     * @param  string $methodName            method name to get annotations
+     * @param  string $className  class name
+     * @param  string $methodName method name to get annotations
+     *
      * @return array  self::$annotationCache all annotated elements of a method given
      */
     public static function getMethodAnnotations($className, $methodName)
     {
         if (!isset(self::$annotationCache[$className . '::' . $methodName])) {
             try {
-                $method = new \ReflectionMethod($className, $methodName);
+                $method      = new \ReflectionMethod($className, $methodName);
                 $annotations = self::parseAnnotations($method->getDocComment());
             } catch (\ReflectionException $e) {
                 $annotations = array();
@@ -111,8 +120,9 @@ class Annotations
      * Gets all anotations with pattern @SomeAnnotation() from a determinated method of a given class
      * and instance its abcAnnotation class
      *
-     * @param  string $className             class name
-     * @param  string $methodName            method name to get annotations
+     * @param  string $className  class name
+     * @param  string $methodName method name to get annotations
+     *
      * @return array  self::$annotationCache all annotated objects of a method given
      */
     public function getMethodAnnotationsObjects($className, $methodName)
@@ -124,11 +134,11 @@ class Annotations
 
         foreach ($annotations as $annotationClass => $listParams) {
             $annotationClass = ucfirst($annotationClass);
-            $class = $this->defaultNamespace . $annotationClass . 'Annotation';
+            $class           = $this->defaultNamespace . $annotationClass . 'Annotation';
 
             // verify is the annotation class exists, depending if Annotations::strict is true
             // if not, just skip the annotation instance creation.
-            if (! class_exists($class)) {
+            if (!class_exists($class)) {
                 if ($this->strict) {
                     throw new \RuntimeException(sprintf('Runtime Error: Annotation Class Not Found: %s', $class));
                 } else {
@@ -159,6 +169,7 @@ class Annotations
      * Parse annotations
      *
      * @param  string $docblock
+     *
      * @return array parsed annotations params
      */
     private static function parseAnnotations($docblock)
@@ -193,6 +204,7 @@ class Annotations
      * Parse individual annotation arguments
      *
      * @param  string $content arguments string
+     *
      * @return array           annotated arguments
      */
     private static function parseArgs($content)
@@ -206,7 +218,6 @@ class Annotations
 
         $prevDelimiter = '';
         $nextDelimiter = '';
-        $nextToken     = '';
         $composing     = false;
         $type          = 'plain';
         $delimiter     = null;
@@ -238,7 +249,7 @@ class Annotations
                         if (',' !== substr($content, $i, 1)) {
                             throw new \InvalidArgumentException(sprintf(
                                 "Parse Error: missing comma separator near: ...%s<--",
-                                substr($content, ($i-10), $i)
+                                substr($content, ($i - 10), $i)
                             ));
                         }
                     }
@@ -251,10 +262,10 @@ class Annotations
                 switch ($c) {
                     case '=':
                         $prevDelimiter = $nextDelimiter = '';
-                        $level     = 2;
-                        $composing = false;
-                        $type      = 'assoc';
-                        $quoted = false;
+                        $level         = 2;
+                        $composing     = false;
+                        $type          = 'assoc';
+                        $quoted        = false;
                         break;
                     case ',':
                         $level = 3;
@@ -271,7 +282,7 @@ class Annotations
                         $prevDelimiter = $nextDelimiter = '';
                         break;
                     case '{':
-                        $subc = '';
+                        $subc         = '';
                         $subComposing = true;
 
                         while ($i <= $len) {
@@ -316,10 +327,10 @@ class Annotations
                     $data[trim($var)] = self::castValue($val, !$quoted);
                 }
 
-                $level = 1;
-                $var   = $val = '';
+                $level     = 1;
+                $var       = $val = '';
                 $composing = false;
-                $quoted = false;
+                $quoted    = false;
             }
         }
 
@@ -331,6 +342,7 @@ class Annotations
      *
      * @param  string  $val  string containing possibles variables that can be cast to bool or int
      * @param  boolean $trim indicate if the value passed should be trimmed after to try cast
+     *
      * @return mixed         returns the value converted to original type if was possible
      */
     private static function castValue($val, $trim = false)
@@ -357,5 +369,5 @@ class Annotations
 
         return $val;
     }
-}
 
+}
