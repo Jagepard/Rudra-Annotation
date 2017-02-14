@@ -20,11 +20,6 @@ class Annotations extends AbstractAnnotations
 {
 
     /**
-     * @var
-     */
-    protected $value;
-
-    /**
      * Parse annotations
      *
      * @param  string $docBlock
@@ -33,17 +28,17 @@ class Annotations extends AbstractAnnotations
      */
     protected function parseAnnotations($docBlock)
     {
-        if (preg_match_all('#@(?<name>[A-Za-z_-]+)[\s\t]*\((?<args>.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
+        if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
             for ($i = 0; $i < count($matches[0]); $i++) {
-                $name = $matches['name'][$i];
-                $args = trim($matches['args'][$i]);
+                $name = $matches[1][$i];
+                $args = trim($matches[2][$i]);
 
                 if (preg_match('#=[\s\t]*{#', $args) == false) {
-                    $this->handleComma($args);
+                    $value = $this->handleComma($args);
                 } // TODO: описать работу с массивом параметров
 
-                $annotations[$name][] = $this->getValue();
+                $annotations[$name][] = $value;//$this->getValue();
             }
         }
 
@@ -52,26 +47,28 @@ class Annotations extends AbstractAnnotations
 
     /**
      * Ищем ','
-     *
      * @param $args
+     *
+     * @return array
      */
     protected function handleComma($args)
     {
         if (strpos($args, ',') !== false) {
             $commas = explode(',', $args);
             foreach ($commas as $comma) {
-                $this->handleEvo($comma);
+                return $this->handleEvo($comma);
             }
-        } else {
-            $comma = $args;
-            $this->handleEvo($comma);
         }
+
+        return $this->handleEvo($args);
     }
 
     /**
      * Ищем '='
      *
      * @param $comma
+     *
+     * @return array
      */
     protected function handleEvo($comma)
     {
@@ -81,31 +78,10 @@ class Annotations extends AbstractAnnotations
                 $evo[1] = $evoMatch[1];
             }
 
-            $this->setValue(trim($evo[0]), trim($evoMatch[1]));
-        } else {
-            $this->setValue('string', $comma);
+            return [trim($evo[0]) => trim($evoMatch[1])];
         }
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param $key
-     * @param $value
-     */
-    public function setValue($key, $value)
-    {
-        if ('string' == $key) {
-            $this->value = $value;
-        } else {
-            $this->value[$key] = $value;
-        }
+        return $comma;
     }
 
 }
