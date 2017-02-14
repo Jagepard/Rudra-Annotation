@@ -1,202 +1,54 @@
 README
 =========================
-[![Build Status](https://secure.travis-ci.org/eriknyk/Annotations.png?branch=master)](http://travis-ci.org/eriknyk/Annotations)
-
-Simple and Lightweight PHP Class & Methods Annotations Reader
+Class & Methods Annotations Reader
 ===
 
 Sample class User.php
 
-    <?php
+    class PageController
+    {
+    
     /**
-     * @Defaults(name="user1", lastname = "sample", age='0', address={country=USA, state=NY}, phone="000-00000000")
+     * @Routing(url = '')
+     * @Defaults(name='user1'| lastname = 'sample'| age='0'| address = {country : 'Russia', state : 'Tambov'}| phone = '000-00000000')
      * @assertResult(false)
-     * @cache(collation = UTF-8)
+     * @Validate(name = 'min:150'| phone = 'max:9')
      */
-    class User
-    {
-        /**
-         * @cache(true)
-         * @type(json)
-         * @limits(start=10, limit=50)
-         */
-        function load(){
-        }
-
-        /**
-         * create a record
-         *
-         * @Permission(view)
-         * @Permission(edit)
-         * @Role(administrator)
-         */
-        public function create()
+        function load()
         {
+            // Your code
         }
+        
     }
-
-
-Sample use.
-
----
-    include 'User.php';
-    $annotations = new Annotations();
-    $result = $annotations->getClassAnnotations('User');
-    print_r($result);
 
 Result:
 
-    Array
-    (
-        [Defaults] => Array
-            (
-                [0] => Array
-                    (
-                        [name] => user1
-                        [lastname] => sample
-                        [age] => 0
-                        [address] => Array
-                            (
-                                [country] => USA
-                                [state] => NY
-                            )
-
-                        [phone] => 000-00000000
-                    )
-
-            )
-
-        [assertResult] => Array
-            (
-                [0] => false
-            )
-
-        [cache] => Array
-            (
-                [0] => Array
-                    (
-                        [collation] => UTF-8
-                    )
-
-            )
-
-    )
----
-
-    $result = $annotations->getMethodAnnotations('User', 'create');
-    print_r($result);
-
-Result:
-
-    Array
-    (
-        [Permission] => Array
-            (
-                [0] => view
-                [1] => edit
-            )
-
-        [Role] => Array
-            (
-                [0] => administrator
-            )
-
-    )
-
----
-
-Creating Annotated objects.
----
-You can crate fast annotated objects.
-
-Sample Annotated Classes.
-
----
-    <?php
-    // Annotation.php
-
-    abstract class Annotation
-    {
-        protected $data = array();
-
-        public function __construct($args = array())
-        {
-            $this->data = $args;
-        }
-
-        public function set($key, $value)
-        {
-            $this->data[$key] = $value;
-        }
-
-        public function get($key, $default = null)
-        {
-            if (empty($this->data[$key])) {
-                return $default;
-            }
-
-            return $this->data[$key];
-        }
-
-        public function exists($key)
-        {
-            return isset($this->data[$key]);
-        }
-    }
-
----
-
-    <?php
-    // PermissionAnnotation.php
-    namespace Annotation;
-
-    class PermissionAnnotation extends Annotation
-    {
-    }
-
----
-
-    <?php
-    namespace Base\Annotation;
-    // RoleAnnotation.php
-
-    class RoleAnnotation extends Annotation
-    {
-    }
-
----
-
-    require_once 'Annotation/Annotation.php';
-    require_once 'Annotation/PermissionAnnotation.php';
-    require_once 'Annotation/RoleAnnotation.php';
-
-    $annotations->setDefaultAnnotationNamespace('\Annotation\\');
-    $result = $annotations->getMethodAnnotationsObjects('User', 'create');
-    print_r($result);
-
-Result:
-
-    Array
-    (
-        [Permission] => Base\Annotation\PermissionAnnotation Object
-            (
-                [data:protected] => Array
-                    (
-                        [0] => view
-                        [1] => edit
-                    )
-
-            )
-
-        [Role] => Base\Annotation\RoleAnnotation Object
-            (
-                [data:protected] => Array
-                    (
-                        [2] => administrator
-                    )
-
-            )
-
-    )
----
-
+    array (4) [
+        'Routing' => array (1) [
+            array (1) [
+                'url' => string (0) ""
+            ]
+        ]
+        'Defaults' => array (1) [
+            array (5) [
+                'name' => string (5) "user1"
+                'lastname' => string (6) "sample"
+                'age' => string (1) "0"
+                'address' => array (2) [
+                    'country' => string (6) "Russia"
+                    'state' => string (6) "Tambov"
+                ]
+                'phone' => string (12) "000-00000000"
+            ]
+        ]
+        'assertResult' => array (1) [
+            string (5) "false"
+        ]
+        'Validate' => array (1) [
+            array (2) [
+                'name' => string (7) "min:150"
+                'phone' => string (5) "max:9"
+            ]
+        ]
+    ]
+    
