@@ -29,19 +29,11 @@ class Annotations extends AbstractAnnotations
     protected function parseAnnotations($docBlock)
     {
         $annotations = [];
-
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
-
             for ($i = 0; $i < count($matches[0]); $i++) {
-                $name = $matches[1][$i];
-                $args = trim($matches[2][$i]);
-
-                if (preg_match('#=[\s\t]*{#', $args) == false) {
-                    $value = $this->handleDelimiter($args);
-                } else {
-                    $value = $this->handleEquals($args, '=', true);
-                }
-
+                $name                 = $matches[1][$i];
+                $args                 = trim($matches[2][$i]);
+                $value                = $this->handleDelimiter($args);
                 $annotations[$name][] = $value;
             }
         }
@@ -60,10 +52,14 @@ class Annotations extends AbstractAnnotations
     {
         if (strpos($args, $symbol) !== false) {
             if ($arr) {
-                return $this->supportDelimiter($args, $symbol, ':');
+                return $this->arrayDelimiter($args, $symbol);
             }
 
             return $this->supportDelimiter($args, $symbol);
+        }
+
+        if ($arr) {
+            return $this->arrayDelimiter($args, $symbol);
         }
 
         return $this->handleEquals($args);
@@ -79,13 +75,23 @@ class Annotations extends AbstractAnnotations
     protected function supportDelimiter($args, $symbol, $equalsSymbol = '=')
     {
         $delimitersData = [];
-
         foreach (explode($symbol, $args) as $data) {
             $data                       = $this->handleEquals($data, $equalsSymbol);
             $delimitersData[key($data)] = $data[key($data)];
         }
 
         return $delimitersData;
+    }
+
+    /**
+     * @param $args
+     * @param $symbol
+     *
+     * @return array
+     */
+    protected function arrayDelimiter($args, $symbol)
+    {
+        return $this->supportDelimiter($args, $symbol, ':');
     }
 
     /**
@@ -100,29 +106,20 @@ class Annotations extends AbstractAnnotations
         if (strpos($args, $symbol) !== false) {
             $data = explode($symbol, $args);
 
-            if ($arr) {
-                return [trim($data[0]) => $this->supportEquals($data, '#{(.*)}#')];
+            if (preg_match('#=[\s\t]*{#', $args) or $arr) {
+                if (preg_match('#{(.*)}#', $data[1], $dataMatch)) {
+                    $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), ',', true);
+                }
+
+                return [trim($data[0]) => $dataMatch[1]];
             }
 
-            return [trim($data[0]) => trim($this->supportEquals($data))];
+            if (preg_match('#\'(.*)\'#', $data[1], $dataMatch)) {
+                return [trim($data[0]) => $dataMatch[1]];
+            }
         }
 
         return $args;
-    }
-
-    /**
-     * @param        $data
-     * @param string $pattern
-     *
-     * @return array
-     */
-    protected function supportEquals($data, $pattern = '#\'(.*)\'#')
-    {
-        if (preg_match($pattern, $data[1], $dataMatch)) {
-            $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), ',', true);
-
-            return $dataMatch[1];
-        }
     }
 
 }
