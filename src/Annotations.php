@@ -28,6 +28,8 @@ class Annotations extends AbstractAnnotations
      */
     protected function parseAnnotations($docBlock)
     {
+        $annotations = [];
+
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
             for ($i = 0; $i < count($matches[0]); $i++) {
@@ -35,10 +37,12 @@ class Annotations extends AbstractAnnotations
                 $args = trim($matches[2][$i]);
 
                 if (preg_match('#=[\s\t]*{#', $args) == false) {
-                    $value = $this->handleComma($args);
-                } // TODO: описать работу с массивом параметров
+                    $value = $this->handleDelimiter($args);
+                } else {
+                    $value = $this->handleEquals($args, '=', true);
+                }
 
-                $annotations[$name][] = $value;//$this->getValue();
+                $annotations[$name][] = $value;
             }
         }
 
@@ -46,42 +50,79 @@ class Annotations extends AbstractAnnotations
     }
 
     /**
-     * Ищем ','
-     * @param $args
+     * @param        $args
+     * @param string $symbol
+     * @param bool   $arr
      *
      * @return array
      */
-    protected function handleComma($args)
+    protected function handleDelimiter($args, $symbol = '|', $arr = false)
     {
-        if (strpos($args, ',') !== false) {
-            $commas = explode(',', $args);
-            foreach ($commas as $comma) {
-                return $this->handleEvo($comma);
+        if (strpos($args, $symbol) !== false) {
+            if ($arr) {
+                return $this->supportDelimiter($args, $symbol, ':');
             }
+
+            return $this->supportDelimiter($args, $symbol);
         }
 
-        return $this->handleEvo($args);
+        return $this->handleEquals($args);
     }
 
     /**
-     * Ищем '='
-     *
-     * @param $comma
+     * @param        $args
+     * @param        $symbol
+     * @param string $equalsSymbol
      *
      * @return array
      */
-    protected function handleEvo($comma)
+    protected function supportDelimiter($args, $symbol, $equalsSymbol = '=')
     {
-        if (strpos($comma, '=') !== false) {
-            $evo = explode('=', $comma);
-            if (preg_match('#\'(.*)\'#', $evo[1], $evoMatch)) {
-                $evo[1] = $evoMatch[1];
-            }
+        $delimitersData = [];
 
-            return [trim($evo[0]) => trim($evoMatch[1])];
+        foreach (explode($symbol, $args) as $data) {
+            $data                       = $this->handleEquals($data, $equalsSymbol);
+            $delimitersData[key($data)] = $data[key($data)];
         }
 
-        return $comma;
+        return $delimitersData;
+    }
+
+    /**
+     * @param        $args
+     * @param string $symbol
+     * @param bool   $arr
+     *
+     * @return array
+     */
+    protected function handleEquals($args, $symbol = '=', $arr = false)
+    {
+        if (strpos($args, $symbol) !== false) {
+            $data = explode($symbol, $args);
+
+            if ($arr) {
+                return [trim($data[0]) => $this->supportEquals($data, '#{(.*)}#')];
+            }
+
+            return [trim($data[0]) => trim($this->supportEquals($data))];
+        }
+
+        return $args;
+    }
+
+    /**
+     * @param        $data
+     * @param string $pattern
+     *
+     * @return array
+     */
+    protected function supportEquals($data, $pattern = '#\'(.*)\'#')
+    {
+        if (preg_match($pattern, $data[1], $dataMatch)) {
+            $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), ',', true);
+
+            return $dataMatch[1];
+        }
     }
 
 }
