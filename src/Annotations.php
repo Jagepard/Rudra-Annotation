@@ -52,7 +52,7 @@ class Annotations extends AbstractAnnotations
     {
         if (strpos($args, $symbol) !== false) {
             if ($arr) {
-                return $this->arrayDelimiter($args, $symbol);
+                return $this->supportDelimiter($args, $symbol, ':');
             }
 
             return $this->supportDelimiter($args, $symbol);
@@ -81,17 +81,6 @@ class Annotations extends AbstractAnnotations
         }
 
         return $delimitersData;
-    }
-
-    /**
-     * @param $args
-     * @param $symbol
-     *
-     * @return array
-     */
-    protected function arrayDelimiter($args, $symbol)
-    {
-        return $this->supportDelimiter($args, $symbol, ':');
     }
 
     /**
