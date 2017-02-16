@@ -59,7 +59,7 @@ class Annotations extends AbstractAnnotations
         }
 
         if ($arr) {
-            return $this->arrayDelimiter($args, $symbol);
+            return $this->supportDelimiter($args, $symbol, ':');
         }
 
         return $this->handleEquals($args);
