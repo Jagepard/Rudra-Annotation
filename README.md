@@ -1,3 +1,4 @@
+[![Code Climate](https://lima.codeclimate.com/github/Jagepard/Rudra-Annotations/badges/gpa.svg)](https://lima.codeclimate.com/github/Jagepard/Rudra-Annotations)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/af16eedc760948a8b0458e7cce92aed3)](https://www.codacy.com/app/Jagepard/Rudra-Annotations?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jagepard/Rudra-Annotations&amp;utm_campaign=Badge_Grade)
 =========================
 Class & Methods Annotations Reader
