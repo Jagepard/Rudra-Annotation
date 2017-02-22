@@ -23,7 +23,7 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
             <exclude>
-                <directory>./src/tests/stub/</directory>
+                <file>./src/tests/stub/Test.php</file>
                 <file>./src/tests/bootstrap.php</file>
             </exclude>
         </whitelist>
