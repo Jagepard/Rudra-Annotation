@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 /**
  * Date: 13.02.17
  * Time: 16:54
@@ -11,6 +13,11 @@
 
 namespace Rudra;
 
+
+use \ReflectionClass;
+use \ReflectionMethod;
+
+
 /**
  * Class AbstractAnnotations
  *
@@ -20,37 +27,34 @@ abstract class AbstractAnnotations
 {
 
     /**
-     * @param $className
+     * @param string $className
      *
      * @return array
      */
-    public function getClassAnnotations($className)
+    public function getClassAnnotations(string $className): array
     {
-        $class = new \ReflectionClass($className);
+        $class = new ReflectionClass($className);
 
         return $this->parseAnnotations($class->getDocComment());
     }
 
     /**
-     * @param $className
-     * @param $methodName
+     * @param string $className
+     * @param string $methodName
      *
-     * @return mixed
+     * @return array
      */
-    public function getMethodAnnotations($className, $methodName)
+    public function getMethodAnnotations(string $className, string $methodName): array
     {
-        $method = new \ReflectionMethod($className, $methodName);
+        $method = new ReflectionMethod($className, $methodName);
 
         return $this->parseAnnotations($method->getDocComment());
     }
 
     /**
-     * Parse annotations
+     * @param string $docBlock
      *
-     * @param  string $docBlock
-     *
-     * @return array parsed annotations params
+     * @return mixed
      */
-    abstract protected function parseAnnotations($docBlock);
-
+    abstract protected function parseAnnotations(string $docBlock): array;
 }

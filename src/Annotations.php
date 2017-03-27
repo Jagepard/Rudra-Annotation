@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 /**
  * Date: 13.02.17
  * Time: 16:54
@@ -11,7 +13,6 @@
 
 namespace Rudra;
 
-
 /**
  * Class Annotations
  *
@@ -21,13 +22,11 @@ class Annotations extends AbstractAnnotations
 {
 
     /**
-     * Parse annotations
+     * @param string $docBlock
      *
-     * @param  string $docBlock
-     *
-     * @return array parsed annotations params
+     * @return array
      */
-    protected function parseAnnotations($docBlock)
+    protected function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
@@ -47,9 +46,9 @@ class Annotations extends AbstractAnnotations
      * @param string $symbol
      * @param bool   $arr
      *
-     * @return array
+     * @return array|string
      */
-    protected function handleDelimiter($args, $symbol = '|', $arr = false)
+    protected function handleDelimiter($args, string $symbol = '|', bool $arr = false)
     {
         if (strpos($args, $symbol) !== false) {
             if ($arr) {
@@ -64,12 +63,12 @@ class Annotations extends AbstractAnnotations
 
     /**
      * @param        $args
-     * @param        $symbol
+     * @param string $symbol
      * @param string $equalsSymbol
      *
      * @return array
      */
-    protected function supportDelimiter($args, $symbol, $equalsSymbol = '=')
+    protected function supportDelimiter($args, string $symbol, string $equalsSymbol = '='): array
     {
         $delimitersData = [];
         foreach (explode($symbol, $args) as $data) {
@@ -85,9 +84,9 @@ class Annotations extends AbstractAnnotations
      * @param string $symbol
      * @param bool   $arr
      *
-     * @return array
+     * @return array|string
      */
-    protected function handleEquals($args, $symbol = '=', $arr = false)
+    protected function handleEquals($args, string $symbol = '=', bool $arr = false)
     {
         if (strpos($args, $symbol) !== false) {
             $data = explode($symbol, $args);
