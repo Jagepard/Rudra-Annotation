@@ -1,6 +1,6 @@
 <?php
 
-use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+declare(strict_types = 1);
 
 /**
  * Date: 17.02.17
@@ -12,16 +12,36 @@ use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
  *
  *  phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
  */
+
+
+use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+use Rudra\Annotations;
+
+
+/**
+ * Class AnnotationsTest
+ */
 class AnnotationsTest extends PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @var Annotations
+     */
     protected $annotations;
+
+    /**
+     * @var string
+     */
     protected $docBlock;
+
+    /**
+     * @var array
+     */
     protected $result;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->annotations = new \Rudra\Annotations();
+        $this->annotations = new Annotations();
         $this->docBlock    = "    
         /**
          * @Routing(url = '')
@@ -58,7 +78,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return mixed
+     * @return Annotations
      */
     public function getAnnotations()
     {
@@ -66,27 +86,27 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDocBlock()
+    public function getDocBlock(): string
     {
         return $this->docBlock;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getResult()
+    public function getResult(): array
     {
         return $this->result;
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
-     * @return \ReflectionMethod
+     * @return ReflectionMethod
      */
-    protected function getMethod($name)
+    protected function getMethod(string $name): ReflectionMethod
     {
         $class  = new ReflectionClass($this->annotations);
         $method = $class->getMethod($name);
@@ -95,21 +115,20 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
         return $method;
     }
 
-    public function testParseAnnotations()
+    public function testParseAnnotations(): void
     {
         $parseAnnotations = $this->getMethod('parseAnnotations');
 
         $this->assertEquals($this->getResult(), $parseAnnotations->invokeArgs($this->annotations, [$this->getDocBlock()]));
     }
 
-    public function testGetClassAnnotations()
+    public function testGetClassAnnotations(): void
     {
         $this->assertEquals($this->getResult(), $this->getAnnotations()->getClassAnnotations('Test'));
     }
 
-    public function testGetMethodAnnotations()
+    public function testGetMethodAnnotations(): void
     {
         $this->assertEquals($this->getResult(), $this->getAnnotations()->getMethodAnnotations('Test', 'index'));
     }
-
 }
