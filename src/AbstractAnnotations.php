@@ -22,6 +22,8 @@ use \ReflectionMethod;
  * Class AbstractAnnotations
  *
  * @package Rudra
+ *
+ * Класс определяет источники извлечения аннотаций
  */
 abstract class AbstractAnnotations
 {
@@ -30,6 +32,8 @@ abstract class AbstractAnnotations
      * @param string $className
      *
      * @return array
+     *
+     * Получает массив из аннотаций DOCблока класса
      */
     public function getClassAnnotations(string $className): array
     {
@@ -43,6 +47,8 @@ abstract class AbstractAnnotations
      * @param string $methodName
      *
      * @return array
+     *
+     * Получает массив из аннотаций DOCблока метода
      */
     public function getMethodAnnotations(string $className, string $methodName): array
     {
@@ -55,6 +61,8 @@ abstract class AbstractAnnotations
      * @param string $docBlock
      *
      * @return mixed
+     *
+     * Метод должен преобразовать материалы представленные в аннотации в массив
      */
     abstract protected function parseAnnotations(string $docBlock): array;
 }

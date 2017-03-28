@@ -17,6 +17,18 @@ namespace Rudra;
  * Class Annotations
  *
  * @package Rudra
+ *
+ * Класс разбора данных из аннотаций, представленных в следующем виде:
+ *
+ * @Routing(url = '')
+ * @Defaults(name='user1'| lastname = 'sample'| age='0'| address = {country : 'Russia', state : 'Tambov'}| phone = '000-00000000')
+ * @assertResult(false)
+ * @Validate(name = 'min:150'| phone = 'max:9')
+ *
+ * Разделителем свойств является - '|'
+ * Разделителем в массивах является - ','
+ * ':' - разделяет ключ, значение в ассоциативном массиве
+ * Значение параметров указывается в одинарных кавычках
  */
 class Annotations extends AbstractAnnotations
 {
@@ -25,15 +37,25 @@ class Annotations extends AbstractAnnotations
      * @param string $docBlock
      *
      * @return array
+     *
+     * Преобразовывает материалы представленные в аннотации в массив
      */
     protected function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
+
+        /* Разбираем данные из аннотаций (docBlock)                */
+        /* $matches[0] - параметр целиком: '@Routing(url = 'blog')' */
+        /* $matches[1] - имя параметра   : 'Routing'                */
+        /* $matches[1] - аргументы       : 'url = 'blog'            */
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
+
             for ($i = 0; $i < count($matches[0]); $i++) {
                 $name                 = $matches[1][$i];
                 $args                 = trim($matches[2][$i]);
+                /* Получаем значение параметра ($args): 'blog' */
                 $value                = $this->handleDelimiter($args);
+                /* Собираем массив из полученных параметров */
                 $annotations[$name][] = $value;
             }
         }
@@ -47,17 +69,22 @@ class Annotations extends AbstractAnnotations
      * @param bool   $arr
      *
      * @return array|string
+     *
+     * Разделяет параметры по разделителю (symbol)
      */
     protected function handleDelimiter($args, string $symbol = '|', bool $arr = false)
     {
         if (strpos($args, $symbol) !== false) {
             if ($arr) {
+                /* Разбираем на ключ : значение в массив */
                 return $this->supportDelimiter($args, $symbol, ':');
             }
 
+            /* Разбираем на ключ = значение в массив */
             return $this->supportDelimiter($args, $symbol);
         }
 
+        /* Если в строке нет разделителя (symbol), то разбираем на ключ = значение */
         return $this->handleEquals($args);
     }
 
@@ -67,11 +94,16 @@ class Annotations extends AbstractAnnotations
      * @param string $equalsSymbol
      *
      * @return array
+     *
+     * Разбирает параметры на ключ (equalsSymbol) значение
+     * и возращает массив параметров
      */
     protected function supportDelimiter($args, string $symbol, string $equalsSymbol = '='): array
     {
         $delimitersData = [];
+
         foreach (explode($symbol, $args) as $data) {
+            /* Разбираем на ключ (equalsSymbol) значение */
             $data                       = $this->handleEquals($data, $equalsSymbol);
             $delimitersData[key($data)] = $data[key($data)];
         }
@@ -85,21 +117,29 @@ class Annotations extends AbstractAnnotations
      * @param bool   $arr
      *
      * @return array|string
+     *
+     * Разбирает данные на пары ключ => значение
      */
     protected function handleEquals($args, string $symbol = '=', bool $arr = false)
     {
         if (strpos($args, $symbol) !== false) {
             $data = explode($symbol, $args);
 
+            /* Если в $args массив типа address = {country : 'Russia', state : 'Tambov'}*/
             if (preg_match('#=[\s\t]*{#', $args) or $arr) {
+
+                /* Получаем данные внутри { dataMatch[1] } */
                 if (preg_match('#{(.*)}#', $data[1], $dataMatch)) {
                     $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), ',', true);
                 }
 
+                /* Возвращаем ключ => значение */
                 return [trim($data[0]) => $dataMatch[1]];
             }
 
+            /* Убираем кавычки вокуруг параметра */
             if (preg_match('#\'(.*)\'#', $data[1], $dataMatch)) {
+                /* Возвращаем ключ => значение */
                 return [trim($data[0]) => $dataMatch[1]];
             }
         }
