@@ -49,7 +49,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
          * @assertResult(false)
          * @Validate(name = 'min:150'| phone = 'max:9')
          */
-     ";
+         ";
 
         $this->result = [
             'Routing'      => [['url' => ""]],
