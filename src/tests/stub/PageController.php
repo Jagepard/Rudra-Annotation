@@ -10,7 +10,7 @@ declare(strict_types = 1);
  *
  * Class Test
  */
-class Test
+class PageController
 {
 
     /**
@@ -19,7 +19,7 @@ class Test
      * @assertResult(false)
      * @Validate(name = 'min:150'| phone = 'max:9')
      */
-    public function index()
+    public function indexAction()
     {
 
     }

@@ -124,11 +124,11 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
 
     public function testGetClassAnnotations(): void
     {
-        $this->assertEquals($this->getResult(), $this->getAnnotations()->getClassAnnotations('Test'));
+        $this->assertEquals($this->getResult(), $this->getAnnotations()->getClassAnnotations('PageController'));
     }
 
     public function testGetMethodAnnotations(): void
     {
-        $this->assertEquals($this->getResult(), $this->getAnnotations()->getMethodAnnotations('Test', 'index'));
+        $this->assertEquals($this->getResult(), $this->getAnnotations()->getMethodAnnotations('PageController', 'indexAction'));
     }
 }
