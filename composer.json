@@ -1,6 +1,6 @@
 {
 	"name"        : "rudra/annotations",
-	"description" : "Script to scan all classes in Project",
+	"description" : "The Rudra framework",
 	"version"     : "1.0.0-dev",
 	"type"        : "library",
 	"keywords"    : [
@@ -10,8 +10,10 @@
 	"license"     : "MIT",
 	"authors"     : [
 		{
-			"name"    : "Erik Amaru Ortiz",
-			"email"   : "aortiz.erik@gmail.com"
+			"name"    : "Danila Korotkov (Jagepard)",
+			"email"   : "jagepard@yandex.ru",
+			"homepage": "https://jagepard.ru",
+			"role"    : "Developer"
 		}
 	],
 	"support"     : {
