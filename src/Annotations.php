@@ -126,7 +126,7 @@ class Annotations extends AbstractAnnotations
             $data = explode($symbol, $args);
 
             /* Если в $args массив типа address = {country : 'Russia', state : 'Tambov'}*/
-            if (preg_match('#=[\s\t]*{#', $args) or $arr) {
+            if (preg_match('#=[\s\t]*{#', $args) || $arr) {
 
                 /* Получаем данные внутри { dataMatch[1] } */
                 if (preg_match('#{(.*)}#', $data[1], $dataMatch)) {
