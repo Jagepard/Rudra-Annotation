@@ -7,6 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/rudra/validation/downloads)](https://packagist.org/packages/rudra/annotations)
 [![License](https://poser.pugx.org/rudra/validation/license)](https://packagist.org/packages/rudra/annotations)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/be433bd5-b18e-40ad-b8cd-73ed3bb73120/big.png)](https://insight.sensiolabs.com/projects/be433bd5-b18e-40ad-b8cd-73ed3bb73120)
 ## Class & Methods Annotations Reader
 
 ##### Sample class User.php
