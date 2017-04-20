@@ -16,7 +16,7 @@ declare(strict_types = 1);
 
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 use Rudra\Annotations;
-
+use Rudra\AnnotationException;
 
 /**
  * Class AnnotationsTest
@@ -78,6 +78,14 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $docBlock
+     */
+    public function setDocBlock(string $docBlock)
+    {
+        $this->docBlock = $docBlock;
+    }
+
+    /**
      * @return Annotations
      */
     public function getAnnotations()
@@ -130,5 +138,11 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     public function testGetMethodAnnotations(): void
     {
         $this->assertEquals($this->getResult(), $this->getAnnotations()->getMethodAnnotations('PageController', 'indexAction'));
+    }
+
+    public function testAnnotationException()
+    {
+        $this->expectException(AnnotationException::class);
+        throw new AnnotationException('Ошибка парсинга аннотаций');
     }
 }
