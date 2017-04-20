@@ -34,6 +34,14 @@ class Annotations extends AbstractAnnotations
 {
 
     /**
+     * Annotations constructor.
+     */
+    public function __construct()
+    {
+        set_exception_handler([new AnnotationException(), 'handler']);
+    }
+
+    /**
      * @param string $docBlock
      *
      * @return array
