@@ -12,6 +12,7 @@ declare(strict_types = 1);
  */
 
 namespace Rudra;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class Annotations
@@ -68,6 +69,7 @@ class Annotations extends AbstractAnnotations
             }
         }
 
+        var_dump($annotations);
         return $annotations;
     }
 
@@ -102,6 +104,7 @@ class Annotations extends AbstractAnnotations
      * @param string $equalsSymbol
      *
      * @return array
+     * @throws AnnotationException
      *
      * Разбирает параметры на ключ (equalsSymbol) значение
      * и возращает массив параметров
@@ -113,7 +116,12 @@ class Annotations extends AbstractAnnotations
         foreach (explode($symbol, $args) as $data) {
             /* Разбираем на ключ (equalsSymbol) значение */
             $data                       = $this->handleEquals($data, $equalsSymbol);
-            $delimitersData[key($data)] = $data[key($data)];
+
+            if (is_array($data)) {
+                $delimitersData[key($data)] = $data[key($data)];
+            } else {
+                throw new AnnotationException('Ошибка парсинга аннотаций');
+            }
         }
 
         return $delimitersData;
