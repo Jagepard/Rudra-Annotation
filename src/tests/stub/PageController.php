@@ -23,4 +23,12 @@ class PageController
     {
 
     }
+
+    /**
+     * @Middleware('Middleware', params = {int : '123'})
+     */
+    public function errorAction()
+    {
+
+    }
 }
