@@ -72,14 +72,14 @@ class Annotations extends AbstractAnnotations
      *
      * Разделяет параметры по разделителю (symbol)
      */
-    protected function handleDelimiter($args, string $symbol = '|', bool $arr = false)
+    protected function handleDelimiter($args, string $symbol = ',', bool $arr = false)
     {
-        if (strpos($args, $symbol) !== false) {
-            if ($arr) {
-                /* Разбираем на ключ : значение в массив */
-                return $this->supportDelimiter($args, $symbol, ':');
-            }
+        if ($arr) {
+            /* Разбираем на ключ : значение в массив */
+            return $this->supportDelimiter($args, $symbol, ':');
+        }
 
+        if (strpos($args, $symbol) !== false) {
             /* Разбираем на ключ = значение в массив */
             return $this->supportDelimiter($args, $symbol);
         }
@@ -125,12 +125,12 @@ class Annotations extends AbstractAnnotations
         if (strpos($args, $symbol) !== false) {
             $data = explode($symbol, $args);
 
-            /* Если в $args массив типа address = {country : 'Russia', state : 'Tambov'}*/
+            /* Если в $args массив типа address = {country : 'Russia'| state : 'Tambov'}*/
             if (preg_match('#=[\s\t]*{#', $args) || $arr) {
 
                 /* Получаем данные внутри { dataMatch[1] } */
                 if (preg_match('#{(.*)}#', $data[1], $dataMatch)) {
-                    $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), ',', true);
+                    $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), '|', true);
                 }
 
                 /* Возвращаем ключ => значение */
