@@ -69,7 +69,6 @@ class Annotations extends AbstractAnnotations
             }
         }
 
-        var_dump($annotations);
         return $annotations;
     }
 
