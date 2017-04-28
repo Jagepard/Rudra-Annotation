@@ -12,7 +12,6 @@ declare(strict_types = 1);
  */
 
 namespace Rudra;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class Annotations
