@@ -59,10 +59,10 @@ class Annotations extends AbstractAnnotations
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
             for ($i = 0; $i < count($matches[0]); $i++) {
-                $name                 = $matches[1][$i];
-                $args                 = trim($matches[2][$i]);
+                $name = $matches[1][$i];
+                $args = trim($matches[2][$i]);
                 /* Получаем значение параметра ($args): 'blog' */
-                $value                = $this->handleDelimiter($args);
+                $value = $this->handleDelimiter($args);
                 /* Собираем массив из полученных параметров */
                 $annotations[$name][] = $value;
             }
@@ -113,7 +113,7 @@ class Annotations extends AbstractAnnotations
 
         foreach (explode($symbol, $args) as $data) {
             /* Разбираем на ключ (equalsSymbol) значение */
-            $data                       = $this->handleEquals($data, $equalsSymbol);
+            $data = $this->handleEquals($data, $equalsSymbol);
 
             if (is_array($data)) {
                 $delimitersData[key($data)] = $data[key($data)];
