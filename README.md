@@ -72,7 +72,7 @@ array (4) [
 ]
 ```   
 
-### Использование в маршруизаторе
+### Использование в RouterAnnotationTrait
 ```      
 public function annotation(string $class, string $method = null, int $number = 0): void
 {
