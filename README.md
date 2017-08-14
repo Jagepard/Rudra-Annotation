@@ -72,11 +72,8 @@ array (4) [
 ]
 ```   
 
-### Использование / Usage
-
-```
-$result = $this->container()->get('annotation')->getMethodAnnotations($controller, $method);
-        
+### Использование в маршруизаторе
+```      
 public function annotation(string $class, string $method = null, int $number = 0): void
 {
     $method     = $method ?? 'actionIndex';
