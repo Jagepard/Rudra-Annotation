@@ -75,7 +75,19 @@ array (4) [
 ### Использование / Usage
 
 ```
-if (isset($result['Routing'])) {
-    // Ваш код 
+$result = $this->container()->get('annotation')->getMethodAnnotations($controller, $method);
+        
+public function annotation(string $class, string $method = null, int $number = 0): void
+{
+    $method     = $method ?? 'actionIndex';
+    $controller = $this->setClassName($class, 'controllersNamespace');
+    $result     = $this->container()->get('annotation')->getMethodAnnotations($controller, $method);
+
+    if (isset($result['Routing'])) {
+        $http_method = $result['Routing'][$number]['method'] ?? 'GET';
+        $dataRoute   = $this->setRouteData($class, $method, $number, $result, $http_method);
+
+        $this->set($dataRoute);
+    }
 }
 ```
