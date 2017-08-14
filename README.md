@@ -90,4 +90,40 @@ public function annotation(string $class, string $method = null, int $number = 0
         $this->set($dataRoute);
     }
 }
+
+protected function setRouteData(string $class, string $method, int $number, $result, $http_method)
+{
+    $dataRoute = ['pattern'     => $result['Routing'][$number]['url'],
+                  'controller'  => $class,
+                  'method'      => $method,
+                  'http_method' => $http_method
+    ];
+
+    if (isset($result['Middleware'])) {
+        $dataRoute = array_merge($dataRoute, ['middleware' => $this->handleAnnotationMiddleware($result['Middleware'])]);
+    }
+
+    if (isset($result['AfterMiddleware'])) {
+        $dataRoute = array_merge($dataRoute, ['after_middleware' => $this->handleAnnotationMiddleware($result['AfterMiddleware'])]);
+    }
+
+    return $dataRoute;
+}
+
+protected function handleAnnotationMiddleware(array $annotation): array
+{
+    $i          = 0;
+    $middleware = [];
+
+    foreach ($annotation as $item) {
+        $middleware[$i][] = $item['name'];
+
+        if (isset($item['params'])) {
+            $middleware[$i][] = $item['params'];
+        }
+        $i++;
+    }
+
+    return $middleware;
+}
 ```
