@@ -10,6 +10,10 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/be433bd5-b18e-40ad-b8cd-73ed3bb73120/big.png)](https://insight.sensiolabs.com/projects/be433bd5-b18e-40ad-b8cd-73ed3bb73120)
 ## Class & Methods Annotations Reader
 
+#### Установка / Install
+
+```composer require rudra/annotations```
+
 ##### Sample class User.php
 
 ```php
@@ -67,3 +71,11 @@ array (4) [
     ]
 ]
 ```   
+
+### Использование / Usage
+
+```
+if (isset($result['Routing'])) {
+    // Ваш код 
+}
+```
