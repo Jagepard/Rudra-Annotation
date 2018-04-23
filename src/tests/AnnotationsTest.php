@@ -13,10 +13,10 @@ declare(strict_types = 1);
  *  phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
  */
 
-
-use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 use Rudra\Annotations;
 use Rudra\AnnotationException;
+use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+
 
 /**
  * Class AnnotationsTest
@@ -80,7 +80,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     /**
      * @return Annotations
      */
-    public function getAnnotations()
+    public function getRudraAnnotations()
     {
         return $this->annotations;
     }
@@ -124,17 +124,20 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
 
     public function testGetClassAnnotations(): void
     {
-        $this->assertEquals($this->getResult(), $this->getAnnotations()->getClassAnnotations('PageController'));
+        $this->assertEquals($this->getResult(), $this->getRudraAnnotations()->getClassAnnotations('PageController'));
     }
 
     public function testGetMethodAnnotations(): void
     {
-        $this->assertEquals($this->getResult(), $this->getAnnotations()->getMethodAnnotations('PageController', 'indexAction'));
+        $this->assertEquals($this->getResult(), $this->getRudraAnnotations()->getMethodAnnotations(
+            'PageController',
+            'indexAction'
+        ));
     }
 
     public function testAnnotationException()
     {
         $this->expectException(AnnotationException::class);
-        $this->getAnnotations()->getMethodAnnotations('PageController', 'errorAction');
+        $this->getRudraAnnotations()->getMethodAnnotations('PageController', 'errorAction');
     } // @codeCoverageIgnore
 }
