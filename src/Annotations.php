@@ -43,8 +43,8 @@ class Annotations extends AbstractAnnotations
 
     /**
      * @param string $docBlock
-     *
      * @return array
+     * @throws AnnotationException
      *
      * Преобразовывает материалы представленные в аннотации в массив
      */
@@ -75,8 +75,8 @@ class Annotations extends AbstractAnnotations
      * @param        $args
      * @param string $symbol
      * @param bool   $arr
-     *
      * @return array|string
+     * @throws AnnotationException
      *
      * Разделяет параметры по разделителю (symbol)
      */
@@ -115,11 +115,11 @@ class Annotations extends AbstractAnnotations
             /* Разбираем на ключ (equalsSymbol) значение */
             $data = $this->handleEquals($data, $equalsSymbol);
 
-            if (is_array($data)) {
-                $delimitersData[key($data)] = $data[key($data)];
-            } else {
+            if (!is_array($data)) {
                 throw new AnnotationException('Ошибка парсинга аннотаций');
             }
+
+            $delimitersData[key($data)] = $data[key($data)];
         }
 
         return $delimitersData;
@@ -129,8 +129,8 @@ class Annotations extends AbstractAnnotations
      * @param        $args
      * @param string $symbol
      * @param bool   $arr
-     *
-     * @return array|string
+     * @return array
+     * @throws AnnotationException
      *
      * Разбирает данные на пары ключ => значение
      */
