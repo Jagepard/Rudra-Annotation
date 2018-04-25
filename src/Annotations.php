@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 /**
- * Date: 13.02.17
+ * Date: 13.02.17 Updated 25.04.18
  * Time: 16:54
  *
  * @author    : Korotkov Danila <dankorot@gmail.com>
@@ -33,12 +33,16 @@ namespace Rudra;
 class Annotations extends AbstractAnnotations
 {
 
+    use SetContainerTrait;
+
     /**
      * Annotations constructor.
+     * @param ContainerInterface $container
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        set_exception_handler([new AnnotationException(), 'handler']);
+        $this->container = $container;
+        set_exception_handler([new AnnotationException($container), 'handler']);
     }
 
     /**
@@ -116,7 +120,7 @@ class Annotations extends AbstractAnnotations
             $data = $this->handleEquals($data, $equalsSymbol);
 
             if (!is_array($data)) {
-                throw new AnnotationException('Ошибка парсинга аннотаций');
+                throw new AnnotationException($this->container(), 'Ошибка парсинга аннотаций');
             }
 
             $delimitersData[key($data)] = $data[key($data)];
