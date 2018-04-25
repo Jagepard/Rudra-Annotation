@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Date: 17.02.17
@@ -13,6 +13,7 @@ declare(strict_types = 1);
  *  phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
  */
 
+use Rudra\Container;
 use Rudra\Annotations;
 use Rudra\AnnotationException;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
@@ -28,12 +29,10 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
      * @var Annotations
      */
     protected $annotations;
-
     /**
      * @var string
      */
     protected $docBlock;
-
     /**
      * @var array
      */
@@ -41,7 +40,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
 
     protected function setUp(): void
     {
-        $this->annotations = new Annotations();
+        $this->annotations = new Annotations(Container::app());
         $this->docBlock    = "    
         /**
          * @Routing(url = '')
