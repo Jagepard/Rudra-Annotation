@@ -1,6 +1,6 @@
 {
     "name"              : "rudra/annotations",
-    "description"       : "The Rudra framework",
+    "description"       : "Rudra framework",
     "type"              : "library",
     "keywords"          : [
         "rudra",
