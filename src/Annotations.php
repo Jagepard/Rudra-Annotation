@@ -62,7 +62,9 @@ class Annotations extends AbstractAnnotations
         /* $matches[2] - аргументы       : 'url = 'blog'            */
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
-            for ($i = 0; $i < count($matches[0]); $i++) {
+            $count = count($matches[0]);
+
+            for ($i = 0; $i < $count; $i++) {
                 $name = $matches[1][$i];
                 $args = trim($matches[2][$i]);
                 /* Получаем значение параметра ($args): 'blog' */
