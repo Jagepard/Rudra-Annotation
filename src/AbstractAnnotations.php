@@ -1,13 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
- * Date: 13.02.17
- * Time: 16:54
- *
  * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2016, Korotkov Danila
+ * @copyright Copyright (c) 2018, Korotkov Danila
  * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
  */
 
@@ -20,7 +17,6 @@ use \ReflectionMethod;
 
 /**
  * Class AbstractAnnotations
- *
  * @package Rudra
  *
  * Класс определяет источники извлечения аннотаций
@@ -30,7 +26,6 @@ abstract class AbstractAnnotations
 
     /**
      * @param string $className
-     *
      * @return array
      *
      * Получает массив из аннотаций DOCблока класса
@@ -45,7 +40,6 @@ abstract class AbstractAnnotations
     /**
      * @param string $className
      * @param string $methodName
-     *
      * @return array
      *
      * Получает массив из аннотаций DOCблока метода
@@ -59,8 +53,7 @@ abstract class AbstractAnnotations
 
     /**
      * @param string $docBlock
-     *
-     * @return mixed
+     * @return array
      *
      * Метод должен преобразовать материалы представленные в аннотации в массив
      */
