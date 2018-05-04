@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/Jagepard/Rudra-Annotations.svg?branch=master)](https://travis-ci.org/Jagepard/Rudra-Annotations)
 [![codecov](https://codecov.io/gh/Jagepard/Rudra-Annotations/branch/master/graph/badge.svg)](https://codecov.io/gh/Jagepard/Rudra-Annotations)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotations/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotations/?branch=master)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotations/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Code Climate](https://lima.codeclimate.com/github/Jagepard/Rudra-Annotations/badges/gpa.svg)](https://lima.codeclimate.com/github/Jagepard/Rudra-Annotations)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/af16eedc760948a8b0458e7cce92aed3)](https://www.codacy.com/app/Jagepard/Rudra-Annotations?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jagepard/Rudra-Annotations&amp;utm_campaign=Badge_Grade)
 -----
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotations/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Latest Stable Version](https://poser.pugx.org/rudra/annotations/v/stable)](https://packagist.org/packages/rudra/annotations)
 [![Total Downloads](https://poser.pugx.org/rudra/annotations/downloads)](https://packagist.org/packages/rudra/annotations)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
