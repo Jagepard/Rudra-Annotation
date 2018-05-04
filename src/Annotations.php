@@ -59,9 +59,9 @@ class Annotations extends AbstractAnnotations
         $annotations = [];
 
         /* Разбираем данные из аннотаций (docBlock)                */
-        /* $matches[0] - параметр целиком: '@Routing(url = 'blog')' */
-        /* $matches[1] - имя параметра   : 'Routing'                */
-        /* $matches[2] - аргументы       : 'url = 'blog'            */
+        /* matches[0] - параметр целиком: '@Routing(url = 'blog')' */
+        /* matches[1] - имя параметра   : 'Routing'                */
+        /* matches[2] - аргументы       : 'url = 'blog'            */
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
 
             $count = count($matches[0]);
