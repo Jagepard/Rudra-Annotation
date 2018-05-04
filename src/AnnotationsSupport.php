@@ -76,19 +76,28 @@ class AnnotationsSupport
     protected function handleAssignment(string $args, string $assignment = '=')
     {
         if (strpos($args, $assignment) !== false) {
-            $data = explode($assignment, $args);
-
-            /* Если в $args массив типа address = {country : 'Russia'| state : 'Tambov'}*/
-            if (preg_match('#=[\s\t]*{#', $args) && preg_match('#{(.*)}#', $data[1], $dataMatch)) {
-                return [trim($data[0]) => $this->handleDelimiter(trim($dataMatch[1]), '|', ':')];
-            }
-
-            /* Убираем кавычки вокуруг параметра */
-            if (preg_match("#'(.*)'#", $data[1], $dataMatch)) {
-                return [trim($data[0]) => $dataMatch[1]];
-            }
+            return $this->handleData($args, explode($assignment, $args));
         }
 
         return $args;
+    }
+
+    /**
+     * @param string $args
+     * @param array  $data
+     * @return array
+     * @throws AnnotationException
+     */
+    protected function handleData(string $args, array $data): array
+    {
+        /* Если в $args массив типа address = {country : 'Russia'| state : 'Tambov'}*/
+        if (preg_match('#=[\s\t]*{#', $args) && preg_match('#{(.*)}#', $data[1], $dataMatch)) {
+            return [trim($data[0]) => $this->handleDelimiter(trim($dataMatch[1]), '|', ':')];
+        }
+
+        /* Убираем кавычки вокуруг параметра */
+        if (preg_match("#'(.*)'#", $data[1], $dataMatch)) {
+            return [trim($data[0]) => $dataMatch[1]];
+        }
     }
 }
