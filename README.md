@@ -7,7 +7,7 @@
 -----
 [![Latest Stable Version](https://poser.pugx.org/rudra/annotations/v/stable)](https://packagist.org/packages/rudra/annotations)
 [![Total Downloads](https://poser.pugx.org/rudra/annotations/downloads)](https://packagist.org/packages/rudra/annotations)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Class & Methods Annotations Reader
 
