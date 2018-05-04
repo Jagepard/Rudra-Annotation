@@ -131,14 +131,8 @@ class Annotations extends AbstractAnnotations
             $data = explode($assignment, $args);
 
             /* Если в $args массив типа address = {country : 'Russia'| state : 'Tambov'}*/
-            if (preg_match('#=[\s\t]*{#', $args)) {
-
-                /* Получаем данные внутри { dataMatch[1] } */
-                if (preg_match('#{(.*)}#', $data[1], $dataMatch)) {
-                    $dataMatch[1] = $this->handleDelimiter(trim($dataMatch[1]), '|', ':');
-                }
-
-                return [trim($data[0]) => $dataMatch[1]];
+            if (preg_match('#=[\s\t]*{#', $args) && preg_match('#{(.*)}#', $data[1], $dataMatch)) {
+                return [trim($data[0]) => $this->handleDelimiter(trim($dataMatch[1]), '|', ':')];
             }
 
             /* Убираем кавычки вокуруг параметра */
