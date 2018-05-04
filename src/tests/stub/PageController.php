@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * @Routing(url = '')
@@ -8,7 +8,7 @@ declare(strict_types = 1);
  * @assertResult(false)
  * @Validate(name = 'min:150', phone = 'max:9')
  *
- * Class Test
+ * Class PageController
  */
 class PageController
 {
