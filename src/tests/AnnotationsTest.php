@@ -3,12 +3,9 @@
 declare(strict_types=1);
 
 /**
- * Date: 17.02.17
- * Time: 13:23
- *
  * @author    : Korotkov Danila <dankorot@gmail.com>
  * @copyright Copyright (c) 2016, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
+ * @license   http://www.gnu.org/licenses/gpl.html GNU GPL-3.0
  *
  *  phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
  */
@@ -17,7 +14,6 @@ use Rudra\Container;
 use Rudra\Annotations;
 use Rudra\AnnotationException;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
-
 
 /**
  * Class AnnotationsTest

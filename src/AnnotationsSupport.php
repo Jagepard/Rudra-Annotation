@@ -1,15 +1,14 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * Date: 04.05.18
- * Time: 16:46
- *
  * @author    : Korotkov Danila <dankorot@gmail.com>
  * @copyright Copyright (c) 2018, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
+ * @license   http://www.gnu.org/licenses/gpl.html GNU GPL-3.0
  */
 
 namespace Rudra;
-
 
 /**
  * Class AnnotationsSupport
