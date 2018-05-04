@@ -23,7 +23,7 @@ class AnnotationsSupport
      * @param        $args
      * @param string $delimiter
      * @param string $assignment
-     * @return array
+     * @return mixed
      * @throws AnnotationException
      */
     public function handleDelimiter(string $args, string $delimiter = ',', string $assignment = '=')
