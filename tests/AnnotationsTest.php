@@ -32,21 +32,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     /**
      * @var string
      */
-    protected $docBlock;
-    /**
-     * @var array
-     */
-    protected $result;
-    /**
-     * @var string
-     */
-    protected $className;
-
-    protected function setUp(): void
-    {
-        $this->annotations = new Annotations(Container::app());
-        $this->className   = 'Rudra\\Tests\\Stub\\PageController';
-        $this->docBlock    = "    
+    protected $docBlock = "    
         /**
          * @Routing(url = '')
          * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'| state : 'Tambov'}, phone = '000-00000000')
@@ -54,31 +40,41 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
          * @Validate(name = 'min:150', phone = 'max:9')
          */
          ";
-
-        $this->result = [
-            'Routing'      => [['url' => ""]],
-            'Defaults'     => [
-                [
-                    'name'     => "user1",
-                    'lastname' => "sample",
-                    'age'      => "0",
-                    'address'  => [
-                        'country' => "Russia",
-                        'state'   => "Tambov"
-                    ],
-                    'phone'    => "000-00000000"
-                ]
-            ],
-            'assertResult' => [
-                "false"
-            ],
-            'Validate'     => [
-                [
-                    'name'  => "min:150",
-                    'phone' => "max:9"
-                ]
+    /**
+     * @var array
+     */
+    protected $result = [
+        'Routing'      => [['url' => ""]],
+        'Defaults'     => [
+            [
+                'name'     => "user1",
+                'lastname' => "sample",
+                'age'      => "0",
+                'address'  => [
+                    'country' => "Russia",
+                    'state'   => "Tambov"
+                ],
+                'phone'    => "000-00000000"
             ]
-        ];
+        ],
+        'assertResult' => [
+            "false"
+        ],
+        'Validate'     => [
+            [
+                'name'  => "min:150",
+                'phone' => "max:9"
+            ]
+        ]
+    ];
+    /**
+     * @var string
+     */
+    protected $className = 'Rudra\\Tests\\Stub\\PageController';
+
+    protected function setUp(): void
+    {
+        $this->annotations = new Annotations(Container::app());
     }
 
     /**
