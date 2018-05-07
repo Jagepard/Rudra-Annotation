@@ -56,7 +56,8 @@ class AnnotationsSupport
             $item = $this->handleAssignment($item, $assignment);
 
             if (!is_array($item)) {
-                throw new AnnotationException($this->container(), 'Ошибка парсинга аннотаций');
+                set_exception_handler([new AnnotationException($this->container), 'handler']);
+                throw new AnnotationException($this->container, 'Ошибка парсинга аннотаций');
             }
 
             $delimited[key($item)] = $item[key($item)];

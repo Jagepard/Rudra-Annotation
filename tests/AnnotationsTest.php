@@ -16,6 +16,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use Rudra\Container;
 use Rudra\Annotations;
+use Rudra\ContainerInterface;
 use Rudra\AnnotationException;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
@@ -74,6 +75,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
 
     protected function setUp(): void
     {
+        Container::app()->setBinding(ContainerInterface::class, Container::class);
         $this->annotations = new Annotations(Container::app());
     }
 

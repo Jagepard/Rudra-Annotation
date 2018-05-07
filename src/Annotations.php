@@ -32,25 +32,8 @@ class Annotations extends AbstractAnnotations
     use SetContainerTrait;
 
     /**
-     * @var AnnotationsSupport
-     */
-    protected $support;
-
-    /**
-     * AbstractAnnotations constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-        $this->support   = new AnnotationsSupport($container);
-        set_exception_handler([new AnnotationException($container), 'handler']);
-    }
-
-    /**
      * @param string $docBlock
      * @return array
-     * @throws AnnotationException
      *
      * Преобразовывает материалы представленные в аннотации в массив
      */
@@ -69,7 +52,7 @@ class Annotations extends AbstractAnnotations
             for ($i = 0; $i < $count; $i++) {
                 $name                 = $matches[1][$i];
                 $argsString           = trim($matches[2][$i]);
-                $delimited            = $this->support->handleDelimiter($argsString);
+                $delimited            = $this->container->new(AnnotationsSupport::class)->handleDelimiter($argsString);
                 $annotations[$name][] = $delimited;
             }
         }
