@@ -24,7 +24,6 @@
             <directory suffix=".php">./src</directory>
             <exclude>
                 <file>./tests/stub/PageController.php</file>
-                <file>./tests/bootstrap.php</file>
             </exclude>
         </whitelist>
     </filter>
