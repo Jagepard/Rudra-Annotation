@@ -19,6 +19,7 @@ use Rudra\Annotations;
 use Rudra\ContainerInterface;
 use Rudra\AnnotationException;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+use Rudra\Tests\Stub\PageController;
 
 /**
  * Class AnnotationsTest
@@ -68,10 +69,6 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
             ]
         ]
     ];
-    /**
-     * @var string
-     */
-    protected $className = 'Rudra\\Tests\\Stub\\PageController';
 
     protected function setUp(): void
     {
@@ -101,13 +98,13 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
 
     public function testGetClassAnnotations(): void
     {
-        $this->assertEquals($this->result, $this->annotations->getClassAnnotations($this->className));
+        $this->assertEquals($this->result, $this->annotations->getClassAnnotations(PageController::class));
     }
 
     public function testGetMethodAnnotations(): void
     {
         $this->assertEquals($this->result, $this->annotations->getMethodAnnotations(
-            $this->className,
+            PageController::class,
             'indexAction'
         ));
     }
@@ -115,6 +112,6 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     public function testAnnotationException()
     {
         $this->expectException(AnnotationException::class);
-        $this->annotations->getMethodAnnotations($this->className, 'errorAction');
+        $this->annotations->getMethodAnnotations(PageController::class, 'errorAction');
     } // @codeCoverageIgnore
 }
