@@ -100,5 +100,5 @@ class AnnotationsSupport
         if (preg_match("#'(.*)'#", $data[1], $dataMatch)) {
             return [trim($data[0]) => $dataMatch[1]];
         }
-    }
+    } // @codeCoverageIgnore
 }
