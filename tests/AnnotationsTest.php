@@ -16,10 +16,10 @@ use ReflectionClass;
 use ReflectionMethod;
 use Rudra\Container;
 use Rudra\Annotations;
-use Rudra\ContainerInterface;
-use Rudra\AnnotationException;
-use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 use Rudra\Tests\Stub\PageController;
+use Rudra\Interfaces\ContainerInterface;
+use Rudra\Exceptions\AnnotationException;
+use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
 /**
  * Class AnnotationsTest

@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Rudra;
 
+use Rudra\ExternalTraits\SetContainerTrait;
+
 /**
  * Class Annotations
  * @package Rudra
