@@ -52,10 +52,8 @@ class Annotations extends AbstractAnnotations
             $count = count($matches[0]);
 
             for ($i = 0; $i < $count; $i++) {
-                $name                 = $matches[1][$i];
-                $argsString           = trim($matches[2][$i]);
-                $delimited            = $this->container->new(AnnotationsSupport::class)->handleDelimiter($argsString);
-                $annotations[$name][] = $delimited;
+                $annotations[$matches[1][$i]][] = $this->container->new(AnnotationsSupport::class)
+                    ->handleDelimiter(trim($matches[2][$i]));
             }
         }
 
