@@ -4,7 +4,7 @@ namespace Rudra\Tests\Stub;
 
 /**
  * @Routing(url = '')
- * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'| state : 'Tambov'}, phone = '000-00000000')
+ * @Defaults(name = 'user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
  * @assertResult(false)
  * @Validate(name = 'min:150', phone = 'max:9')
  *
@@ -15,7 +15,7 @@ class PageController
 
     /**
      * @Routing(url = '')
-     * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'| state : 'Tambov'}, phone = '000-00000000')
+     * @Defaults(name = 'user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
      * @assertResult(false)
      * @Validate(name = 'min:150', phone = 'max:9')
      */

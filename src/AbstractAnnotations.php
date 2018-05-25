@@ -53,7 +53,7 @@ abstract class AbstractAnnotations
      * @param string $docBlock
      * @return array
      *
-     * Метод должен преобразовать материалы представленные в аннотации в массив
+     * Метод должен преобразовать аннотации в массив
      */
     abstract protected function parseAnnotations(string $docBlock): array;
 }
