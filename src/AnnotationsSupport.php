@@ -16,6 +16,8 @@ use Rudra\Exceptions\AnnotationException;
 /**
  * Class AnnotationsSupport
  * @package Rudra
+ *
+ * Класс преобразует данные анотаций в ассоциативный массив
  */
 class AnnotationsSupport
 {
@@ -23,23 +25,25 @@ class AnnotationsSupport
     use SetContainerTrait;
 
     /**
-     * @param        $args
+     * @param        $data
      * @param string $delimiter
      * @param string $assignment
      * @return mixed
      * @throws AnnotationException
+     *
+     * Разбирает данные в зависимости от наличия разделителя
      */
-    public function handleDelimiter(string $args, string $delimiter = ',', string $assignment = '=')
+    public function handleDelimiter(string $data, string $delimiter = ',', string $assignment = '=')
     {
-        if (strpos($args, $delimiter) !== false) {
-            return $this->getArrayParams($args, $delimiter, $assignment);
+        if (strpos($data, $delimiter) !== false) {
+            return $this->getArrayParams($data, $delimiter, $assignment);
         }
 
-        return $this->handleAssignment($args);
+        return $this->handleAssignment($data);
     }
 
     /**
-     * @param string $args
+     * @param string $data
      * @param string $delimiter
      * @param string $assignment
      *
@@ -49,12 +53,12 @@ class AnnotationsSupport
      * Разбирает параметры на ключ (assignment) значение
      * и возращает массив параметров
      */
-    protected function getArrayParams(string $args, string $delimiter, string $assignment): array
+    protected function getArrayParams(string $data, string $delimiter, string $assignment): array
     {
-        $delimited = [];
-        $arrayArgs = explode($delimiter, $args);
+        $delimited  = [];
+        $inputArray = explode($delimiter, $data);
 
-        foreach ($arrayArgs as $item) {
+        foreach ($inputArray as $item) {
             /* Разбираем на ключ (assignment) значение */
             $item = $this->handleAssignment($item, $assignment);
 
@@ -70,38 +74,38 @@ class AnnotationsSupport
     }
 
     /**
-     * @param string $args
+     * @param string $data
      * @param string $assignment
      * @return mixed
      * @throws AnnotationException
      *
      * Разбирает данные на пары ключ => значение
      */
-    protected function handleAssignment(string $args, string $assignment = '=')
+    protected function handleAssignment(string $data, string $assignment = '=')
     {
-        if (strpos($args, $assignment) !== false) {
-            return $this->handleData($args, explode($assignment, $args));
+        if (strpos($data, $assignment) !== false) {
+            return $this->handleData($data, explode($assignment, $data));
         }
 
-        return $args;
+        return $data;
     }
 
     /**
-     * @param string $args
-     * @param array  $data
+     * @param string $data
+     * @param array  $exploded
      * @return array
      * @throws AnnotationException
      */
-    protected function handleData(string $args, array $data): array
+    protected function handleData(string $data, array $exploded): array
     {
-        /* Если в $args массив типа address = {country : 'Russia'| state : 'Tambov'}*/
-        if (preg_match('#=[\s\t]*{#', $args) && preg_match('#{(.*)}#', $data[1], $dataMatch)) {
-            return [trim($data[0]) => $this->handleDelimiter(trim($dataMatch[1]), '|', ':')];
+        /* Если в $data массив типа address = {country : 'Russia'; state : 'Tambov'}*/
+        if (preg_match('#=[\s\t]*{#', $data) && preg_match('#{(.*)}#', $exploded[1], $dataMatch)) {
+            return [trim($exploded[0]) => $this->handleDelimiter(trim($dataMatch[1]), ';', ':')];
         }
 
         /* Убираем кавычки вокуруг параметра */
-        if (preg_match("#'(.*)'#", $data[1], $dataMatch)) {
-            return [trim($data[0]) => $dataMatch[1]];
+        if (preg_match("#'(.*)'#", $exploded[1], $dataMatch)) {
+            return [trim($exploded[0]) => $dataMatch[1]];
         }
     } // @codeCoverageIgnore
 }
