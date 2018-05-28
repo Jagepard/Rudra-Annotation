@@ -14,7 +14,7 @@ use Rudra\Exceptions\AnnotationException;
 use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
- * Class AnnotationSupport
+ * Class AnnotationMatcher
  * @package Rudra
  *
  * Класс преобразует данные анотаций в ассоциативный массив
