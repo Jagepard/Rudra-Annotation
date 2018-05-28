@@ -13,7 +13,7 @@
 
 #### Установка / Install
 
-```composer require rudra/annotations```
+```composer require rudra/annotation```
 
 ##### Sample class User.php
 
