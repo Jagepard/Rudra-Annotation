@@ -5,8 +5,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8465b2da2a4d4f2f9276e18e88a64b5d)](https://www.codacy.com/app/Jagepard/Rudra-Annotation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jagepard/Rudra-Annotation&amp;utm_campaign=Badge_Grade)
 -----
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotation/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-[![Latest Stable Version](https://poser.pugx.org/rudra/annotations/v/stable)](https://packagist.org/packages/rudra/annotations)
-[![Total Downloads](https://poser.pugx.org/rudra/annotations/downloads)](https://packagist.org/packages/rudra/annotations)
+[![Latest Stable Version](https://poser.pugx.org/rudra/annotation/v/stable)](https://packagist.org/packages/rudra/annotation)
+[![Total Downloads](https://poser.pugx.org/rudra/annotation/downloads)](https://packagist.org/packages/rudra/annotation)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Class & Methods Annotations Reader
