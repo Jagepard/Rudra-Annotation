@@ -16,8 +16,8 @@ use Rudra\Container;
 use ReflectionClass;
 use ReflectionMethod;
 use Rudra\Annotation;
+use Rudra\ContainerInterface;
 use Rudra\Tests\Stub\PageController;
-use Rudra\Interfaces\ContainerInterface;
 use Rudra\Exceptions\AnnotationException;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
