@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace Rudra\Tests;
 
+use Rudra\Container;
 use ReflectionClass;
 use ReflectionMethod;
-use Rudra\Container;
-use Rudra\Annotations;
+use Rudra\Annotation;
 use Rudra\Tests\Stub\PageController;
 use Rudra\Interfaces\ContainerInterface;
 use Rudra\Exceptions\AnnotationException;
@@ -24,11 +24,11 @@ use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 /**
  * Class AnnotationsTest
  */
-class AnnotationsTest extends PHPUnit_Framework_TestCase
+class AnnotationTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var Annotations
+     * @var Annotation
      */
     protected $annotations;
     /**
@@ -73,7 +73,7 @@ class AnnotationsTest extends PHPUnit_Framework_TestCase
     protected function setUp(): void
     {
         Container::app()->setBinding(ContainerInterface::class, Container::class);
-        $this->annotations = new Annotations(Container::app());
+        $this->annotations = new Annotation(Container::app());
     }
 
     /**
