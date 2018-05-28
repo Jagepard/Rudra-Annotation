@@ -10,16 +10,16 @@ declare(strict_types=1);
 
 namespace Rudra;
 
-use Rudra\ExternalTraits\SetContainerTrait;
 use Rudra\Exceptions\AnnotationException;
+use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
- * Class AnnotationsSupport
+ * Class AnnotationSupport
  * @package Rudra
  *
  * Класс преобразует данные анотаций в ассоциативный массив
  */
-class AnnotationsSupport
+class AnnotationMatcher
 {
 
     use SetContainerTrait;

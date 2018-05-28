@@ -7,7 +7,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Rudra-Annotations">
+        <testsuite name="Rudra-Annotation">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

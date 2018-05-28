@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace Rudra;
 
+use \ReflectionClass;
+use \ReflectionMethod;
+use Rudra\Interfaces\AnnotationInterface;
 use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
@@ -28,10 +31,37 @@ use Rudra\ExternalTraits\SetContainerTrait;
  * ':' - разделяет ключ, значение в ассоциативном массиве
  * Значение параметров указывается в одинарных кавычках
  */
-class Annotations extends AbstractAnnotations
+class Annotation implements AnnotationInterface
 {
 
     use SetContainerTrait;
+
+    /**
+     * @param string $className
+     * @return array
+     *
+     * Получает массив из аннотаций DOCблока класса
+     */
+    public function getClassAnnotations(string $className): array
+    {
+        $class = new ReflectionClass($className);
+
+        return $this->parseAnnotations($class->getDocComment());
+    }
+
+    /**
+     * @param string $className
+     * @param string $methodName
+     * @return array
+     *
+     * Получает массив из аннотаций DOCблока метода
+     */
+    public function getMethodAnnotations(string $className, string $methodName): array
+    {
+        $method = new ReflectionMethod($className, $methodName);
+
+        return $this->parseAnnotations($method->getDocComment());
+    }
 
     /**
      * @param string $docBlock
@@ -52,7 +82,7 @@ class Annotations extends AbstractAnnotations
             $count = count($matches[0]);
 
             for ($i = 0; $i < $count; $i++) {
-                $annotations[$matches[1][$i]][] = $this->container->new(AnnotationsSupport::class)
+                $annotations[$matches[1][$i]][] = $this->container->new(AnnotationMatcher::class)
                     ->handleDelimiter(trim($matches[2][$i]));
             }
         }

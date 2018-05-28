@@ -1,5 +1,5 @@
 {
-    "name"              : "rudra/annotations",
+    "name"              : "rudra/annotation",
     "description"       : "Rudra framework",
     "type"              : "library",
     "keywords"          : [
