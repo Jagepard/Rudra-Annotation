@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Rudra\Tests;
 
+use Rudra\Container;
 use ReflectionClass;
 use ReflectionMethod;
-use Rudra\Container;
 use Rudra\Annotation;
 use Rudra\Tests\Stub\PageController;
 use Rudra\Interfaces\ContainerInterface;
