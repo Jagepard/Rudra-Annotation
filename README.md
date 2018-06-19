@@ -46,10 +46,10 @@ $rudra->get('annotation')->getMethodAnnotations(PageController::class, 'indexAct
 ```
 ##### Вызов при помощи метода контейнера new / instantiate use container method "new"
 ```php
-Container::app()->setBinding(ContainerInterface::class, $rudra);
+$rudra->setBinding(ContainerInterface::class, $rudra);
 ```
 ```php
-$annotation = Container::app()->new(Annotation::class);
+$annotation = $rudra->new(Annotation::class);
 ```
 ```php
 $annotation->getClassAnnotations(PageController::class);
