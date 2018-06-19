@@ -10,15 +10,62 @@
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Class & Methods Annotations Reader
-
 #### Установка / Install
-
 ```composer require rudra/annotation```
-
-##### Sample class User.php
+#### Использование / Usage
+```php
+use Rudra\Container;
+use Rudra\Annotation;
+use Rudra\ContainerInterface;
+```
+```php
+$rudra = Container::app();
+```
+##### Вызов из контейнера / use container
+```php
+$services = [
+    'contracts' => [
+        ContainerInterface::class => $rudra,
+    ],
+    
+    'services' => [
+        // Another services
+        
+        'annotation' => ['Rudra\Annotation'],
+        
+        // Another services
+    ]
+];
+```
+```php
+$rudra->setServices($services); 
+```
+```php
+$rudra->get('annotation')->getClassAnnotations(PageController::class);
+$rudra->get('annotation')->getMethodAnnotations(PageController::class, 'indexAction');
+```
+##### Вызов при помощи метода контейнера new / instantiate use container method "new"
+```php
+Container::app()->setBinding(ContainerInterface::class, $rudra);
+```
+```php
+$annotation = Container::app()->new(Annotation::class);
+```
+```php
+$annotation->getClassAnnotations(PageController::class);
+$annotation->getMethodAnnotations(PageController::class, 'indexAction');
+```
+##### Вызов не используя контейнер / raw use
+```php
+$annotation = new Annotation($rudra);
+```
+```php
+$annotation->getClassAnnotations(PageController::class);
+$annotation->getMethodAnnotations(PageController::class, 'indexAction');
+```
+##### Пример класс / Sample class PageController.php
 
 ```php
-
 /**
  * @Routing(url = '')
  * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
@@ -34,7 +81,7 @@ class PageController
      * @assertResult(false)
      * @Validate(name = 'min:150', phone = 'max:9')
      */
-    function indexAction()
+    public function indexAction()
     {
         // Your code
     }        
@@ -43,31 +90,31 @@ class PageController
 ##### Результат в обоих случаях:
 
 ```php
-array (4) [
-    'Routing' => array (1) [
-        array (1) [
-            'url' => string (0) ""
+[
+    'Routing' => [
+        [
+            'url' => ""
         ]
     ]
-    'Defaults' => array (1) [
-        array (5) [
-            'name' => string (5) "user1"
-            'lastname' => string (6) "sample"
-            'age' => string (1) "0"
-            'address' => array (2) [
-                'country' => string (6) "Russia"
-                'state' => string (6) "Tambov"
+    'Defaults' => [
+        [
+            'name'     => "user1"
+            'lastname' => "sample"
+            'age'      => "0"
+            'address'  => [
+                'country' => "Russia"
+                'state'   => "Tambov"
             ]
-            'phone' => string (12) "000-00000000"
+            'phone'    => "000-00000000"
         ]
     ]
-    'assertResult' => array (1) [
-        string (5) "false"
+    'assertResult' => [
+        "false"
     ]
-    'Validate' => array (1) [
-        array (2) [
-            'name' => string (7) "min:150"
-            'phone' => string (5) "max:9"
+    'Validate' => [
+        [
+            'name'  => "min:150"
+            'phone' => "max:9"
         ]
     ]
 ]
