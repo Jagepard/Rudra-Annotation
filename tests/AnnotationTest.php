@@ -30,7 +30,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     /**
      * @var Annotation
      */
-    protected $annotations;
+    protected $annotation;
     /**
      * @var string
      */
@@ -72,8 +72,8 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
 
     protected function setUp(): void
     {
-        Container::app()->setBinding(ContainerInterface::class, Container::class);
-        $this->annotations = new Annotation(Container::app());
+        Container::app()->setBinding(ContainerInterface::class, Container::$app);
+        $this->annotation = Container::$app->new(Annotation::class);
     }
 
     /**
@@ -83,7 +83,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
      */
     protected function getMethod(string $name): ReflectionMethod
     {
-        $class  = new ReflectionClass($this->annotations);
+        $class  = new ReflectionClass($this->annotation);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
 
@@ -93,17 +93,17 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     public function testParseAnnotations(): void
     {
         $parseAnnotations = $this->getMethod('parseAnnotations');
-        $this->assertEquals($this->result, $parseAnnotations->invokeArgs($this->annotations, [$this->docBlock]));
+        $this->assertEquals($this->result, $parseAnnotations->invokeArgs($this->annotation, [$this->docBlock]));
     }
 
     public function testGetClassAnnotations(): void
     {
-        $this->assertEquals($this->result, $this->annotations->getClassAnnotations(PageController::class));
+        $this->assertEquals($this->result, $this->annotation->getClassAnnotations(PageController::class));
     }
 
     public function testGetMethodAnnotations(): void
     {
-        $this->assertEquals($this->result, $this->annotations->getMethodAnnotations(
+        $this->assertEquals($this->result, $this->annotation->getMethodAnnotations(
             PageController::class,
             'indexAction'
         ));
@@ -112,6 +112,6 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     public function testAnnotationException()
     {
         $this->expectException(AnnotationException::class);
-        $this->annotations->getMethodAnnotations(PageController::class, 'errorAction');
+        $this->annotation->getMethodAnnotations(PageController::class, 'errorAction');
     } // @codeCoverageIgnore
 }
