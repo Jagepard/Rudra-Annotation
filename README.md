@@ -31,7 +31,7 @@ $services = [
     'services' => [
         // Another services
         
-        'annotation' => ['Rudra\Annotation'],
+        'annotation' => ['Annotation'],
         
         // Another services
     ]
