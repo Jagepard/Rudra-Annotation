@@ -16,7 +16,7 @@
 ```php
 use Rudra\Container;
 use Rudra\Annotation;
-use Rudra\ContainerInterface;
+use Rudra\Interfaces\ContainerInterface;
 ```
 ```php
 $rudra = Container::app();
