@@ -17,19 +17,20 @@ use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
  * Class Annotations
- * @package Rudra
  *
  * Класс разбора данных из аннотаций, представленных в следующем виде:
  *
- * @Routing(url = '')
- * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
- * @assertResult(false)
- * @Validate(name = 'min:150', phone = 'max:9')
+ * «коммерческое at»Routing(url = '')
+ * «коммерческое at»Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
+ * «коммерческое at»assertResult(false)
+ * «коммерческое at»Validate(name = 'min:150', phone = 'max:9')
  *
  * Разделителем свойств является - ','
  * Разделителем в массивах является - ';'
  * ':' - разделяет ключ, значение в ассоциативном массиве
  * Значение параметров указывается в одинарных кавычках
+ *
+ * @package Rudra
  */
 class Annotation implements AnnotationInterface
 {
