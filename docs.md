@@ -21,7 +21,7 @@
 <hr /><a id="class-rudraannotation"></a>
 ### Class: \Rudra\Annotation
 
-> Class Annotations Класс разбора данных из аннотаций, представленных в следующем виде:
+> Class Annotations Класс разбора данных из аннотаций, представленных в следующем виде: Routing(url = '') Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000') assertResult(false) Validate(name = 'min:150', phone = 'max:9') Разделителем свойств является - ',' Разделителем в массивах является - ';' ':' - разделяет ключ, значение в ассоциативном массиве Значение параметров указывается в одинарных кавычках
 
 | Visibility | Function |
 |:-----------|:---------|
