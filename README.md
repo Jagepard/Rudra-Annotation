@@ -9,7 +9,7 @@
 [![Total Downloads](https://poser.pugx.org/rudra/annotation/downloads)](https://packagist.org/packages/rudra/annotation)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## Class & Methods Annotations Reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/Rudra-Annotation.md "Documentation API")
+## Class & Methods Annotations Reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
 #### Установка / Install
 ```composer require rudra/annotation```
 #### Использование / Usage
