@@ -14,10 +14,10 @@ use Rudra\Exceptions\AnnotationException;
 use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
+ * Класс преобразует данные анотаций в ассоциативный массив
+ *
  * Class AnnotationMatcher
  * @package Rudra
- *
- * Класс преобразует данные анотаций в ассоциативный массив
  */
 class AnnotationMatcher
 {
@@ -25,40 +25,38 @@ class AnnotationMatcher
     use SetContainerTrait;
 
     /**
+     * Разбирает данные в зависимости от разделителя (delimiter)
+     *
      * @param        $data
      * @param string $delimiter
      * @param string $assignment
      * @return mixed
      * @throws AnnotationException
-     *
-     * Разбирает данные в зависимости от наличия разделителя
      */
     public function handleDelimiter(string $data, string $delimiter = ',', string $assignment = '=')
     {
         if (strpos($data, $delimiter) !== false) {
-            return $this->getArrayParams($data, $delimiter, $assignment);
+            return $this->getParams(explode($delimiter, $data), $assignment);
         }
 
         return $this->handleAssignment($data);
     }
 
     /**
-     * @param string $data
-     * @param string $delimiter
+     * Разбирает параметры на ключ (assignment) значение
+     * и возращает массив параметров
+     *
+     * @param array $exploded
      * @param string $assignment
      *
      * @return array
      * @throws AnnotationException
-     *
-     * Разбирает параметры на ключ (assignment) значение
-     * и возращает массив параметров
      */
-    protected function getArrayParams(string $data, string $delimiter, string $assignment): array
+    protected function getParams(array $exploded, string $assignment): array
     {
-        $delimited  = [];
-        $inputArray = explode($delimiter, $data);
+        $handled  = [];
 
-        foreach ($inputArray as $item) {
+        foreach ($exploded as $item) {
             /* Разбираем на ключ (assignment) значение */
             $item = $this->handleAssignment($item, $assignment);
 
@@ -67,19 +65,19 @@ class AnnotationMatcher
                 throw new AnnotationException($this->container, 'Ошибка парсинга аннотаций');
             }
 
-            $delimited[key($item)] = $item[key($item)];
+            $handled[key($item)] = $item[key($item)];
         }
 
-        return $delimited;
+        return $handled;
     }
 
     /**
+     * Обрабатывает строку в зависимости от наличия (assignment)
+     *
      * @param string $data
      * @param string $assignment
      * @return mixed
      * @throws AnnotationException
-     *
-     * Разбирает данные на пары ключ => значение
      */
     protected function handleAssignment(string $data, string $assignment = '=')
     {
@@ -91,6 +89,8 @@ class AnnotationMatcher
     }
 
     /**
+     * Разбирает данные на пары ключ => значение
+     *
      * @param string $data
      * @param array  $exploded
      * @return array
