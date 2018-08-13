@@ -17,19 +17,20 @@ use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
  * Class Annotations
- * @package Rudra
  *
  * Класс разбора данных из аннотаций, представленных в следующем виде:
  *
- * @Routing(url = '')
- * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
- * @assertResult(false)
- * @Validate(name = 'min:150', phone = 'max:9')
+ * Routing(url = '')
+ * Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
+ * assertResult(false)
+ * Validate(name = 'min:150', phone = 'max:9')
  *
  * Разделителем свойств является - ','
  * Разделителем в массивах является - ';'
  * ':' - разделяет ключ, значение в ассоциативном массиве
  * Значение параметров указывается в одинарных кавычках
+ *
+ * @package Rudra
  */
 class Annotation implements AnnotationInterface
 {
@@ -37,10 +38,10 @@ class Annotation implements AnnotationInterface
     use SetContainerTrait;
 
     /**
+     * Получает массив из аннотаций DOCблока класса
+     *
      * @param string $className
      * @return array
-     *
-     * Получает массив из аннотаций DOCблока класса
      */
     public function getClassAnnotations(string $className): array
     {
@@ -50,11 +51,11 @@ class Annotation implements AnnotationInterface
     }
 
     /**
+     * Получает массив из аннотаций DOCблока метода
+     *
      * @param string $className
      * @param string $methodName
      * @return array
-     *
-     * Получает массив из аннотаций DOCблока метода
      */
     public function getMethodAnnotations(string $className, string $methodName): array
     {
@@ -64,10 +65,10 @@ class Annotation implements AnnotationInterface
     }
 
     /**
+     * Преобразовывает материалы из аннотаций в массив
+     *
      * @param string $docBlock
      * @return array
-     *
-     * Преобразовывает материалы представленные в аннотации в массив
      */
     protected function parseAnnotations(string $docBlock): array
     {
