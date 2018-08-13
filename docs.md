@@ -27,9 +27,9 @@
 |:-----------|:---------|
 | public | <strong>__construct(</strong><em>\Rudra\Interfaces\ContainerInterface</em> <strong>$container</strong>)</strong> : <em>void</em><br /><em>SetContainerTrait constructor.</em> |
 | public | <strong>container()</strong> : <em>\Rudra\ContainerInterface</em> |
-| public | <strong>getClassAnnotations(</strong><em>\string</em> <strong>$className</strong>)</strong> : <em>array Получает массив из аннотаций DOCблока класса</em> |
-| public | <strong>getMethodAnnotations(</strong><em>\string</em> <strong>$className</strong>, <em>\string</em> <strong>$methodName</strong>)</strong> : <em>array Получает массив из аннотаций DOCблока метода</em> |
-| protected | <strong>parseAnnotations(</strong><em>\string</em> <strong>$docBlock</strong>)</strong> : <em>array Преобразовывает материалы из аннотаций в массив</em> |
+| public | <strong>getClassAnnotations(</strong><em>\string</em> <strong>$className</strong>)</strong> : <em>array</em><br /><em>Получает массив из аннотаций DOCблока класса</em> |
+| public | <strong>getMethodAnnotations(</strong><em>\string</em> <strong>$className</strong>, <em>\string</em> <strong>$methodName</strong>)</strong> : <em>array</em><br /><em>Получает массив из аннотаций DOCблока метода</em> |
+| protected | <strong>parseAnnotations(</strong><em>\string</em> <strong>$docBlock</strong>)</strong> : <em>array</em><br /><em>Преобразовывает материалы из аннотаций в массив</em> |
 
 *This class implements [\Rudra\Interfaces\AnnotationInterface](#interface-rudrainterfacesannotationinterface)*
 
