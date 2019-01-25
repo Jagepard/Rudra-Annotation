@@ -83,7 +83,7 @@ class Annotation implements AnnotationInterface
             $count = count($matches[0]);
 
             for ($i = 0; $i < $count; $i++) {
-                $annotations[$matches[1][$i]][] = $this->container->new(AnnotationMatcher::class)
+                $annotations[$matches[1][$i]][] = $this->container()->new(AnnotationMatcher::class)
                     ->handleDelimiter(trim($matches[2][$i]));
             }
         }
