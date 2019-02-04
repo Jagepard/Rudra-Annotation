@@ -42,6 +42,7 @@ class Annotation implements AnnotationInterface
      *
      * @param string $className
      * @return array
+     * @throws \ReflectionException
      */
     public function getClassAnnotations(string $className): array
     {
@@ -56,6 +57,7 @@ class Annotation implements AnnotationInterface
      * @param string $className
      * @param string $methodName
      * @return array
+     * @throws \ReflectionException
      */
     public function getMethodAnnotations(string $className, string $methodName): array
     {
