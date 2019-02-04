@@ -29,11 +29,11 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     /**
      * @var Annotation
      */
-    protected $annotation;
+    private $annotation;
     /**
      * @var string
      */
-    protected $docBlock = "    
+    private $docBlock = "    
         /**
          * @Routing(url = '')
          * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
@@ -44,7 +44,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     /**
      * @var array
      */
-    protected $result = [
+    private $result = [
         'Routing'      => [['url' => ""]],
         'Defaults'     => [
             [
@@ -78,10 +78,10 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param string $name
-     *
      * @return ReflectionMethod
+     * @throws \ReflectionException
      */
-    protected function getMethod(string $name): ReflectionMethod
+    private function getMethod(string $name): ReflectionMethod
     {
         $class  = new ReflectionClass($this->annotation());
         $method = $class->getMethod($name);
