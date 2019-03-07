@@ -21,7 +21,6 @@ use Rudra\ExternalTraits\SetContainerTrait;
  */
 class AnnotationMatcher
 {
-
     use SetContainerTrait;
 
     /**
