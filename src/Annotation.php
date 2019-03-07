@@ -34,7 +34,6 @@ use Rudra\ExternalTraits\SetContainerTrait;
  */
 class Annotation implements AnnotationInterface
 {
-
     use SetContainerTrait;
 
     /**
@@ -47,7 +46,6 @@ class Annotation implements AnnotationInterface
     public function getClassAnnotations(string $className): array
     {
         $class = new ReflectionClass($className);
-
         return $this->parseAnnotations($class->getDocComment());
     }
 
@@ -62,7 +60,6 @@ class Annotation implements AnnotationInterface
     public function getMethodAnnotations(string $className, string $methodName): array
     {
         $method = new ReflectionMethod($className, $methodName);
-
         return $this->parseAnnotations($method->getDocComment());
     }
 
@@ -81,7 +78,6 @@ class Annotation implements AnnotationInterface
         /* matches[1] - имя параметра   : 'Routing'                */
         /* matches[2] - аргументы       : 'url = 'blog'            */
         if (preg_match_all('#@([A-Za-z_-]+)[\s\t]*\((.*)\)[\s\t]*\r?$#m', $docBlock, $matches)) {
-
             $count = count($matches[0]);
 
             for ($i = 0; $i < $count; $i++) {

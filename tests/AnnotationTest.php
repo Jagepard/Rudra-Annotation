@@ -18,6 +18,7 @@ use Rudra\Annotation;
 use Rudra\Tests\Stub\PageController;
 use Rudra\Interfaces\ContainerInterface;
 use Rudra\Exceptions\AnnotationException;
+use Rudra\Interfaces\AnnotationInterface;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
 /**
@@ -25,9 +26,8 @@ use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
  */
 class AnnotationTest extends PHPUnit_Framework_TestCase
 {
-
     /**
-     * @var Annotation
+     * @var AnnotationInterface
      */
     private $annotation;
     /**
@@ -116,9 +116,9 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Annotation
+     * @return AnnotationInterface
      */
-    public function annotation(): Annotation
+    public function annotation(): AnnotationInterface
     {
         return $this->annotation;
     }
