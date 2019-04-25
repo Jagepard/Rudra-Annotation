@@ -98,12 +98,12 @@ class AnnotationMatcher
     protected function handleData(string $data, array $exploded): array
     {
         /* Если в $data массив типа address = {country : 'Russia'; state : 'Tambov'}*/
-        if (preg_match('#=[\s\t]*{#', $data) && preg_match('#{(.*)}#', $exploded[1], $dataMatch)) {
+        if (preg_match('/=[\s]+{/', $data) && preg_match('/{(.*)}/', $exploded[1], $dataMatch)) {
             return [trim($exploded[0]) => $this->handleDelimiter(trim($dataMatch[1]), ';', ':')];
         }
 
         /* Убираем кавычки вокуруг параметра */
-        if (preg_match("#'(.*)'#", $exploded[1], $dataMatch)) {
+        if (preg_match("/'(.*)'/", $exploded[1], $dataMatch)) {
             return [trim($exploded[0]) => $dataMatch[1]];
         }
     } // @codeCoverageIgnore
