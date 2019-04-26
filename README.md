@@ -7,7 +7,7 @@
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotation/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Latest Stable Version](https://poser.pugx.org/rudra/annotation/v/stable)](https://packagist.org/packages/rudra/annotation)
 [![Total Downloads](https://poser.pugx.org/rudra/annotation/downloads)](https://packagist.org/packages/rudra/annotation)
-[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub](https://img.shields.io/github/license/jagepard/Rudra-Annotation.svg)
 
 ## Class & Methods Annotations Reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
 #### Установка / Install
