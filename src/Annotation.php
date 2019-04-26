@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2018, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPL-3.0
+ * @author    : Jagepard <jagepard@yandex.ru">
+ * @copyright Copyright (c) 2019, Jagepard
+ * @license   https://mit-license.org/ MIT
  */
 
 namespace Rudra;
@@ -37,8 +37,6 @@ class Annotation implements AnnotationInterface
     use SetContainerTrait;
 
     /**
-     * Получает массив из аннотаций DOCблока класса
-     *
      * @param string $className
      * @return array
      * @throws \ReflectionException
@@ -50,8 +48,6 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * Получает массив из аннотаций DOCблока метода
-     *
      * @param string $className
      * @param string $methodName
      * @return array
@@ -64,8 +60,6 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * Преобразовывает материалы из аннотаций в массив
-     *
      * @param string $docBlock
      * @return array
      */

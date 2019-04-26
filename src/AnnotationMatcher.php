@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2018, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPL-3.0
+ * @author    : Jagepard <jagepard@yandex.ru">
+ * @copyright Copyright (c) 2019, Jagepard
+ * @license   https://mit-license.org/ MIT
  */
 
 namespace Rudra;
@@ -13,12 +13,6 @@ namespace Rudra;
 use Rudra\Exceptions\AnnotationException;
 use Rudra\ExternalTraits\SetContainerTrait;
 
-/**
- * Класс преобразует данные анотаций в ассоциативный массив
- *
- * Class AnnotationMatcher
- * @package Rudra
- */
 class AnnotationMatcher
 {
     use SetContainerTrait;
