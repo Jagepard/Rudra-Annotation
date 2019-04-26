@@ -39,6 +39,7 @@ class Annotation implements AnnotationInterface
     /**
      * @param string $className
      * @return array
+     * @throws Exceptions\AnnotationException
      * @throws \ReflectionException
      */
     public function getClassAnnotations(string $className): array
@@ -51,6 +52,7 @@ class Annotation implements AnnotationInterface
      * @param string $className
      * @param string $methodName
      * @return array
+     * @throws Exceptions\AnnotationException
      * @throws \ReflectionException
      */
     public function getMethodAnnotations(string $className, string $methodName): array
@@ -62,22 +64,18 @@ class Annotation implements AnnotationInterface
     /**
      * @param string $docBlock
      * @return array
+     * @throws Exceptions\AnnotationException
      */
     protected function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
 
-        /* Разбираем данные из аннотаций (docBlock)                */
-        /* matches[0] - параметр целиком: '@Routing(url = 'blog')' */
-        /* matches[1] - имя параметра   : 'Routing'                */
-        /* matches[2] - аргументы       : 'url = 'blog'            */
         if (preg_match_all('/@([A-Za-z_-]+)\((.*)?\)/', $docBlock, $matches)) {
-            $count = count($matches[0]);
+            $count   = count($matches[0]);
+            $matcher = new AnnotationMatcher($this->container());
 
             for ($i = 0; $i < $count; $i++) {
-                $annotations[$matches[1][$i]][] = $this->container()
-                    ->new(AnnotationMatcher::class)
-                    ->handleDelimiter(trim($matches[2][$i]));
+                $annotations[$matches[1][$i]][] = $matcher->handleDelimiter(trim($matches[2][$i]));
             }
         }
 
