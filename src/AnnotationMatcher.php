@@ -50,7 +50,6 @@ class AnnotationMatcher
         $handled  = [];
 
         foreach ($exploded as $item) {
-            /* Разбираем на ключ (assignment) значение */
             $item = $this->handleAssignment($item, $assignment);
 
             if (!is_array($item)) {
