@@ -12,14 +12,8 @@ interface AnnotationInterface
 {
     /**
      * @param string $className
-     * @return array
-     */
-    public function getClassAnnotations(string $className): array;
-
-    /**
-     * @param string $className
      * @param string $methodName
      * @return array
      */
-    public function getMethodAnnotations(string $className, string $methodName): array;
+    public function getAnnotations(string $className, string $methodName = null): array;
 }
