@@ -16,8 +16,6 @@ use Rudra\Interfaces\AnnotationInterface;
 use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
- * Class Annotations
- *
  * Класс разбора данных из аннотаций, представленных в следующем виде:
  *
  * Routing(url = '')
@@ -29,24 +27,10 @@ use Rudra\ExternalTraits\SetContainerTrait;
  * Разделителем в массивах является - ';'
  * ':' - разделяет ключ, значение в ассоциативном массиве
  * Значение параметров указывается в одинарных кавычках
- *
- * @package Rudra
  */
 class Annotation implements AnnotationInterface
 {
     use SetContainerTrait;
-
-    /**
-     * @param string $className
-     * @return array
-     * @throws Exceptions\AnnotationException
-     * @throws \ReflectionException
-     */
-    public function getClassAnnotations(string $className): array
-    {
-        $class = new ReflectionClass($className);
-        return $this->parseAnnotations($class->getDocComment());
-    }
 
     /**
      * @param string $className
@@ -55,10 +39,13 @@ class Annotation implements AnnotationInterface
      * @throws Exceptions\AnnotationException
      * @throws \ReflectionException
      */
-    public function getMethodAnnotations(string $className, string $methodName): array
+    public function getAnnotations(string $className, string $methodName = null): array
     {
-        $method = new ReflectionMethod($className, $methodName);
-        return $this->parseAnnotations($method->getDocComment());
+        $source = isset($methodName)
+            ? new ReflectionMethod($className, $methodName)
+            : new ReflectionClass($className);
+
+        return $this->parseAnnotations($source->getDocComment());
     }
 
     /**
