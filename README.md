@@ -18,14 +18,11 @@ use Rudra\Container;
 use Rudra\Annotation;
 use Rudra\Interfaces\ContainerInterface;
 ```
-```php
-$rudra = Container::app();
-```
 ##### Вызов из контейнера / use container
 ```php
 $services = [
     'contracts' => [
-        ContainerInterface::class => $rudra,
+        ContainerInterface::class => rudra(),
     ],
     
     'services' => [
@@ -41,8 +38,8 @@ $services = [
 $rudra->setServices($services); 
 ```
 ```php
-$rudra->get('annotation')->getClassAnnotations(PageController::class);
-$rudra->get('annotation')->getMethodAnnotations(PageController::class, 'indexAction');
+$rudra->get('annotation')->getAnnotations(PageController::class);
+$rudra->get('annotation')->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Вызов при помощи метода контейнера new / instantiate use container method "new"
 ```php
@@ -52,16 +49,16 @@ $rudra->setBinding(ContainerInterface::class, $rudra);
 $annotation = $rudra->new(Annotation::class);
 ```
 ```php
-$annotation->getClassAnnotations(PageController::class);
-$annotation->getMethodAnnotations(PageController::class, 'indexAction');
+$annotation->getAnnotations(PageController::class);
+$annotation->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Вызов не используя контейнер / raw use
 ```php
 $annotation = new Annotation($rudra);
 ```
 ```php
-$annotation->getClassAnnotations(PageController::class);
-$annotation->getMethodAnnotations(PageController::class, 'indexAction');
+$annotation->getAnnotations(PageController::class);
+$annotation->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Пример класс / Sample class PageController.php
 
@@ -74,7 +71,6 @@ $annotation->getMethodAnnotations(PageController::class, 'indexAction');
  */
 class PageController
 {
-
     /**
      * @Routing(url = '')
      * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
