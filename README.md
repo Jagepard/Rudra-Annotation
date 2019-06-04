@@ -21,10 +21,7 @@ use Rudra\Interfaces\ContainerInterface;
 ##### Вызов из контейнера / use container
 ```php
 $services = [
-    'contracts' => [
-        ContainerInterface::class => rudra(),
-    ],
-    
+    'contracts' => [],    
     'services' => [
         // Another services
         
@@ -43,9 +40,6 @@ $rudra->get('annotation')->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Вызов при помощи метода контейнера new / instantiate use container method "new"
 ```php
-$rudra->setBinding(ContainerInterface::class, rudra());
-```
-```php
 $annotation = $rudra->new(Annotation::class);
 ```
 ```php
@@ -54,7 +48,7 @@ $annotation->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Вызов не используя контейнер / raw use
 ```php
-$annotation = new Annotation(rudra());
+$annotation = new Annotation();
 ```
 ```php
 $annotation->getAnnotations(PageController::class);
