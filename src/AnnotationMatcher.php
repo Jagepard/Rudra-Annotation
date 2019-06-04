@@ -11,12 +11,9 @@ declare(strict_types=1);
 namespace Rudra;
 
 use Rudra\Exceptions\AnnotationException;
-use Rudra\ExternalTraits\SetContainerTrait;
 
 class AnnotationMatcher
 {
-    use SetContainerTrait;
-
     /**
      * Разбирает данные в зависимости от разделителя (delimiter)
      *
@@ -53,8 +50,8 @@ class AnnotationMatcher
             $item = $this->handleAssignment($item, $assignment);
 
             if (!is_array($item)) {
-                set_exception_handler([new AnnotationException($this->container()), 'handler']);
-                throw new AnnotationException($this->container(), 'Ошибка парсинга аннотаций');
+                set_exception_handler([new AnnotationException(), 'handler']);
+                throw new AnnotationException('Ошибка парсинга аннотаций');
             }
 
             $handled[key($item)] = $item[key($item)];
