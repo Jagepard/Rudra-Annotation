@@ -13,7 +13,6 @@ namespace Rudra;
 use \ReflectionClass;
 use \ReflectionMethod;
 use Rudra\Interfaces\AnnotationInterface;
-use Rudra\ExternalTraits\SetContainerTrait;
 
 /**
  * Класс разбора данных из аннотаций, представленных в следующем виде:
@@ -30,8 +29,6 @@ use Rudra\ExternalTraits\SetContainerTrait;
  */
 class Annotation implements AnnotationInterface
 {
-    use SetContainerTrait;
-
     /**
      * @param string $className
      * @param string $methodName
@@ -59,7 +56,7 @@ class Annotation implements AnnotationInterface
 
         if (preg_match_all('/@([A-Za-z_-]+)\((.*)?\)/', $docBlock, $matches)) {
             $count   = count($matches[0]);
-            $matcher = new AnnotationMatcher($this->container());
+            $matcher = new AnnotationMatcher();
 
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $matcher->handleDelimiter(trim($matches[2][$i]));
