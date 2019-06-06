@@ -109,4 +109,3 @@ class PageController
     ]
 ]
 ```
-![Rudra-Annotation](https://github.com/Jagepard/Rudra-Annotation/blob/master/UML.png)
