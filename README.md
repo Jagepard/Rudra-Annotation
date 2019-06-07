@@ -13,10 +13,6 @@
 #### Установка / Install
 ```composer require rudra/annotation```
 #### Использование / Usage
-```php
-use Rudra\Container;
-use Rudra\Annotation;
-```
 ##### Вызов из контейнера / use container
 ```php
 $services = [
@@ -39,7 +35,7 @@ rudra()->get('annotation')->getAnnotations(PageController::class, 'indexAction')
 ```
 ##### Вызов при помощи метода контейнера new / instantiate use container method "new"
 ```php
-$annotation = $rudra->new(Annotation::class);
+$annotation = rudra()->new(Annotation::class);
 ```
 ```php
 $annotation->getAnnotations(PageController::class);
@@ -54,7 +50,6 @@ $annotation->getAnnotations(PageController::class);
 $annotation->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Пример класс / Sample class PageController.php
-
 ```php
 /**
  * @Routing(url = '')
