@@ -16,7 +16,6 @@
 ```php
 use Rudra\Container;
 use Rudra\Annotation;
-use Rudra\Interfaces\ContainerInterface;
 ```
 ##### Вызов из контейнера / use container
 ```php
@@ -32,11 +31,11 @@ $services = [
 ];
 ```
 ```php
-$rudra->setServices($services); 
+rudra()->setServices($services); 
 ```
 ```php
-$rudra->get('annotation')->getAnnotations(PageController::class);
-$rudra->get('annotation')->getAnnotations(PageController::class, 'indexAction');
+rudra()->get('annotation')->getAnnotations(PageController::class);
+rudra()->get('annotation')->getAnnotations(PageController::class, 'indexAction');
 ```
 ##### Вызов при помощи метода контейнера new / instantiate use container method "new"
 ```php
