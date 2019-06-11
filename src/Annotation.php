@@ -50,7 +50,7 @@ class Annotation implements AnnotationInterface
      * @return array
      * @throws Exceptions\AnnotationException
      */
-    protected function parseAnnotations(string $docBlock): array
+    private function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
 
