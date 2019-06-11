@@ -12,7 +12,7 @@ namespace Rudra;
 
 use Rudra\Exceptions\AnnotationException;
 
-class AnnotationMatcher
+final class AnnotationMatcher
 {
     /**
      * Разбирает данные в зависимости от разделителя (delimiter)
@@ -42,7 +42,7 @@ class AnnotationMatcher
      * @return array
      * @throws AnnotationException
      */
-    protected function getParams(array $exploded, string $assignment): array
+    private function getParams(array $exploded, string $assignment): array
     {
         $handled  = [];
 
@@ -68,7 +68,7 @@ class AnnotationMatcher
      * @return mixed
      * @throws AnnotationException
      */
-    protected function handleAssignment(string $data, string $assignment = '=')
+    private function handleAssignment(string $data, string $assignment = '=')
     {
         if (strpos($data, $assignment) !== false) {
             return $this->handleData($data, explode($assignment, $data));
@@ -85,7 +85,7 @@ class AnnotationMatcher
      * @return array
      * @throws AnnotationException
      */
-    protected function handleData(string $data, array $exploded): array
+    private function handleData(string $data, array $exploded): array
     {
         /* Если в $data массив типа address = {country : 'Russia'; state : 'Tambov'}*/
         if (preg_match('/=[\s]+{/', $data) && preg_match('/{(.*)}/', $exploded[1], $dataMatch)) {
