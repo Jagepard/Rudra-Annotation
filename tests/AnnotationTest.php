@@ -104,10 +104,4 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
             'indexAction'
         ));
     }
-
-    public function testAnnotationException()
-    {
-        $this->expectException(AnnotationException::class);
-        $this->annotation->getAnnotations(PageController::class, 'errorAction');
-    }
 }
