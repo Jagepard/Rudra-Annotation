@@ -25,18 +25,14 @@ final class AnnotationMatcher
      */
     public function handleDelimiter(string $data, string $delimiter = ',', string $assignment = '=')
     {
-        if (strpos($data, $delimiter) !== false) {
-            return $this->getParams(explode($delimiter, $data), $assignment);
-        }
-
-        return $this->handleAssignment($data);
+        return $this->getParams(explode($delimiter, $data), $assignment);
     }
 
     /**
      * Разбирает параметры на ключ (assignment) значение
      * и возращает массив параметров
      *
-     * @param array $exploded
+     * @param array  $exploded
      * @param string $assignment
      *
      * @return array
@@ -44,17 +40,13 @@ final class AnnotationMatcher
      */
     private function getParams(array $exploded, string $assignment): array
     {
-        $handled  = [];
+        $i       = 0;
+        $handled = [];
 
         foreach ($exploded as $item) {
             $item = $this->handleAssignment($item, $assignment);
-
-            if (!is_array($item)) {
-                set_exception_handler([new AnnotationException(), 'handler']);
-                throw new AnnotationException('Ошибка парсинга аннотаций');
-            }
-
-            $handled[key($item)] = $item[key($item)];
+            (is_array($item)) ? $handled[key($item)] = $item[key($item)] : $handled[$i] = $item;
+            $i++;
         }
 
         return $handled;
