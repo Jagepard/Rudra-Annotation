@@ -33,29 +33,12 @@ final class AnnotationMatcher
         $handled = [];
 
         foreach ($exploded as $item) {
-            $item = $this->handleAssignment($item, $assignment);
+            $item = (strpos($item, $assignment) !== false) ? $this->handleData($item, explode($assignment, $item)) : $item;
             (is_array($item)) ? $handled[key($item)] = $item[key($item)] : $handled[$i] = $item;
             $i++;
         }
 
         return $handled;
-    }
-
-    /**
-     * Обрабатывает строку в зависимости от наличия (assignment)
-     *
-     * @param string $data
-     * @param string $assignment
-     * @return mixed
-     * @throws AnnotationException
-     */
-    private function handleAssignment(string $data, string $assignment)
-    {
-        if (strpos($data, $assignment) !== false) {
-            return $this->handleData($data, explode($assignment, $data));
-        }
-
-        return $data;
     }
 
     /**
