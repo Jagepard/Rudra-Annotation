@@ -29,6 +29,9 @@ use Rudra\Interfaces\AnnotationInterface;
  */
 class Annotation implements AnnotationInterface
 {
+    const DELIMITER  = ',';
+    const ASSIGNMENT = '=';
+
     /**
      * @param string $className
      * @param string $methodName
@@ -59,7 +62,9 @@ class Annotation implements AnnotationInterface
             $matcher = new AnnotationMatcher();
 
             for ($i = 0; $i < $count; $i++) {
-                $annotations[$matches[1][$i]][] = $matcher->handleDelimiter(trim($matches[2][$i]));
+                $annotations[$matches[1][$i]][] = $matcher->getParams(
+                    explode(self::DELIMITER, trim($matches[2][$i])), self::ASSIGNMENT
+                );
             }
         }
 

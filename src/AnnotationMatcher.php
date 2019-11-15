@@ -14,67 +14,31 @@ use Rudra\Exceptions\AnnotationException;
 
 final class AnnotationMatcher
 {
-    /**
-     * Разбирает данные в зависимости от разделителя (delimiter)
-     *
-     * @param        $data
-     * @param string $delimiter
-     * @param string $assignment
-     * @return mixed
-     * @throws AnnotationException
-     */
-    public function handleDelimiter(string $data, string $delimiter = ',', string $assignment = '=')
-    {
-        if (strpos($data, $delimiter) !== false) {
-            return $this->getParams(explode($delimiter, $data), $assignment);
-        }
-
-        return $this->handleAssignment($data);
-    }
+    const DELIMITER = ';';
+    const ASSIGNMENT = ':';
 
     /**
      * Разбирает параметры на ключ (assignment) значение
      * и возращает массив параметров
      *
-     * @param array $exploded
+     * @param array  $exploded
      * @param string $assignment
      *
      * @return array
      * @throws AnnotationException
      */
-    private function getParams(array $exploded, string $assignment): array
+    public function getParams(array $exploded, string $assignment): array
     {
-        $handled  = [];
+        $i       = 0;
+        $handled = [];
 
         foreach ($exploded as $item) {
-            $item = $this->handleAssignment($item, $assignment);
-
-            if (!is_array($item)) {
-                set_exception_handler([new AnnotationException(), 'handler']);
-                throw new AnnotationException('Ошибка парсинга аннотаций');
-            }
-
-            $handled[key($item)] = $item[key($item)];
+            if (strpos($item, $assignment) !== false) $item = $this->handleData($item, explode($assignment, $item));
+            (is_array($item)) ? $handled[key($item)] = $item[key($item)] : $handled[$i] = $item;
+            $i++;
         }
 
         return $handled;
-    }
-
-    /**
-     * Обрабатывает строку в зависимости от наличия (assignment)
-     *
-     * @param string $data
-     * @param string $assignment
-     * @return mixed
-     * @throws AnnotationException
-     */
-    private function handleAssignment(string $data, string $assignment = '=')
-    {
-        if (strpos($data, $assignment) !== false) {
-            return $this->handleData($data, explode($assignment, $data));
-        }
-
-        return $data;
     }
 
     /**
@@ -89,7 +53,9 @@ final class AnnotationMatcher
     {
         /* Если в $data массив типа address = {country : 'Russia'; state : 'Tambov'}*/
         if (preg_match('/=[\s]+{/', $data) && preg_match('/{(.*)}/', $exploded[1], $dataMatch)) {
-            return [trim($exploded[0]) => $this->handleDelimiter(trim($dataMatch[1]), ';', ':')];
+            return [trim($exploded[0]) => $this->getParams(
+                explode(self::DELIMITER, trim($dataMatch[1])), self::ASSIGNMENT
+            )];
         }
 
         /* Убираем кавычки вокуруг параметра */

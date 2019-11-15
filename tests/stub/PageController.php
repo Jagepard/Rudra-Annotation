@@ -7,6 +7,7 @@ namespace Rudra\Tests\Stub;
  * @Defaults(name = 'user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
  * @assertResult(false)
  * @Validate(name = 'min:150', phone = 'max:9')
+ * @Middleware('Middleware', params = {int1 : '123'})
  *
  * Class PageController
  */
@@ -17,16 +18,9 @@ class PageController
      * @Defaults(name = 'user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
      * @assertResult(false)
      * @Validate(name = 'min:150', phone = 'max:9')
+     * @Middleware('Middleware', params = {int1 : '123'})
      */
     public function indexAction()
-    {
-
-    }
-
-    /**
-     * @Middleware('Middleware', params = {int : '123'})
-     */
-    public function errorAction()
     {
 
     }
