@@ -14,19 +14,8 @@ use Rudra\Exceptions\AnnotationException;
 
 final class AnnotationMatcher
 {
-    /**
-     * Разбирает данные в зависимости от разделителя (delimiter)
-     *
-     * @param        $data
-     * @param string $delimiter
-     * @param string $assignment
-     * @return mixed
-     * @throws AnnotationException
-     */
-    public function handleDelimiter(string $data, string $delimiter = ',', string $assignment = '=')
-    {
-        return $this->getParams(explode($delimiter, $data), $assignment);
-    }
+    const DELIMITER = ';';
+    const ASSIGNMENT = ':';
 
     /**
      * Разбирает параметры на ключ (assignment) значение
@@ -38,7 +27,7 @@ final class AnnotationMatcher
      * @return array
      * @throws AnnotationException
      */
-    private function getParams(array $exploded, string $assignment): array
+    public function getParams(array $exploded, string $assignment): array
     {
         $i       = 0;
         $handled = [];
@@ -60,7 +49,7 @@ final class AnnotationMatcher
      * @return mixed
      * @throws AnnotationException
      */
-    private function handleAssignment(string $data, string $assignment = '=')
+    private function handleAssignment(string $data, string $assignment)
     {
         if (strpos($data, $assignment) !== false) {
             return $this->handleData($data, explode($assignment, $data));
@@ -81,7 +70,9 @@ final class AnnotationMatcher
     {
         /* Если в $data массив типа address = {country : 'Russia'; state : 'Tambov'}*/
         if (preg_match('/=[\s]+{/', $data) && preg_match('/{(.*)}/', $exploded[1], $dataMatch)) {
-            return [trim($exploded[0]) => $this->handleDelimiter(trim($dataMatch[1]), ';', ':')];
+            return [trim($exploded[0]) => $this->getParams(
+                explode(self::DELIMITER, trim($dataMatch[1])), self::ASSIGNMENT
+            )];
         }
 
         /* Убираем кавычки вокуруг параметра */
