@@ -17,7 +17,6 @@ use ReflectionMethod;
 use Rudra\Annotation;
 use Rudra\Tests\Stub\PageController;
 use Rudra\Interfaces\ContainerInterface;
-use Rudra\Exceptions\AnnotationException;
 use Rudra\Interfaces\AnnotationInterface;
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
@@ -36,6 +35,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
          * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
          * @assertResult(false)
          * @Validate(name = 'min:150', phone = 'max:9')
+         * @Middleware('Middleware', params = {int1 : '123'})
          */
          ";
     /**
@@ -55,13 +55,19 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
                 'phone'    => "000-00000000"
             ]
         ],
-        'assertResult' => [
-            "false"
-        ],
+        'assertResult' => [["false"]],
         'Validate'     => [
             [
                 'name'  => "min:150",
                 'phone' => "max:9"
+            ]
+        ],
+        'Middleware'   => [
+            [
+                0        => "'Middleware'",
+                'params' => [
+                    'int1' => '123'
+                ]
             ]
         ]
     ];
