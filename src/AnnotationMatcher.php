@@ -33,7 +33,7 @@ final class AnnotationMatcher
         $handled = [];
 
         foreach ($exploded as $item) {
-            $item = (strpos($item, $assignment) !== false) ? $this->handleData($item, explode($assignment, $item)) : $item;
+            if (strpos($item, $assignment) !== false) $item = $this->handleData($item, explode($assignment, $item));
             (is_array($item)) ? $handled[key($item)] = $item[key($item)] : $handled[$i] = $item;
             $i++;
         }
