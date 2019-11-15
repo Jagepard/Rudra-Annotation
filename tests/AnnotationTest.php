@@ -68,9 +68,8 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
 
     protected function setUp(): void
     {
-        $rudra = rudra();
-        $rudra->setBinding(ContainerInterface::class, rudra());
-        $this->annotation = $rudra->new(Annotation::class);
+        rudra()->setBinding(ContainerInterface::class, rudra());
+        $this->annotation = rudra()->new(Annotation::class);
     }
 
     /**
@@ -80,7 +79,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
      */
     private function getMethod(string $name): ReflectionMethod
     {
-        $class  = new ReflectionClass($this->annotation());
+        $class  = new ReflectionClass($this->annotation);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
 
@@ -90,17 +89,17 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     public function testParseAnnotations(): void
     {
         $parseAnnotations = $this->getMethod('parseAnnotations');
-        $this->assertEquals($this->result(), $parseAnnotations->invokeArgs($this->annotation(), [$this->docBlock()]));
+        $this->assertEquals($this->result, $parseAnnotations->invokeArgs($this->annotation, [$this->docBlock]));
     }
 
     public function testGetClassAnnotations(): void
     {
-        $this->assertEquals($this->result(), $this->annotation()->getAnnotations(PageController::class));
+        $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class));
     }
 
     public function testGetMethodAnnotations(): void
     {
-        $this->assertEquals($this->result(), $this->annotation()->getAnnotations(
+        $this->assertEquals($this->result, $this->annotation->getAnnotations(
             PageController::class,
             'indexAction'
         ));
@@ -109,30 +108,6 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     public function testAnnotationException()
     {
         $this->expectException(AnnotationException::class);
-        $this->annotation()->getAnnotations(PageController::class, 'errorAction');
+        $this->annotation->getAnnotations(PageController::class, 'errorAction');
     }
-
-    /**
-     * @return AnnotationInterface
-     */
-    public function annotation(): AnnotationInterface
-    {
-        return $this->annotation;
-    }
-
-    /**
-     * @return array
-     */
-    public function result(): array
-    {
-        return $this->result;
-    }
-
-    /**
-     * @return string
-     */
-    public function docBlock(): string
-    {
-        return $this->docBlock;
-    } // @codeCoverageIgnore
 }
