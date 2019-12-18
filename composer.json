@@ -1,6 +1,6 @@
 {
     "name"             : "rudra/annotation",
-    "description"      : "Rudra framework",
+    "description"      : "Class & Method Annotation Reader",
     "type"             : "library",
     "keywords"         : [
         "rudra",
@@ -29,12 +29,12 @@
     },
     "autoload"         : {
         "psr-4": {
-            "Rudra\\": "src/"
+            "Rudra\\Annotation\\": "src/"
         }
     },
     "autoload-dev"     : {
         "psr-4": {
-            "Rudra\\Tests\\": "tests/"
+            "Rudra\\Annotation\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
