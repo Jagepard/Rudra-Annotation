@@ -9,39 +9,10 @@
 [![Total Downloads](https://poser.pugx.org/rudra/annotation/downloads)](https://packagist.org/packages/rudra/annotation)
 ![GitHub](https://img.shields.io/github/license/jagepard/Rudra-Annotation.svg)
 
-## Class & Methods Annotations Reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
-#### Установка / Install
+## Class & Method Annotation Reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
+#### Installation
 ```composer require rudra/annotation```
-#### Использование / Usage
-##### Вызов из контейнера / use container
-```php
-$services = [
-    'contracts' => [],    
-    'services' => [
-        // Another services
-        
-        'annotation' => ['Rudra\Annotation'],
-        
-        // Another services
-    ]
-];
-```
-```php
-rudra()->setServices($services); 
-```
-```php
-rudra()->get('annotation')->getAnnotations(PageController::class);
-rudra()->get('annotation')->getAnnotations(PageController::class, 'indexAction');
-```
-##### Вызов при помощи метода контейнера new / instantiate use container method "new"
-```php
-$annotation = rudra()->new(Annotation::class);
-```
-```php
-$annotation->getAnnotations(PageController::class);
-$annotation->getAnnotations(PageController::class, 'indexAction');
-```
-##### Вызов не используя контейнер / raw use
+#### Using
 ```php
 $annotation = new Annotation();
 ```
@@ -49,21 +20,23 @@ $annotation = new Annotation();
 $annotation->getAnnotations(PageController::class);
 $annotation->getAnnotations(PageController::class, 'indexAction');
 ```
-##### Пример класс / Sample class PageController.php
+##### Class example PageController.php
 ```php
 /**
  * @Routing(url = '')
- * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
+ * @Defaults(name = 'user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
  * @assertResult(false)
  * @Validate(name = 'min:150', phone = 'max:9')
+ * @Middleware('Middleware', params = {int1 : '123'})
  */
 class PageController
 {
     /**
      * @Routing(url = '')
-     * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
+     * @Defaults(name = 'user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
      * @assertResult(false)
      * @Validate(name = 'min:150', phone = 'max:9')
+     * @Middleware('Middleware', params = {int1 : '123'})
      */
     public function indexAction()
     {
@@ -71,35 +44,36 @@ class PageController
     }        
 }
 ```
-##### Результат в обоих случаях:
-
+##### Result in both cases:
 ```php
 [
-    'Routing' => [
-        [
-            'url' => ""
-        ]
-    ]
+    'Routing' => [['url' => ""]],
     'Defaults' => [
         [
-            'name'     => "user1"
-            'lastname' => "sample"
-            'age'      => "0"
-            'address'  => [
-                'country' => "Russia"
-                'state'   => "Tambov"
-            ]
-            'phone'    => "000-00000000"
-        ]
-    ]
-    'assertResult' => [
-        "false"
-    ]
+            'name' => "user1",
+            'lastname' => "sample",
+            'age' => "0",
+            'address' => [
+                'country' => "Russia",
+                'state' => "Tambov",
+            ],
+            'phone' => "000-00000000",
+        ],
+    ],
+    'assertResult' => [["false"]],
     'Validate' => [
         [
-            'name'  => "min:150"
-            'phone' => "max:9"
-        ]
-    ]
-]
+            'name' => "min:150",
+            'phone' => "max:9",
+        ],
+    ],
+    'Middleware' => [
+        [
+            0 => "'Middleware'",
+            'params' => [
+                'int1' => '123',
+            ],
+        ],
+    ],
+];
 ```

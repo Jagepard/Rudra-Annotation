@@ -1,6 +1,6 @@
 <?php
 
-namespace Rudra\Tests\Stub;
+namespace Rudra\Annotation\Tests\Stub;
 
 /**
  * @Routing(url = '')
@@ -8,8 +8,6 @@ namespace Rudra\Tests\Stub;
  * @assertResult(false)
  * @Validate(name = 'min:150', phone = 'max:9')
  * @Middleware('Middleware', params = {int1 : '123'})
- *
- * Class PageController
  */
 class PageController
 {

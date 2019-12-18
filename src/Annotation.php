@@ -8,36 +8,22 @@ declare(strict_types=1);
  * @license   https://mit-license.org/ MIT
  */
 
-namespace Rudra;
+namespace Rudra\Annotation;
 
 use \ReflectionClass;
 use \ReflectionMethod;
-use Rudra\Interfaces\AnnotationInterface;
 
-/**
- * Класс разбора данных из аннотаций, представленных в следующем виде:
- *
- * Routing(url = '')
- * Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
- * assertResult(false)
- * Validate(name = 'min:150', phone = 'max:9')
- *
- * Разделителем свойств является - ','
- * Разделителем в массивах является - ';'
- * ':' - разделяет ключ, значение в ассоциативном массиве
- * Значение параметров указывается в одинарных кавычках
- */
 class Annotation implements AnnotationInterface
 {
-    const DELIMITER  = ',';
-    const ASSIGNMENT = '=';
+    const DELIMITER = ['string' => ',', 'array' => ';'];
+    const ASSIGNMENT = ['string' => '=', 'array' => ':'];
 
     /**
-     * @param string $className
-     * @param string $methodName
+     * @param  string  $className
+     * @param  string|null  $methodName
      * @return array
-     * @throws Exceptions\AnnotationException
      * @throws \ReflectionException
+     * @throws \Rudra\Exceptions\AnnotationException
      */
     public function getAnnotations(string $className, string $methodName = null): array
     {
@@ -49,21 +35,22 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $docBlock
+     * @param  string  $docBlock
      * @return array
-     * @throws Exceptions\AnnotationException
+     * @throws \Rudra\Exceptions\AnnotationException
      */
     private function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
 
         if (preg_match_all('/@([A-Za-z_-]+)\((.*)?\)/', $docBlock, $matches)) {
-            $count   = count($matches[0]);
+            $count = count($matches[0]);
             $matcher = new AnnotationMatcher();
 
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $matcher->getParams(
-                    explode(self::DELIMITER, trim($matches[2][$i])), self::ASSIGNMENT
+                    explode(Annotation::DELIMITER['string'], trim($matches[2][$i])),
+                    Annotation::ASSIGNMENT['string']
                 );
             }
         }

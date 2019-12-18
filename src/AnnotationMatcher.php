@@ -8,57 +8,59 @@ declare(strict_types=1);
  * @license   https://mit-license.org/ MIT
  */
 
-namespace Rudra;
+namespace Rudra\Annotation;
 
 use Rudra\Exceptions\AnnotationException;
 
-final class AnnotationMatcher
+class AnnotationMatcher
 {
-    const DELIMITER = ';';
-    const ASSIGNMENT = ':';
-
     /**
-     * Разбирает параметры на ключ (assignment) значение
-     * и возращает массив параметров
+     * Parses parameters by key (assignment) value
+     * and returns an array of parameters
      *
-     * @param array  $exploded
-     * @param string $assignment
+     * @param  array  $exploded
+     * @param  string  $assignment
      *
      * @return array
      * @throws AnnotationException
      */
     public function getParams(array $exploded, string $assignment): array
     {
-        $i       = 0;
-        $handled = [];
+        $i = 0;
+        $processed = [];
 
         foreach ($exploded as $item) {
-            if (strpos($item, $assignment) !== false) $item = $this->handleData($item, explode($assignment, $item));
-            (is_array($item)) ? $handled[key($item)] = $item[key($item)] : $handled[$i] = $item;
+            if (strpos($item, $assignment) !== false) {
+                $item = $this->handleData($item, explode($assignment, $item));
+            }
+            (is_array($item)) ? $processed[key($item)] = $item[key($item)] : $processed[$i] = $item;
             $i++;
         }
 
-        return $handled;
+        return $processed;
     }
 
     /**
-     * Разбирает данные на пары ключ => значение
+     * Parses data into key => value pairs
      *
-     * @param string $data
-     * @param array  $exploded
+     * @param  string  $data
+     * @param  array  $exploded
      * @return array
      * @throws AnnotationException
      */
     private function handleData(string $data, array $exploded): array
     {
-        /* Если в $data массив типа address = {country : 'Russia'; state : 'Tambov'}*/
+        /* If in $ data an array of type address = {country : 'Russia'; state : 'Tambov'}*/
         if (preg_match('/=[\s]+{/', $data) && preg_match('/{(.*)}/', $exploded[1], $dataMatch)) {
-            return [trim($exploded[0]) => $this->getParams(
-                explode(self::DELIMITER, trim($dataMatch[1])), self::ASSIGNMENT
-            )];
+            return [
+                trim($exploded[0]) => $this->getParams(
+                    explode(Annotation::DELIMITER['array'], trim($dataMatch[1])),
+                    Annotation::ASSIGNMENT['array']
+                ),
+            ];
         }
 
-        /* Убираем кавычки вокуруг параметра */
+        /* Remove quotation marks around parameter */
         if (preg_match("/'(.*)'/", $exploded[1], $dataMatch)) {
             return [trim($exploded[0]) => $dataMatch[1]];
         }
