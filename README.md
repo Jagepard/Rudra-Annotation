@@ -18,7 +18,7 @@ $annotation = new Annotation();
 ```
 ```php
 $annotation->getAnnotations(PageController::class);
-$annotation->getAnnotations(PageController::class, 'indexAction');
+$annotation->getAnnotations(PageController::class, "indexAction");
 ```
 ##### Class example PageController.php
 ```php
