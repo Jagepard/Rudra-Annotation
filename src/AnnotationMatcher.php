@@ -4,25 +4,16 @@ declare(strict_types=1);
 
 /**
  * @author    : Jagepard <jagepard@yandex.ru">
- * @copyright Copyright (c) 2019, Jagepard
  * @license   https://mit-license.org/ MIT
  */
 
 namespace Rudra\Annotation;
-
-use Rudra\Exceptions\AnnotationException;
 
 class AnnotationMatcher
 {
     /**
      * Parses parameters by key (assignment) value
      * and returns an array of parameters
-     *
-     * @param  array  $exploded
-     * @param  string  $assignment
-     *
-     * @return array
-     * @throws AnnotationException
      */
     public function getParams(array $exploded, string $assignment): array
     {
@@ -42,20 +33,15 @@ class AnnotationMatcher
 
     /**
      * Parses data into key => value pairs
-     *
-     * @param  string  $data
-     * @param  array  $exploded
-     * @return array
-     * @throws AnnotationException
      */
     private function handleData(string $data, array $exploded): array
     {
-        /* If in $ data an array of type address = {country : 'Russia'; state : 'Tambov'}*/
-        if (preg_match('/=[\s]+{/', $data) && preg_match('/{(.*)}/', $exploded[1], $dataMatch)) {
+        /* If in data an array of type address = {country : 'Russia'; state : 'Tambov'}*/
+        if (preg_match("/=[\s]+{/", $data) && preg_match("/{(.*)}/", $exploded[1], $dataMatch)) {
             return [
                 trim($exploded[0]) => $this->getParams(
-                    explode(Annotation::DELIMITER['array'], trim($dataMatch[1])),
-                    Annotation::ASSIGNMENT['array']
+                    explode(Annotation::DELIMITER["array"], trim($dataMatch[1])),
+                    Annotation::ASSIGNMENT["array"]
                 ),
             ];
         }

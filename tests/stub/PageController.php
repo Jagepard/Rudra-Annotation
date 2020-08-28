@@ -18,8 +18,7 @@ class PageController
      * @Validate(name = 'min:150', phone = 'max:9')
      * @Middleware('Middleware', params = {int1 : '123'})
      */
-    public function indexAction()
+    public function indexAction(): void
     {
-
     }
 }
