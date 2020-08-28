@@ -2,7 +2,6 @@
 
 /**
  * @author    : Jagepard <jagepard@yandex.ru">
- * @copyright Copyright (c) 2019, Jagepard
  * @license   https://mit-license.org/ MIT
  *
  * phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
@@ -17,14 +16,8 @@ use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
 class AnnotationTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var AnnotationInterface
-     */
-    private $annotation;
-    /**
-     * @var string
-     */
-    private $docBlock = "    
+    private AnnotationInterface $annotation;
+    private string $docBlock = "    
         /**
          * @Routing(url = '')
          * @Defaults(name='user1', lastname = 'sample', age='0', address = {country : 'Russia'; state : 'Tambov'}, phone = '000-00000000')
@@ -33,10 +26,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
          * @Middleware('Middleware', params = {int1 : '123'})
          */
          ";
-    /**
-     * @var array
-     */
-    private $result = [
+    private array $result = [
         'Routing' => [['url' => ""]],
         'Defaults' => [
             [
