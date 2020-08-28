@@ -73,7 +73,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
 
     public function testParseAnnotations(): void
     {
-        $parseAnnotations = $this->getMethod('parseAnnotations');
+        $parseAnnotations = $this->getMethod("parseAnnotations");
         $this->assertEquals($this->result, $parseAnnotations->invokeArgs($this->annotation, [$this->docBlock]));
     }
 
@@ -84,6 +84,6 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
 
     public function testGetMethodAnnotations(): void
     {
-        $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class, 'indexAction'));
+        $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class, "indexAction"));
     }
 }
