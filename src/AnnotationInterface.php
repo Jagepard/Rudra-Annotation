@@ -9,5 +9,5 @@ namespace Rudra\Annotation;
 
 interface AnnotationInterface
 {
-    public function getAnnotations(string $className, ?string $methodName): array;
+    public function getAnnotations(string $className, ?string $methodName = null): array;
 }
