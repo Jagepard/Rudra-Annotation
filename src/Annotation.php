@@ -17,7 +17,7 @@ class Annotation implements AnnotationInterface
     const DELIMITER  = ["string" => ',', "array" => ';'];
     const ASSIGNMENT = ["string" => '=', "array" => ':'];
 
-    public function getAnnotations(string $className, string $methodName = null): array
+    public function getAnnotations(string $className, ?string $methodName = null): array
     {
         $source = isset($methodName)
             ? new ReflectionMethod($className, $methodName)
