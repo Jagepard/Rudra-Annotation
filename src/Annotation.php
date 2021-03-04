@@ -9,23 +9,86 @@ declare(strict_types=1);
 
 namespace Rudra\Annotation;
 
+use Exception;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionMethod;
 
 class Annotation implements AnnotationInterface
 {
+    /*
+     * Parameter separator
+     * -------------------
+     * Разделитель параметров
+     */
     const DELIMITER  = ["string" => ',', "array" => ';'];
+
+    /*
+     * Sign assigning value
+     * --------------------
+     * Знак присваивающий значение
+     */
     const ASSIGNMENT = ["string" => '=', "array" => ':'];
 
+    /**
+     * @param string $className
+     * @param string|null $methodName
+     * @return array
+     * @throws ReflectionException
+     *
+     * Get data from annotations
+     * -------------------------
+     * Получить данные из аннотаций
+     */
     public function getAnnotations(string $className, ?string $methodName = null): array
     {
-        $source = isset($methodName)
-            ? new ReflectionMethod($className, $methodName)
-            : new ReflectionClass($className);
-
-        return $this->parseAnnotations($source->getDocComment());
+        return $this->parseAnnotations($this->getReflection($className, $methodName)->getDocComment());
     }
 
+    /**
+     * @param string $className
+     * @param string|null $methodName
+     * @return array
+     * @throws Exception
+     *
+     * Get data from attributes (for php 8 and up)
+     * -------------------------------------------
+     * Получить данные из атрибутов (для php 8 и выше)
+     */
+    public function getAttributes(string $className, ?string $methodName = null): array
+    {
+        if (version_compare(phpversion(), '8.0', '<=')) {
+            return $this->getReflection($className, $methodName)->getAttributes();
+        }
+
+        throw new Exception("Wrong php version!");
+    }
+
+    /**
+     * @param string $className
+     * @param string|null $methodName
+     * @return ReflectionClass|ReflectionMethod
+     * @throws ReflectionException
+     *
+     * Provides information about a method or class
+     * --------------------------------------------
+     * Сообщает информацию о методе или классе
+     */
+    private function getReflection(string $className, ?string $methodName = null)
+    {
+        return isset($methodName)
+            ? new ReflectionMethod($className, $methodName)
+            : new ReflectionClass($className);
+    }
+
+    /**
+     * @param string $docBlock
+     * @return array
+     *
+     * Parses annotation data
+     * ----------------------
+     * Разбирает данные аннотаций
+     */
     private function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
