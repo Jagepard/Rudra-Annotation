@@ -12,8 +12,15 @@ namespace Rudra\Annotation;
 class AnnotationMatcher
 {
     /**
+     * @param array $exploded
+     * @param string $assignment
+     * @return array
+     *
      * Parses parameters by key (assignment) value
      * and returns an array of parameters
+     * ----------------------------------
+     * Анализирует параметры по значению ключа (присваивания)
+     * и возвращает массив параметров
      */
     public function getParams(array $exploded, string $assignment): array
     {
@@ -32,11 +39,21 @@ class AnnotationMatcher
     }
 
     /**
+     * @param string $data
+     * @param array $exploded
+     * @return array|array[]
+     *
      * Parses data into key => value pairs
+     * -----------------------------------
+     * Разбирает данные в пары ключ => значение
      */
     private function handleData(string $data, array $exploded): array
     {
-        /* If in data an array of type address = {country : 'Russia'; state : 'Tambov'}*/
+        /*
+         * If in data an array of type address = {country : 'Russia'; state : 'Tambov'}
+         * ----------------------------------------------------------------------------
+         * Если в данных массив типа адрес = {страна: 'Россия'; состояние: 'Тамбов'}
+         */
         if (preg_match("/=[\s]+{/", $data) && preg_match("/{(.*)}/", $exploded[1], $dataMatch)) {
             return [
                 trim($exploded[0]) => $this->getParams(
@@ -46,7 +63,11 @@ class AnnotationMatcher
             ];
         }
 
-        /* Remove quotation marks around parameter */
+        /*
+         * Remove quotation marks around parameter
+         * ---------------------------------------
+         * Убрирает кавычки вокруг параметра
+         */
         if (preg_match("/'(.*)'/", $exploded[1], $dataMatch)) {
             return [trim($exploded[0]) => $dataMatch[1]];
         }
