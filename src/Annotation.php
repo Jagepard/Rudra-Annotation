@@ -65,7 +65,7 @@ class Annotation implements AnnotationInterface
      */
     public function getAttributes(string $className, ?string $methodName = null): array
     {
-        if (version_compare(phpversion(), '8.0', '<=')) {
+        if (version_compare(phpversion(), '8.0', '>=')) {
             return $this->getReflection($className, $methodName)->getAttributes();
         }
 
