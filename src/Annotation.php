@@ -18,15 +18,23 @@ class Annotation implements AnnotationInterface
 {
     /*
      * Parameter separator
-     * -------------------
+     * in the line  ',', example: key='param', key2='param2'
+     * in the array ';', example {key:'param'; key2:'param2'}
+     * --------------------------------------------------------
      * Разделитель параметров
+     * в строке  ',', пример: key='param', key2='param2'
+     * в массиве ';', пример: {key:'param'; key2:'param2'}
      */
     const DELIMITER  = ["string" => ',', "array" => ';'];
 
     /*
      * Sign assigning value
-     * --------------------
+     * in the line  '=', example: key='param'
+     * in the array ':', example: {key:'param'}
+     * ----------------------------------------------------------------------------
      * Знак присваивающий значение
+     * в строке  '=', пример: key='param'
+     * в массиве ':', пример: {key:'param'}
      */
     const ASSIGNMENT = ["string" => '=', "array" => ':'];
 
