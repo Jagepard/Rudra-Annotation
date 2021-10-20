@@ -48,9 +48,11 @@ class Annotation implements AnnotationInterface
      * -------------------------
      * Получить данные из аннотаций
      */
-    public function getAnnotations(string $className, ?string $methodName = null): array
+    public function getAnnotations(string $className, ?string $methodName = null)
     {
-        return $this->parseAnnotations($this->getReflection($className, $methodName)->getDocComment());
+        $docBlock = $this->getReflection($className, $methodName)->getDocComment();
+
+        if (is_string($docBlock)) return $this->parseAnnotations($docBlock);
     }
 
     /**
