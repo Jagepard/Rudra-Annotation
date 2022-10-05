@@ -3,16 +3,16 @@
 declare(strict_types=1);
 
 /**
- * @author    : Jagepard <jagepard@yandex.ru">
- * @license   https://mit-license.org/ MIT
+ * @author  Jagepard <jagepard@yandex.ru">
+ * @license https://mit-license.org/ MIT
  */
 
 namespace Rudra\Annotation;
 
 use Exception;
 use ReflectionClass;
-use ReflectionException;
 use ReflectionMethod;
+use ReflectionException;
 
 class Annotation implements AnnotationInterface
 {
@@ -48,7 +48,7 @@ class Annotation implements AnnotationInterface
      * -------------------------
      * Получить данные из аннотаций
      */
-    public function getAnnotations(string $className, ?string $methodName = null)
+    public function getAnnotations(string $className, ?string $methodName = null): array
     {
         $docBlock = $this->getReflection($className, $methodName)->getDocComment();
 
@@ -67,7 +67,7 @@ class Annotation implements AnnotationInterface
      */
     public function getAttributes(string $className, ?string $methodName = null): array
     {
-        if (version_compare(phpversion(), '8.0', '>=')) {
+        if (version_compare(phpversion(), "8.0", ">=")) {
             $attributes = [];
             foreach ($this->getReflection($className, $methodName)->getAttributes() as $attribute) {
                 $attributes[substr(strrchr($attribute->getName(), "\\"), 1)][] = $attribute->getArguments();
@@ -97,7 +97,7 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $docBlock
+     * @param string $docBlock4
      * @return array
      *
      * Parses annotation data
