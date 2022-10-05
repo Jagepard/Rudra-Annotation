@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 /**
- * @author    : Jagepard <jagepard@yandex.ru">
- * @license   https://mit-license.org/ MIT
+ * @author  Jagepard <jagepard@yandex.ru">
+ * @license https://mit-license.org/ MIT
  */
 
 namespace Rudra\Annotation;
@@ -28,7 +28,7 @@ class AnnotationMatcher
         $processed = [];
 
         foreach ($exploded as $item) {
-            if (strpos($item, $assignment) !== false) {
+            if (str_contains($item, $assignment)) {
                 $item = $this->handleData($item, explode($assignment, $item));
             }
             (is_array($item)) ? $processed[key($item)] = $item[key($item)] : $processed[$i] = $item;
@@ -41,13 +41,13 @@ class AnnotationMatcher
     /**
      * @param string $data
      * @param array $exploded
-     * @return array|array[]
+     * @return ?array
      *
      * Parses data into key => value pairs
      * -----------------------------------
      * Разбирает данные в пары ключ => значение
      */
-    private function handleData(string $data, array $exploded): array
+    private function handleData(string $data, array $exploded): ?array
     {
         /*
          * If in data an array of type address = {country : 'Russia'; state : 'Tambov'}
