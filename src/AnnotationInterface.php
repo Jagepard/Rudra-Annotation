@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author    : Jagepard <jagepard@yandex.ru">
- * @license   https://mit-license.org/ MIT
+ * @author  Jagepard <jagepard@yandex.ru">
+ * @license https://mit-license.org/ MIT
  */
 
 namespace Rudra\Annotation;
@@ -18,7 +18,7 @@ interface AnnotationInterface
      * -------------------------
      * Получить данные из аннотаций
      */
-    public function getAnnotations(string $className, ?string $methodName = null);
+    public function getAnnotations(string $className, ?string $methodName = null): array;
 
     /**
      * @param string $className

@@ -11,8 +11,8 @@ namespace Rudra\Annotation\Tests;
 
 use ReflectionClass;
 use ReflectionMethod;
-use Rudra\Annotation\{Annotation, AnnotationInterface, Tests\Stub\PageController};
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+use Rudra\Annotation\{Annotation, AnnotationInterface, Tests\Stub\PageController};
 
 class AnnotationTest extends PHPUnit_Framework_TestCase
 {
@@ -27,31 +27,31 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
          */
          ";
     private array $result = [
-        'Routing' => [['url' => ""]],
-        'Defaults' => [
+        "Routing" => [["url" => ""]],
+        "Defaults" => [
             [
-                'name' => "user1",
-                'lastname' => "sample",
-                'age' => "0",
-                'address' => [
-                    'country' => "Russia",
-                    'state' => "Tambov",
+                "name" => "user1",
+                "lastname" => "sample",
+                "age" => "0",
+                "address" => [
+                    "country" => "Russia",
+                    "state" => "Tambov",
                 ],
-                'phone' => "000-00000000",
+                "phone" => "000-00000000",
             ],
         ],
-        'assertResult' => [["false"]],
-        'Validate' => [
+        "assertResult" => [["false"]],
+        "Validate" => [
             [
-                'name' => "min:150",
-                'phone' => "max:9",
+                "name" => "min:150",
+                "phone" => "max:9",
             ],
         ],
-        'Middleware' => [
+        "Middleware" => [
             [
                 0 => "'Middleware'",
-                'params' => [
-                    'int1' => '123',
+                "params" => [
+                    "int1" => "123",
                 ],
             ],
         ],
@@ -85,5 +85,10 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     public function testGetMethodAnnotations(): void
     {
         $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class, "indexAction"));
+    }
+
+    public function testGetMethodAttributes(): void
+    {
+        $this->assertEquals($this->result, $this->annotation->getAttributes(PageController::class, "secondAction"));
     }
 }
