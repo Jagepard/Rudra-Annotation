@@ -97,7 +97,7 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $docBlock4
+     * @param string $docBlock
      * @return array
      *
      * Parses annotation data
