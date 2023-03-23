@@ -18,7 +18,7 @@ interface AnnotationInterface
      * -------------------------
      * Получить данные из аннотаций
      */
-    public function getAnnotations(string $className, ?string $methodName = null): array;
+    public function getAnnotations(string $className, ?string $methodName = null);
 
     /**
      * @param string $className
@@ -29,5 +29,5 @@ interface AnnotationInterface
      * -------------------------------------------
      * Получить данные из атрибутов (для php 8 и выше)
      */
-    public function getAttributes(string $className, ?string $methodName = null): array;
+    public function getAttributes(string $className, ?string $methodName = null);
 }
