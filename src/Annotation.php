@@ -20,7 +20,7 @@ class Annotation implements AnnotationInterface
      * Parameter separator
      * in the line  ',', example: key='param', key2='param2'
      * in the array ';', example {key:'param'; key2:'param2'}
-     * --------------------------------------------------------
+     * ------------------------------------------------------
      * Разделитель параметров
      * в строке  ',', пример: key='param', key2='param2'
      * в массиве ';', пример: {key:'param'; key2:'param2'}
@@ -31,7 +31,7 @@ class Annotation implements AnnotationInterface
      * Sign assigning value
      * in the line  '=', example: key='param'
      * in the array ':', example: {key:'param'}
-     * ----------------------------------------------------------------------------
+     * ----------------------------------------
      * Знак присваивающий значение
      * в строке  '=', пример: key='param'
      * в массиве ':', пример: {key:'param'}
@@ -39,14 +39,14 @@ class Annotation implements AnnotationInterface
     const ASSIGNMENT = ["string" => '=', "array" => ':'];
 
     /**
+     * Get data from annotations
+     * -------------------------
+     * Получить данные из аннотаций
+     * 
      * @param string $className
      * @param string|null $methodName
      * @return array
      * @throws ReflectionException
-     *
-     * Get data from annotations
-     * -------------------------
-     * Получить данные из аннотаций
      */
     public function getAnnotations(string $className, ?string $methodName = null)
     {
@@ -56,14 +56,14 @@ class Annotation implements AnnotationInterface
     }
 
     /**
+     * Get data from attributes (for php 8 and up)
+     * -------------------------------------------
+     * Получить данные из атрибутов (для php 8 и выше)
+     * 
      * @param string $className
      * @param string|null $methodName
      * @return array
      * @throws Exception
-     *
-     * Get data from attributes (for php 8 and up)
-     * -------------------------------------------
-     * Получить данные из атрибутов (для php 8 и выше)
      */
     public function getAttributes(string $className, ?string $methodName = null)
     {
@@ -80,14 +80,14 @@ class Annotation implements AnnotationInterface
     }
 
     /**
+     * Provides information about a method or class
+     * --------------------------------------------
+     * Сообщает информацию о методе или классе
+     * 
      * @param string $className
      * @param string|null $methodName
      * @return ReflectionClass|ReflectionMethod
      * @throws ReflectionException
-     *
-     * Provides information about a method or class
-     * --------------------------------------------
-     * Сообщает информацию о методе или классе
      */
     private function getReflection(string $className, ?string $methodName = null)
     {
@@ -97,12 +97,12 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $docBlock
-     * @return array
-     *
      * Parses annotation data
      * ----------------------
      * Разбирает данные аннотаций
+     * 
+     * @param string $docBlock
+     * @return array
      */
     private function parseAnnotations(string $docBlock): array
     {
