@@ -12,15 +12,15 @@ namespace Rudra\Annotation;
 class AnnotationMatcher
 {
     /**
-     * @param array $exploded
-     * @param string $assignment
-     * @return array
-     *
      * Parses parameters by key (assignment) value
      * and returns an array of parameters
      * ----------------------------------
      * Анализирует параметры по значению ключа (присваивания)
      * и возвращает массив параметров
+     * 
+     * @param array $exploded
+     * @param string $assignment
+     * @return array
      */
     public function getParams(array $exploded, string $assignment): array
     {
@@ -39,13 +39,13 @@ class AnnotationMatcher
     }
 
     /**
-     * @param string $data
-     * @param array $exploded
-     * @return ?array
-     *
      * Parses data into key => value pairs
      * -----------------------------------
      * Разбирает данные в пары ключ => значение
+     * 
+     * @param string $data
+     * @param array $exploded
+     * @return ?array
      */
     private function handleData(string $data, array $exploded): ?array
     {
