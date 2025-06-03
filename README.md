@@ -1,6 +1,5 @@
 [![PHPunit](https://github.com/Jagepard/Rudra-Annotation/actions/workflows/php.yml/badge.svg)](https://github.com/Jagepard/Rudra-Annotation/actions/workflows/php.yml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotation/?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fd0755247ef7e42c5828/maintainability)](https://codeclimate.com/github/Jagepard/Rudra-Annotation/maintainability)
+[![Maintainability](https://qlty.sh/badges/597f5043-9af1-4970-9eed-86f35c750a5d/maintainability.svg)](https://qlty.sh/gh/Jagepard/projects/Rudra-Annotation)
 [![CodeFactor](https://www.codefactor.io/repository/github/jagepard/rudra-annotation/badge)](https://www.codefactor.io/repository/github/jagepard/rudra-annotation)
 ![GitHub](https://img.shields.io/github/license/jagepard/Rudra-Annotation.svg)
 -----
