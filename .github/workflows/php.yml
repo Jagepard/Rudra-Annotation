@@ -37,6 +37,15 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      # Шаг 5: Запуск тестов через Composer
+      # Шаг 5: Установка PHPUnit локально
+      - name: Install PHPUnit globally
+        run: composer require --dev phpunit/phpunit --no-update
+        # Добавляем PHPUnit как временную dev-зависимость
+
+      - name: Update dependencies with PHPUnit
+        run: composer update --prefer-dist --no-progress
+        # Обновляем зависимости, чтобы PHPUnit был установлен
+
+      # Шаг 6: Запуск тестов
       - name: Run PHPUnit tests
-        run: composer test
+        run: vendor/bin/phpunit --configuration phpunit.xml
