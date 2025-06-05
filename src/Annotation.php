@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Rudra\Annotation;
 
-use Exception;
 use ReflectionClass;
 use ReflectionMethod;
-use ReflectionException;
+use Rudra\Exceptions\LogicException;
 
 class Annotation implements AnnotationInterface
 {
@@ -49,18 +48,30 @@ class Annotation implements AnnotationInterface
      * @param  string|null $methodName
      * @return void
      */
-    public function getAttributes(string $className, ?string $methodName = null)
+    public function getAttributes(string $className, ?string $methodName = null): array
     {
-        if (version_compare(phpversion(), "8.0", ">=")) {
-            $attributes = [];
-            foreach ($this->getReflection($className, $methodName)->getAttributes() as $attribute) {
-                $attributes[substr(strrchr($attribute->getName(), "\\"), 1)][] = $attribute->getArguments();
-            }
-
-            return $attributes;
+        if (version_compare(PHP_VERSION, '8.0', '<')) {
+            throw new LogicException('Attributes are only supported in PHP 8.0 and above.');
         }
 
-        throw new Exception("Wrong php version!");
+        $reflection = $this->getReflection($className, $methodName);
+        $attributes = [];
+
+        foreach ($reflection->getAttributes() as $attribute) {
+            $attributeName = $this->extractShortName($attribute->getName());
+            $attributes[$attributeName][] = $attribute->getArguments();
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * @param  string $fullyQualifiedName
+     * @return string
+     */
+    private function extractShortName(string $fullyQualifiedName): string
+    {
+        return basename(str_replace('\\', '/', $fullyQualifiedName));
     }
 
     /**
