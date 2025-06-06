@@ -13,33 +13,36 @@
         {
             "name": "Jagepard",
             "email": "jagepard@yandex.ru",
-            "homepage": "https://jagepard.ru",
+            "homepage": "https://jagepard.ru", 
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "jagepard@yandex.ru"
+        "email": "jagepard@yandex.ru",
+        "issues": "https://github.com/Jagepard/Rudra-Annotation/issues", 
+        "source": "https://github.com/Jagepard/Rudra-Annotation" 
     },
     "require": {
-        "php": ">=8.3"
-    },
-    "require-dev": {
-        "rudra/exception": "dev-master",
-        "rudra/docs": "dev-master"
+        "php": ">=8.3",
+        "rudra/exception": "self.version",
+        "rudra/docs": "self.version"
     },
     "autoload": {
         "psr-4": {
             "Rudra\\Annotation\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Rudra\\Annotation\\Tests\\": "tests/"
-        }
-    },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "optimize-autoloader": true,
-        "prefer-stable": true
-    }
+        "sort-packages": true,
+        "platform-check": false
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Jagepard/Rudra-Annotation" 
+        }
+    ]
 }
