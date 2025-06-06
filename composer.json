@@ -24,8 +24,7 @@
     },
     "require": {
         "php": ">=8.3",
-        "rudra/exception": "self.version",
-        "rudra/docs": "self.version"
+        "rudra/exception": "self.version"
     },
     "autoload": {
         "psr-4": {
