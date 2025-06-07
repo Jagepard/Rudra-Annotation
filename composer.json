@@ -24,6 +24,7 @@
     },
     "require": {
         "php": ">=8.3",
+        "rudra/docs": "self.version",
         "rudra/exception": "self.version"
     },
     "autoload": {
