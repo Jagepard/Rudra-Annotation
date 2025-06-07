@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * @author    : Jagepard <jagepard@yandex.ru">
- * @license   https://mit-license.org/ MIT
+ * @author  : Jagepard <jagepard@yandex.ru">
+ * @license https://mit-license.org/ MIT
  *
  * phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
  */
