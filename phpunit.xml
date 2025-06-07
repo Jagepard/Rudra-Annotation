@@ -22,7 +22,7 @@
             <directory suffix=".php">./src</directory>
         </include>
         <exclude>
-            <file>./tests/stub/PageController.php</file>
+            <file>./tests/Stub/PageController.php</file>
         </exclude>
     </source>
     <php>
