@@ -93,4 +93,9 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->result, $this->annotation->getAttributes(PageController::class, "secondAction"));
     }
+
+    public function testGetMethodWithoutAnnotations(): void
+    {
+        $this->assertEquals([], $this->annotation->getAnnotations(PageController::class, "withoutDocblock"));
+    }
 }
