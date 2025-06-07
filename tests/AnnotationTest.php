@@ -13,10 +13,10 @@ namespace Rudra\Annotation\Tests;
 
 use ReflectionClass;
 use ReflectionMethod;
-use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Rudra\Annotation\{Annotation, AnnotationInterface, Tests\Stub\PageController};
 
-class AnnotationTest extends PHPUnit_Framework_TestCase
+class AnnotationTest extends TestCase
 {
     private AnnotationInterface $annotation;
     private string $docBlock = "    
