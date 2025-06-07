@@ -11,6 +11,6 @@ namespace Rudra\Annotation;
 
 interface AnnotationInterface
 {
-    public function getAnnotations(string $className, ?string $methodName = null);
-    public function getAttributes(string $className, ?string $methodName = null);
+    public function getAnnotations(string $className, ?string $methodName = null): array;
+    public function getAttributes(string $className, ?string $methodName = null): array;
 }
