@@ -24,6 +24,7 @@
     },
     "require": {
         "php": ">=8.3",
+        "rudra/docs": "self.version",
         "rudra/exception": "self.version"
     },
     "autoload": {
@@ -42,5 +43,10 @@
         "optimize-autoloader": true,
         "sort-packages": true,
         "platform-check": false
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
