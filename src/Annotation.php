@@ -34,13 +34,15 @@ class Annotation implements AnnotationInterface
      * @param  string|null $methodName
      * @return void
      */
-    public function getAnnotations(string $className, ?string $methodName = null)
+    public function getAnnotations(string $className, ?string $methodName = null): array
     {
         $docBlock = $this->getReflection($className, $methodName)->getDocComment();
 
         if (is_string($docBlock)) {
             return $this->parseAnnotations($docBlock); 
         }
+        
+        return [];
     }
 
     /**
