@@ -53,7 +53,7 @@ class Annotation implements AnnotationInterface
     public function getAttributes(string $className, ?string $methodName = null): array
     {
         if (version_compare(PHP_VERSION, '8.0', '<')) {
-            throw new LogicException('Attributes are only supported in PHP 8.0 and above.');
+            throw new LogicException('Attributes are only supported in PHP 8.0 and above.'); // @codeCoverageIgnore
         }
 
         $reflection = $this->getReflection($className, $methodName);
