@@ -30,4 +30,6 @@ class PageController
     public function secondAction()
     {
     }
+
+    public function withoutDocblock(): void {}
 }
