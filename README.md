@@ -2,7 +2,11 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Jagepard/Rudra-Annotation/?branch=master)
 [![Maintainability](https://qlty.sh/badges/597f5043-9af1-4970-9eed-86f35c750a5d/maintainability.svg)](https://qlty.sh/gh/Jagepard/projects/Rudra-Annotation)
 [![CodeFactor](https://www.codefactor.io/repository/github/jagepard/rudra-annotation/badge)](https://www.codefactor.io/repository/github/jagepard/rudra-annotation)
-![GitHub](https://img.shields.io/github/license/jagepard/Rudra-Annotation.svg)
+-----
+[![Latest Stable Version](http://poser.pugx.org/rudra/annotation/v)](https://packagist.org/packages/rudra/annotation) 
+[![Total Downloads](http://poser.pugx.org/rudra/annotation/downloads)](https://packagist.org/packages/rudra/annotation) 
+[![PHP Version Require](http://poser.pugx.org/rudra/annotation/require/php)](https://packagist.org/packages/rudra/annotation)
+[![License](http://poser.pugx.org/rudra/annotation/license)](https://packagist.org/packages/rudra/annotation) 
 -----
 
 ## Annotations and attributes reader / Читатель аннотаций и атрибутов | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
