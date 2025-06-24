@@ -13,6 +13,11 @@ class ParamsExtractor
 {
     /**
      * Parses an array of parameter strings into an associative array.
+     * ---------------------------------------------------------------
+     * Преобразует массив строк с параметрами в ассоциативный массив.
+     * 
+     * from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"
+     * to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]
      * 
      * @param array $exploded
      * @param string $assignment
@@ -35,6 +40,8 @@ class ParamsExtractor
 
     /**
      * Parses data into key => value pairs
+     * -----------------------------------
+     * Преобразует данные в пары «ключ => значение»
      *
      * @param string $data
      * @param array $exploded
@@ -44,6 +51,8 @@ class ParamsExtractor
     {
         /**
          * If in data an array of type param3={param1;param2:'param2'}
+         * -----------------------------------------------------------
+         * Если в данных есть массив типа param3={param1;param2:'param2'}
          */
         if (preg_match("/=\s*{/", $data) && preg_match("/{(.*)}/", $exploded[1], $matches)) {
             return [
@@ -56,6 +65,9 @@ class ParamsExtractor
 
         /**
          * Remove quotation marks around parameter
+         * ---------------------------------------
+         * Удаляет кавычки вокруг параметра
+         * 
          * matches[1] = 'param2';
          */
         if (preg_match("/'(.*)'/", $exploded[1], $matches)) {

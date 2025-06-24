@@ -17,6 +17,8 @@ class Annotation implements AnnotationInterface
 {
     /**
      * Parameter separator
+     * -------------------
+     * Разделитель параметров
      * 
      * in the line  ',', example: key='param', key2='param2'
      * in the array ';', example: {key:'param'; key2:'param2'}
@@ -24,7 +26,9 @@ class Annotation implements AnnotationInterface
     const DELIMITER = ["string" => ',', "array" => ';'];
 
     /**
-     * Sign assigning value
+     * Assignment mark
+     * ---------------
+     * Знак присваивания
      * 
      * in the line  '=', example: key='param'
      * in the array ':', example: {key:'param'}
@@ -62,7 +66,7 @@ class Annotation implements AnnotationInterface
         $attributes = [];
 
         foreach ($reflection->getAttributes() as $attribute) {
-            $attributeName = $this->extractShortName($attribute->getName());
+            $attributeName = $this->extractShortClassName($attribute->getName());
             $attributes[$attributeName][] = $attribute->getArguments();
         }
 
@@ -73,7 +77,7 @@ class Annotation implements AnnotationInterface
      * @param string $fullyQualifiedName
      * @return string
      */
-    private function extractShortName(string $fullyQualifiedName): string
+    private function extractShortClassName(string $fullyQualifiedName): string
     {
         return basename(str_replace('\\', '/', $fullyQualifiedName));
     }
@@ -108,7 +112,7 @@ class Annotation implements AnnotationInterface
             $extractor = new ParamsExtractor();
 
             /**
-             * $annotations = "Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]
+             * $annotations = ["Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]]
              */
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $extractor->getParams(
