@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 /**
- * @author  Jagepard <jagepard@yandex.ru">
- * @license https://mit-license.org/ MIT
+ * @author  Jagepard <jagepard@yandex.ru>
+ * @license https://mit-license.org/  MIT
  */
 
 namespace Rudra\Annotation;
@@ -15,45 +15,47 @@ use Rudra\Exceptions\LogicException;
 
 class Annotation implements AnnotationInterface
 {
-    /*
+    /**
      * Parameter separator
+     * 
      * in the line  ',', example: key='param', key2='param2'
-     * in the array ';', example {key:'param'; key2:'param2'}
+     * in the array ';', example: {key:'param'; key2:'param2'}
      */
     const DELIMITER = ["string" => ',', "array" => ';'];
 
-    /*
+    /**
      * Sign assigning value
+     * 
      * in the line  '=', example: key='param'
      * in the array ':', example: {key:'param'}
      */
     const ASSIGNMENT = ["string" => '=', "array" => ':'];
 
     /**
-     * @param  string      $className
-     * @param  string|null $methodName
-     * @return void
+     * @param string $className
+     * @param string|null $methodName
+     * @return array
      */
     public function getAnnotations(string $className, ?string $methodName = null): array
     {
         $docBlock = $this->getReflection($className, $methodName)->getDocComment();
 
         if (is_string($docBlock)) {
-            return $this->parseAnnotations($docBlock); 
+            return $this->parseAnnotations($docBlock);
         }
-        
+
         return [];
     }
 
     /**
-     * @param  string      $className
-     * @param  string|null $methodName
-     * @return void
+     * @param string $className
+     * @param string|null $methodName
+     * @return array
      */
     public function getAttributes(string $className, ?string $methodName = null): array
     {
         if (version_compare(PHP_VERSION, '8.0', '<')) {
-            throw new LogicException('Attributes are only supported in PHP 8.0 and above.'); // @codeCoverageIgnore
+            throw new LogicException('Attributes are only supported in PHP 8.0 and above.');
         }
 
         $reflection = $this->getReflection($className, $methodName);
@@ -68,7 +70,7 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param  string $fullyQualifiedName
+     * @param string $fullyQualifiedName
      * @return string
      */
     private function extractShortName(string $fullyQualifiedName): string
@@ -77,11 +79,11 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param  string      $className
-     * @param  string|null $methodName
-     * @return void
+     * @param string $className
+     * @param string|null $methodName
+     * @return ReflectionClass|ReflectionMethod
      */
-    private function getReflection(string $className, ?string $methodName = null)
+    private function getReflection(string $className, ?string $methodName = null): ReflectionClass|ReflectionMethod
     {
         return isset($methodName)
             ? new ReflectionMethod($className, $methodName)
@@ -89,19 +91,28 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param  string $docBlock
+     * @param string $docBlock
      * @return array
      */
     private function parseAnnotations(string $docBlock): array
     {
         $annotations = [];
 
+        /**
+         * $matches[0][0] - @Annotation(param1, param2='param2', param3={param1;param2:'param2'})
+         * $matches[1][0] - Annotation
+         * $matches[2][0] - param1, param2 = 'param2', param3={param1;param2:'param2'}
+         */
         if (preg_match_all("/@([A-Za-z_-]+)\((.*)?\)/", $docBlock, $matches)) {
             $count = count($matches[0]);
-            $matcher = new AnnotationMatcher();
+            $extractor = new ParamsExtractor();
 
+            /**
+             * @Result
+             * $annotations = "Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]
+             */
             for ($i = 0; $i < $count; $i++) {
-                $annotations[$matches[1][$i]][] = $matcher->getParams(
+                $annotations[$matches[1][$i]][] = $extractor->getParams(
                     explode(Annotation::DELIMITER["string"], trim($matches[2][$i])),
                     Annotation::ASSIGNMENT["string"]
                 );

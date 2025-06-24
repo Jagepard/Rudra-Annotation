@@ -26,6 +26,7 @@ class AnnotationTest extends TestCase
          * @assertResult(false)
          * @Validate(name = 'min:150', phone = 'max:9')
          * @Middleware('Middleware', params = {int1 : '123'})
+         * @Annotation(param1, param2 = 'param2', param3={param1;param2:'param2'})
          */
          ";
     private array $result = [
@@ -54,6 +55,16 @@ class AnnotationTest extends TestCase
                 0 => "'Middleware'",
                 "params" => [
                     "int1" => "123",
+                ],
+            ],
+        ],
+        "Annotation" => [
+            [
+                0 => "param1",
+                "param2" => "param2",
+                "param3" => [
+                    "param1",
+                    "param2" => "param2",
                 ],
             ],
         ],
