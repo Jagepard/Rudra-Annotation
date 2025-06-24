@@ -13,8 +13,12 @@ namespace Rudra\Annotation\Tests;
 
 use ReflectionClass;
 use ReflectionMethod;
+use Rudra\Annotation\{
+    Annotation, 
+    AnnotationInterface, 
+    Tests\Stub\PageController
+};
 use PHPUnit\Framework\TestCase;
-use Rudra\Annotation\{Annotation, AnnotationInterface, Tests\Stub\PageController};
 
 class AnnotationTest extends TestCase
 {
@@ -52,7 +56,7 @@ class AnnotationTest extends TestCase
         ],
         "Middleware" => [
             [
-                0 => "'Middleware'",
+                "'Middleware'",
                 "params" => [
                     "int1" => "123",
                 ],
@@ -60,7 +64,7 @@ class AnnotationTest extends TestCase
         ],
         "Annotation" => [
             [
-                0 => "param1",
+                "param1",
                 "param2" => "param2",
                 "param3" => [
                     "param1",
@@ -98,6 +102,11 @@ class AnnotationTest extends TestCase
     public function testGetMethodAnnotations(): void
     {
         $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class, "indexAction"));
+    }
+
+    public function testGetClassAttributes(): void
+    {
+        $this->assertEquals($this->result, $this->annotation->getAttributes(PageController::class));
     }
 
     public function testGetMethodAttributes(): void

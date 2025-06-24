@@ -23,6 +23,7 @@ $annotation->getAnnotations(PageController::class, "indexAction");
  * @assertResult(false)
  * @Validate(name = 'min:150', phone = 'max:9')
  * @Middleware('Middleware', params = {int1 : '123'})
+ * @Annotation(param1, param2 = 'param2', param3={param1;param2:'param2'})
  */
 class PageController
 {
@@ -32,6 +33,7 @@ class PageController
      * @assertResult(false)
      * @Validate(name = 'min:150', phone = 'max:9')
      * @Middleware('Middleware', params = {int1 : '123'})
+     * @Annotation(param1, param2 = 'param2', param3={param1;param2:'param2'})
      */
     public function indexAction()
     {
@@ -50,6 +52,7 @@ $annotation->getAttributes(PageController::class, "indexAction");
 #[assertResult(false)]
 #[Validate(name:'min:150', phone:'max:9')]
 #[Middleware('Middleware', params:['int1' => '123'])]
+#[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
 class PageController
 {
     #[Routing(url:'')]
@@ -57,6 +60,7 @@ class PageController
     #[assertResult(false)]
     #[Validate(name:'min:150', phone:'max:9')]
     #[Middleware('Middleware', params:['int1' => '123'])]
+    #[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
     public function indexAction()
     {
         // Your code
@@ -88,9 +92,19 @@ class PageController
     ],
     'Middleware' => [
         [
-            0 => "'Middleware'",
+            "'Middleware'",
             'params' => [
                 'int1' => '123',
+            ],
+        ],
+    ],
+    "Annotation" => [
+        [
+            "param1",
+            "param2" => "param2",
+            "param3" => [
+                "param1",
+                "param2" => "param2",
             ],
         ],
     ],
