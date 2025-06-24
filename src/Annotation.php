@@ -108,7 +108,6 @@ class Annotation implements AnnotationInterface
             $extractor = new ParamsExtractor();
 
             /**
-             * @Result
              * $annotations = "Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]
              */
             for ($i = 0; $i < $count; $i++) {
