@@ -17,7 +17,7 @@ class Annotation implements AnnotationInterface
 {
     /**
      * Parameter separator
-     * -------------------
+     * --------------------
      * Разделитель параметров
      * 
      * in the line  ',', example: key='param', key2='param2'
@@ -27,7 +27,7 @@ class Annotation implements AnnotationInterface
 
     /**
      * Assignment mark
-     * ---------------
+     * --------------------
      * Знак присваивания
      * 
      * in the line  '=', example: key='param'
