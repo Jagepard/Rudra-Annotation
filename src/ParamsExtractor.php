@@ -11,7 +11,6 @@ declare(strict_types=1);
  * @license https://mozilla.org/MPL/2.0/  MPL-2.0
  */
 
-
 namespace Rudra\Annotation;
 
 class ParamsExtractor
