@@ -49,6 +49,7 @@ final readonly class ParamsExtractor
      * @param array $exploded
      * @return array|null
      */
+    #[\CodeCoverageIgnore]
     private function handleData(string $data, array $exploded): ?array
     {
         /**
@@ -77,5 +78,5 @@ final readonly class ParamsExtractor
         }
 
         return null;
-    } // @codeCoverageIgnore
+    }
 }
