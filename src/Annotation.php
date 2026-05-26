@@ -15,7 +15,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use Rudra\Exceptions\LogicException;
 
-class Annotation implements AnnotationInterface
+final readonly class Annotation implements AnnotationInterface
 {
     /**
      * Parameter separator
@@ -25,7 +25,7 @@ class Annotation implements AnnotationInterface
      * in the line  ',', example: key='param', key2='param2'
      * in the array ';', example: {key:'param'; key2:'param2'}
      */
-    const DELIMITER = ["string" => ',', "array" => ';'];
+    public const array DELIMITER = ["string" => ',', "array" => ';'];
 
     /**
      * Assignment mark
@@ -35,13 +35,14 @@ class Annotation implements AnnotationInterface
      * in the line  '=', example: key='param'
      * in the array ':', example: {key:'param'}
      */
-    const ASSIGNMENT = ["string" => '=', "array" => ':'];
+    public const array ASSIGNMENT = ["string" => '=', "array" => ':'];
 
     /**
      * @param string $className
      * @param string|null $methodName
      * @return array
      */
+    #[\Override]
     public function getAnnotations(string $className, ?string $methodName = null): array
     {
         $docBlock = $this->getReflection($className, $methodName)->getDocComment();
@@ -58,9 +59,10 @@ class Annotation implements AnnotationInterface
      * @param string|null $methodName
      * @return array
      */
+    #[\Override]
     public function getAttributes(string $className, ?string $methodName = null): array
     {
-        if (version_compare(PHP_VERSION, '8.0', '<')) {
+        if (PHP_VERSION_ID < 80000) {
             throw new LogicException('Attributes are only supported in PHP 8.0 and above.');
         }
 
@@ -81,7 +83,7 @@ class Annotation implements AnnotationInterface
      */
     private function extractShortClassName(string $fullyQualifiedName): string
     {
-        return basename(str_replace('\\', '/', $fullyQualifiedName));
+        return substr($fullyQualifiedName, (int) strrpos($fullyQualifiedName, '\\') + 1);
     }
 
     /**
@@ -118,7 +120,7 @@ class Annotation implements AnnotationInterface
              */
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $extractor->getParams(
-                    explode(Annotation::DELIMITER["string"], trim($matches[2][$i])),
+                    str_getcsv(trim($matches[2][$i]), self::DELIMITER["string"]),
                     Annotation::ASSIGNMENT["string"]
                 );
             }

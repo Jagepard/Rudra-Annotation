@@ -11,7 +11,7 @@
 
 namespace Rudra\Annotation;
 
-class ParamsExtractor
+final readonly class ParamsExtractor
 {
     /**
      * Parses an array of parameter strings into an associative array.
@@ -75,5 +75,7 @@ class ParamsExtractor
         if (preg_match("/'(.*)'/", $exploded[1], $matches)) {
             return [trim($exploded[0]) => $matches[1]];
         }
+
+        return null;
     } // @codeCoverageIgnore
 }
