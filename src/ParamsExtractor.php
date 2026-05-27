@@ -44,12 +44,12 @@ final readonly class ParamsExtractor
      * Parses data into `key => value` pairs
      * --------------------
      * Преобразует данные в пары `ключ => значение`
-     *
+     * 
      * @param string $data
      * @param array $exploded
      * @return array|null
+     * @codeCoverageIgnore
      */
-    #[\CodeCoverageIgnore]
     private function handleData(string $data, array $exploded): ?array
     {
         /**
