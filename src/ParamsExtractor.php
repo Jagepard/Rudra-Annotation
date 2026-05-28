@@ -11,7 +11,7 @@
 
 namespace Rudra\Annotation;
 
-final readonly class ParamsExtractor
+class ParamsExtractor
 {
     /**
      * Parses an array of parameter strings into an associative array.
