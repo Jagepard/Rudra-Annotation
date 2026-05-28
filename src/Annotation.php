@@ -15,7 +15,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use Rudra\Exceptions\LogicException;
 
-final readonly class Annotation implements AnnotationInterface
+class Annotation implements AnnotationInterface
 {
     /**
      * Parameter separator
