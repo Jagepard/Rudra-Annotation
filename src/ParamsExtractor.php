@@ -21,8 +21,8 @@ class ParamsExtractor
      * `from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`
      * `to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`
      * 
-     * @param array $exploded
-     * @param string $assignment
+     * @param  array  $exploded
+     * @param  string $assignment
      * @return array
      */
     public function getParams(array $exploded, string $assignment): array
@@ -33,7 +33,9 @@ class ParamsExtractor
             if (str_contains($item, $assignment)) {
                 $item = $this->handleData($item, explode($assignment, $item));
             }
-            $processed[is_array($item) ? key($item) : $key] = is_array($item) ? $item[key($item)] : $item;
+
+            $processed[is_array($item) 
+                ? key($item) : $key] = is_array($item) ? $item[key($item)] : $item;
         }
 
         return $processed;
@@ -45,8 +47,8 @@ class ParamsExtractor
      * --------------------
      * Преобразует данные в пары `ключ => значение`
      * 
-     * @param string $data
-     * @param array $exploded
+     * @param  string $data
+     * @param  array  $exploded
      * @return array|null
      * @codeCoverageIgnore
      */

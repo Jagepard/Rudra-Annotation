@@ -11,8 +11,6 @@
 
 namespace Rudra\Annotation;
 
-use ReflectionClass;
-use ReflectionMethod;
 use Rudra\Exceptions\LogicException;
 
 class Annotation implements AnnotationInterface
@@ -38,8 +36,8 @@ class Annotation implements AnnotationInterface
     public const array ASSIGNMENT = ["string" => '=', "array" => ':'];
 
     /**
-     * @param string $className
-     * @param string|null $methodName
+     * @param  string      $className
+     * @param  string|null $methodName
      * @return array
      */
     #[\Override]
@@ -55,8 +53,8 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $className
-     * @param string|null $methodName
+     * @param  string $className
+     * @param  string|null $methodName
      * @return array
      */
     #[\Override]
@@ -78,7 +76,7 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $fullyQualifiedName
+     * @param  string $fullyQualifiedName
      * @return string
      */
     private function extractShortClassName(string $fullyQualifiedName): string
@@ -87,15 +85,15 @@ class Annotation implements AnnotationInterface
     }
 
     /**
-     * @param string $className
-     * @param string|null $methodName
-     * @return ReflectionClass|ReflectionMethod
+     * @param  string      $className
+     * @param  string|null $methodName
+     * @return \ReflectionClass|\ReflectionMethod
      */
-    private function getReflection(string $className, ?string $methodName = null): ReflectionClass|ReflectionMethod
+    private function getReflection(string $className, ?string $methodName = null): \ReflectionClass|\ReflectionMethod
     {
-        return isset($methodName)
-            ? new ReflectionMethod($className, $methodName)
-            : new ReflectionClass($className);
+        return $methodName !== null
+            ? new \ReflectionMethod($className, $methodName)
+            : new \ReflectionClass($className);
     }
 
     /**
@@ -121,7 +119,7 @@ class Annotation implements AnnotationInterface
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $extractor->getParams(
                     str_getcsv(trim($matches[2][$i]), self::DELIMITER["string"]),
-                    Annotation::ASSIGNMENT["string"]
+                    self::ASSIGNMENT["string"]
                 );
             }
         }

@@ -8,21 +8,16 @@
  * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
  * @license https://mozilla.org/MPL/2.0/  MPL-2.0
  * 
- * phpunit src/tests/ContainerTest --coverage-html src/tests/coverage-html
+ * phpunit src/tests/AnnotationTest --coverage-html src/tests/coverage-html
  */
 
 namespace Rudra\Annotation\Tests;
 
-use ReflectionClass;
-use ReflectionMethod;
-use Rudra\Annotation\{
-    Annotation, 
-    AnnotationInterface, 
-    Tests\Stub\PageController
-};
-use PHPUnit\Framework\TestCase;
+use Rudra\Annotation\Annotation;
+use Rudra\Annotation\AnnotationInterface;
+use Rudra\Annotation\Tests\Stub\PageController;
 
-class AnnotationTest extends TestCase
+class AnnotationTest extends \PHPUnit\Framework\TestCase
 {
     private AnnotationInterface $annotation;
     private string $docBlock = "    
@@ -81,9 +76,9 @@ class AnnotationTest extends TestCase
         $this->annotation = new Annotation();
     }
 
-    private function getMethod(string $name): ReflectionMethod
+    private function getMethod(string $name): \ReflectionMethod
     {
-        $class = new ReflectionClass($this->annotation);
+        $class = new \ReflectionClass($this->annotation);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
 
