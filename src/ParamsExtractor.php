@@ -14,12 +14,16 @@ namespace Rudra\Annotation;
 class ParamsExtractor
 {
     /**
-     * Parses an array of parameter strings into an associative array
-     * --------------------
-     * Преобразует массив строк с параметрами в ассоциативный массив
+     * --------------------------------------------------------------|
+     * Parses an array of parameter strings into an associative array|
+     * --------------------------------------------------------------|
+     * Преобразует массив строк с параметрами в ассоциативный массив |
+     * --------------------------------------------------------------|
      * 
-     * `from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`
-     * `to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`
+     * ------------------------------------------------------------------------------------|
+     * `from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`                |
+     * `to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`|
+     * ------------------------------------------------------------------------------------|
      * 
      * @param  array  $exploded
      * @param  string $assignment
@@ -31,21 +35,30 @@ class ParamsExtractor
 
         foreach ($exploded as $key => $item) {
             if (str_contains($item, $assignment)) {
-                $item = $this->handleData($item, explode($assignment, $item));
+                $item = $this->handleData($item, explode($assignment, $item, 2));
             }
 
-            $processed[is_array($item) 
-                ? key($item) : $key] = is_array($item) ? $item[key($item)] : $item;
+            $processed += is_array($item) ? $item : [$key => $item];
         }
 
         return $processed;
     }
 
-
     /**
-     * Parses data into `key => value` pairs
-     * --------------------
-     * Преобразует данные в пары `ключ => значение`
+     * --------------------------------------------|
+     * Parses data into `key => value` pairs       |
+     * --------------------------------------------|
+     * Преобразует данные в пары `ключ => значение`|
+     * --------------------------------------------|
+     * 
+     * ⚠️ IMPORTANT / ВАЖНО:
+     * --------------------------------------------|
+     * Values inside arrays (curly braces) must not|
+     * contain the array assignment mark (`:`)     |
+     * --------------------------------------------|
+     * Значения внутри массивов (фигурные скобки)  |
+     * не должны содержать знак присваивания (`:`) |
+     * --------------------------------------------|
      * 
      * @param  string $data
      * @param  array  $exploded
@@ -55,9 +68,11 @@ class ParamsExtractor
     private function handleData(string $data, array $exploded): ?array
     {
         /**
-         * If in data an array of type param3={param1;param2:'param2'}
-         * --------------------
-         * Если в данных есть массив типа param3={param1;param2:'param2'}
+         * --------------------------------------------------------------|
+         * If in data an array of type param3={param1;param2:'param2'}   |
+         * --------------------------------------------------------------|
+         * Если в данных есть массив типа param3={param1;param2:'param2'}|
+         * --------------------------------------------------------------|
          */
         if (preg_match("/=\s*{/", $data) && preg_match("/{(.*)}/", $exploded[1], $matches)) {
             return [
@@ -69,11 +84,15 @@ class ParamsExtractor
         }
 
         /**
-         * Remove quotation marks around parameter
-         * --------------------
-         * Удаляет кавычки вокруг параметра
+         * ---------------------------------------|
+         * Remove quotation marks around parameter|
+         * ---------------------------------------|
+         * Удаляет кавычки вокруг параметра       |
+         * ---------------------------------------|
          * 
-         * matches[1] = 'param2';
+         * ----------------------|
+         * matches[1] = 'param2';|
+         * ----------------------|
          */
         if (preg_match("/'(.*)'/", $exploded[1], $matches)) {
             return [trim($exploded[0]) => $matches[1]];

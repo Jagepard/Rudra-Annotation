@@ -115,4 +115,31 @@ class AnnotationTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals([], $this->annotation->getAnnotations(PageController::class, "withoutDocblock"));
     }
+
+    public function testParseAnnotationsWithEqualsInValue(): void
+    {
+        $docBlock = "
+            /**
+             * @Routing(url='site/com?a=1&b=2', method='GET')
+             * @Validate(pattern='^[a-z]+=[0-9]+$')
+             */
+        ";
+        
+        $expected = [
+            "Routing" => [
+                [
+                    "url" => "site/com?a=1&b=2",
+                    "method" => "GET",
+                ],
+            ],
+            "Validate" => [
+                [
+                    "pattern" => "^[a-z]+=[0-9]+$",
+                ],
+            ],
+        ];
+
+        $parseAnnotations = $this->getMethod("parseAnnotations");
+        $this->assertEquals($expected, $parseAnnotations->invokeArgs($this->annotation, [$docBlock]));
+    }
 }

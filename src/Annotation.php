@@ -16,22 +16,30 @@ use Rudra\Exceptions\LogicException;
 class Annotation implements AnnotationInterface
 {
     /**
-     * Parameter separator
-     * --------------------
-     * Разделитель параметров
+     * ----------------------|
+     * Parameter separator   |
+     * ----------------------|
+     * Разделитель параметров|
+     * ----------------------|
      * 
-     * in the line  ',', example: key='param', key2='param2'
-     * in the array ';', example: {key:'param'; key2:'param2'}
+     * --------------------------------------------------------|
+     * in the line  ',', example: key='param', key2='param2'   |
+     * in the array ';', example: {key:'param'; key2:'param2'} |
+     * --------------------------------------------------------|
      */
     public const array DELIMITER = ["string" => ',', "array" => ';'];
 
     /**
-     * Assignment mark
-     * --------------------
-     * Знак присваивания
+     * -----------------|
+     * Assignment mark  |
+     * -----------------|
+     * Знак присваивания|
+     * -----------------|
      * 
-     * in the line  '=', example: key='param'
-     * in the array ':', example: {key:'param'}
+     * ----------------------------------------|
+     * in the line  '=', example: key='param'  |
+     * in the array ':', example: {key:'param'}|
+     * ----------------------------------------|
      */
     public const array ASSIGNMENT = ["string" => '=', "array" => ':'];
 
@@ -105,16 +113,20 @@ class Annotation implements AnnotationInterface
         $annotations = [];
 
         /**
-         * $matches[0][0] - @Annotation(param1, param2='param2', param3={param1;param2:'param2'})
-         * $matches[1][0] - Annotation
-         * $matches[2][0] - param1, param2 = 'param2', param3={param1;param2:'param2'}
+         * --------------------------------------------------------------------------------------|
+         * $matches[0][0] - @Annotation(param1, param2='param2', param3={param1;param2:'param2'})|
+         * $matches[1][0] - Annotation                                                           |          
+         * $matches[2][0] - param1, param2 = 'param2', param3={param1;param2:'param2'}           |
+         * --------------------------------------------------------------------------------------|
          */
         if (preg_match_all("/@([A-Za-z_-]+)\((.*)?\)/", $docBlock, $matches)) {
             $count = count($matches[0]);
             $extractor = new ParamsExtractor();
 
             /**
-             * $annotations = ["Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]]
+             * ----------------------------------------------------------------------------------------------------------------------|
+             * $annotations = ["Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]]|
+             * ----------------------------------------------------------------------------------------------------------------------|
              */
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $extractor->getParams(
