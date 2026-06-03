@@ -110,6 +110,28 @@ class PageController
     ],
 ];
 ```
+### ⚠️ Known Limitations / Известные ограничения
+
+When using nested arrays (in curly braces `{}`), ensure that the values do not contain the array assignment symbol (`:`). The parser uses simple splitting by this symbol and does not escape it inside quotes. String values (with `=`) are handled correctly even if they contain multiple `=` symbols.
+
+---
+
+При использовании вложенных массивов (в фигурных скобках `{}`) убедитесь, что **значения не содержат символ присваивания массива** (`:`). Парсер использует простое разделение по этому символу и не экранирует его внутри кавычек. Строковые значения (с `=`) обрабатываются корректно, даже если они содержат несколько символов `=`.
+
+**✅ Works correctly / Работает корректно:**
+```php
+/**
+ * @Config(settings={theme:'dark'; lang:'ru'})
+ * @Routing(url='http://site.com?a=1&b=2')
+ */
+```
+
+**❌ Breaks array parsing / Ломает парсинг массива:**
+```php
+/**
+ * @Config(settings={url:'http://site.com:8080'})
+ */
+```
 ## License
 
 This project is licensed under the **Mozilla Public License 2.0 (MPL-2.0)** — a free, open-source license that:
