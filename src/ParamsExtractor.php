@@ -14,9 +14,9 @@ namespace Rudra\Annotation;
 class ParamsExtractor
 {
     /**
-     * Parses an array of parameter strings into an associative array.
+     * Parses an array of parameter strings into an associative array
      * --------------------
-     * Преобразует массив строк с параметрами в ассоциативный массив.
+     * Преобразует массив строк с параметрами в ассоциативный массив
      * 
      * `from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`
      * `to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`
