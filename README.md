@@ -119,7 +119,6 @@ class PageController
 ];
 ```
 ### ⚠️ Known Limitations / Известные ограничения
-
 >When using nested arrays (in curly braces `{}`), ensure that the values do not contain the array assignment symbol (`:`). The parser uses simple splitting by this symbol and does not escape it inside quotes. String values (with `=`) are handled correctly even if they contain multiple `=` symbols.
 
 >При использовании вложенных массивов (в фигурных скобках `{}`) убедитесь, что **значения не содержат символ присваивания массива** (`:`). Парсер использует простое разделение по этому символу и не экранирует его внутри кавычек. Строковые значения (с `=`) обрабатываются корректно, даже если они содержат несколько символов `=`.
@@ -137,6 +136,16 @@ class PageController
 /**
  * @Config(settings={url:'http://site.com:8080'})
  */
+```
+> **Note:** These limitations apply only to legacy annotations. PHP 8+ attributes do not have these restrictions.
+
+> **Примечание:** Эти ограничения касаются только устаревших аннотаций. Атрибуты PHP 8+ не имеют этих ограничений.
+
+**✅ All cases work correctly / Все случаи работают корректно:**
+```php
+#[Config(settings: ['theme' => 'dark', 'lang' => 'ru'])]
+#[Routing(url: 'http://site.com?a=1&b=2')]
+#[Config(settings: ['url' => 'http://site.com:8080'])] // ✅ Works!
 ```
 ## License
 
