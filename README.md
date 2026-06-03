@@ -7,11 +7,45 @@
 ## Annotations and attributes reader / Читатель аннотаций и атрибутов | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
 #### Installation / Установка
 ```composer require rudra/annotation```
+
+> Modern metadata reader for PHP 8+ attributes with legacy annotation support. / Современный читатель метаданных для атрибутов PHP 8+ с поддержкой устаревших аннотаций.
+
 #### Using / Использование
 ```php
 $annotation = new Annotation();
 ```
-##### An example of reading annotations / Пример чтения аннотаций
+#### 🎯 Recommended: PHP 8+ Attributes / Рекомендуемый способ: Атрибуты PHP 8+
+```php
+$annotation->getAttributes(PageController::class);
+$annotation->getAttributes(PageController::class, "indexAction");
+```
+```php
+#[Routing(url:'')]
+#[Defaults(name:'user1', lastname:'sample', age:'0', address:['country' => 'Russia', 'state' => 'Tambov'], phone:'000-00000000')]
+#[assertResult(false)]
+#[Validate(name:'min:150', phone:'max:9')]
+#[Middleware('Middleware', params:['int1' => '123'])]
+#[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
+class PageController
+{
+    #[Routing(url:'')]
+    #[Defaults(name:'user1', lastname:'sample', age:'0', address:['country' => 'Russia', 'state' => 'Tambov'], phone:'000-00000000')]
+    #[assertResult(false)]
+    #[Validate(name:'min:150', phone:'max:9')]
+    #[Middleware('Middleware', params:['int1' => '123'])]
+    #[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
+    public function indexAction()
+    {
+        // Your code
+    }        
+}
+```
+#### 📜 Legacy: Annotations / Устаревший способ: Аннотации
+> **Note:** Annotations are supported for backward compatibility with legacy projects. 
+> For new projects, use PHP 8+ attributes.
+
+> **Примечание:** Аннотации поддерживаются для обратной совместимости с легаси-проектами. 
+> Для новых проектов используйте атрибуты PHP 8+.
 ```php
 $annotation->getAnnotations(PageController::class);
 $annotation->getAnnotations(PageController::class, "indexAction");
@@ -41,33 +75,7 @@ class PageController
     }        
 }
 ```
-##### An example of reading attributes / Пример чтения атрибутов
-```php
-$annotation->getAttributes(PageController::class);
-$annotation->getAttributes(PageController::class, "indexAction");
-```
-```php
-#[Routing(url:'')]
-#[Defaults(name:'user1', lastname:'sample', age:'0', address:['country' => 'Russia', 'state' => 'Tambov'], phone:'000-00000000')]
-#[assertResult(false)]
-#[Validate(name:'min:150', phone:'max:9')]
-#[Middleware('Middleware', params:['int1' => '123'])]
-#[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
-class PageController
-{
-    #[Routing(url:'')]
-    #[Defaults(name:'user1', lastname:'sample', age:'0', address:['country' => 'Russia', 'state' => 'Tambov'], phone:'000-00000000')]
-    #[assertResult(false)]
-    #[Validate(name:'min:150', phone:'max:9')]
-    #[Middleware('Middleware', params:['int1' => '123'])]
-    #[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
-    public function indexAction()
-    {
-        // Your code
-    }        
-}
-```
-##### Result in both cases / Результат чтения в обоих случаях:
+#### 📊 Result in both cases / Результат чтения в обоих случаях:
 ```php
 [
     'Routing' => [['url' => ""]],
@@ -112,11 +120,9 @@ class PageController
 ```
 ### ⚠️ Known Limitations / Известные ограничения
 
-When using nested arrays (in curly braces `{}`), ensure that the values do not contain the array assignment symbol (`:`). The parser uses simple splitting by this symbol and does not escape it inside quotes. String values (with `=`) are handled correctly even if they contain multiple `=` symbols.
+>When using nested arrays (in curly braces `{}`), ensure that the values do not contain the array assignment symbol (`:`). The parser uses simple splitting by this symbol and does not escape it inside quotes. String values (with `=`) are handled correctly even if they contain multiple `=` symbols.
 
----
-
-При использовании вложенных массивов (в фигурных скобках `{}`) убедитесь, что **значения не содержат символ присваивания массива** (`:`). Парсер использует простое разделение по этому символу и не экранирует его внутри кавычек. Строковые значения (с `=`) обрабатываются корректно, даже если они содержат несколько символов `=`.
+>При использовании вложенных массивов (в фигурных скобках `{}`) убедитесь, что **значения не содержат символ присваивания массива** (`:`). Парсер использует простое разделение по этому символу и не экранирует его внутри кавычек. Строковые значения (с `=`) обрабатываются корректно, даже если они содержат несколько символов `=`.
 
 **✅ Works correctly / Работает корректно:**
 ```php
