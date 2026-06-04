@@ -8,7 +8,9 @@
 #### Installation / Установка
 ```composer require rudra/annotation```
 
-> Modern metadata reader for PHP 8+ attributes with legacy annotation support. / Современный читатель метаданных для атрибутов PHP 8+ с поддержкой устаревших аннотаций.
+> Modern metadata reader for PHP 8+ attributes with legacy annotation support. 
+
+> Современный читатель метаданных для атрибутов PHP 8+ с поддержкой устаревших аннотаций.
 
 #### Using / Использование
 ```php
