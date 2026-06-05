@@ -13,17 +13,6 @@ namespace Rudra\Annotation;
 
 interface AnnotationInterface
 {
-    /**
-     * @param  string      $className 
-     * @param  string|null $methodName
-     * @return array
-     */
     public function getAnnotations(string $className, ?string $methodName = null): array;
-
-    /**
-     * @param  string      $className
-     * @param  string|null $methodName
-     * @return array
-     */
     public function getAttributes(string $className, ?string $methodName = null): array;
 }
