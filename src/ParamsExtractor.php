@@ -18,10 +18,6 @@ class ParamsExtractor
      * 
      * `from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`
      * `to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`
-     * 
-     * @param  array  $exploded
-     * @param  string $assignment
-     * @return array
      */
     public function getParams(array $exploded, string $assignment): array
     {
