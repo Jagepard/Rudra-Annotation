@@ -13,8 +13,8 @@
 ### Class: Rudra\Annotation\Annotation
 | Visibility | Function |
 |:-----------|:---------|
-| public | `getAnnotations(string $className, ?string $methodName): array`<br> |
-| public | `getAttributes(string $className, ?string $methodName): array`<br> |
+| public | `getAnnotations(string $className, ?string $methodName): array`<br>Each parameter must be on its own line. |
+| public | `getAttributes(string $className, ?string $methodName): array`<br>Returns all attributes for a class or method.<br>Returns short class names (e.g. `Cache`, not `App\Attributes\Cache`). |
 | private | `extractShortClassName(string $fullyQualifiedName): string`<br> |
 | private | `getReflection(string $className, ?string $methodName): ReflectionClass\|ReflectionMethod`<br> |
 | private | `parseAnnotations(string $docBlock): array`<br> |
@@ -34,8 +34,8 @@
 ### Class: Rudra\Annotation\ParamsExtractor
 | Visibility | Function |
 |:-----------|:---------|
-| public | `getParams(array $exploded, string $assignment): array`<br>--------------------------------------------------------------<br>Parses an array of parameter strings into an associative array<br>--------------------------------------------------------------<br>Преобразует массив строк с параметрами в ассоциативный массив<br>--------------------------------------------------------------<br>------------------------------------------------------------------------------------<br>`from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`<br>`to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`<br>------------------------------------------------------------------------------------ |
-| private | `handleData(string $data, array $exploded): ?array`<br>--------------------------------------------<br>Parses data into `key => value` pairs<br>--------------------------------------------<br>Преобразует данные в пары `ключ => значение`<br>--------------------------------------------<br>⚠️ IMPORTANT / ВАЖНО:<br>--------------------------------------------<br>Values inside arrays (curly braces) must not<br>contain the array assignment mark (`:`)<br>--------------------------------------------<br>Значения внутри массивов (фигурные скобки)<br>не должны содержать знак присваивания (`:`)<br>-------------------------------------------- |
+| public | `getParams(array $exploded, string $assignment): array`<br>Parses an array of parameter strings into an associative array<br>`from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`<br>`to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]` |
+| private | `handleData(string $data, array $exploded): ?array`<br>Parses data into `key => value` pairs<br>⚠️ IMPORTANT: Values inside arrays (curly braces)<br>must not contain the array assignment mark (`:`) |
 
 
 ---
