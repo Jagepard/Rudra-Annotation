@@ -4,19 +4,17 @@
 [![Coverage Status](https://coveralls.io/repos/github/Jagepard/Rudra-Annotation/badge.svg?branch=master)](https://coveralls.io/github/Jagepard/Rudra-Annotation?branch=master)
 -----
 
-## Annotations and attributes reader / Читатель аннотаций и атрибутов | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
-#### Installation / Установка
+## Annotations and attributes reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
+#### Installation
 ```composer require rudra/annotation```
 
 > Modern metadata reader for PHP 8+ attributes with legacy annotation support. 
 
-> Современный читатель метаданных для атрибутов PHP 8+ с поддержкой устаревших аннотаций.
-
-#### Using / Использование
+#### Using
 ```php
 $annotation = new Annotation();
 ```
-#### 🎯 Recommended: PHP 8+ Attributes / Рекомендуемый способ: Атрибуты PHP 8+
+#### 🎯 Recommended: PHP 8+ Attributes
 ```php
 $annotation->getAttributes(PageController::class);
 $annotation->getAttributes(PageController::class, "indexAction");
@@ -42,12 +40,9 @@ class PageController
     }        
 }
 ```
-#### 📜 Legacy: Annotations / Устаревший способ: Аннотации
+#### 📜 Legacy: Annotations
 > **Note:** Annotations are supported for backward compatibility with legacy projects. 
 > For new projects, use PHP 8+ attributes.
-
-> **Примечание:** Аннотации поддерживаются для обратной совместимости с легаси-проектами. 
-> Для новых проектов используйте атрибуты PHP 8+.
 ```php
 $annotation->getAnnotations(PageController::class);
 $annotation->getAnnotations(PageController::class, "indexAction");
@@ -77,7 +72,7 @@ class PageController
     }        
 }
 ```
-#### 📊 Result in both cases / Результат чтения в обоих случаях:
+#### 📊 Result in both cases:
 ```php
 [
     'Routing' => [['url' => ""]],
@@ -120,12 +115,10 @@ class PageController
     ],
 ];
 ```
-### ⚠️ Known Limitations / Известные ограничения
+### ⚠️ Known Limitations
 >When using nested arrays (in curly braces `{}`), ensure that the values do not contain the array assignment symbol (`:`). The parser uses simple splitting by this symbol and does not escape it inside quotes. String values (with `=`) are handled correctly even if they contain multiple `=` symbols.
 
->При использовании вложенных массивов (в фигурных скобках `{}`) убедитесь, что **значения не содержат символ присваивания массива** (`:`). Парсер использует простое разделение по этому символу и не экранирует его внутри кавычек. Строковые значения (с `=`) обрабатываются корректно, даже если они содержат несколько символов `=`.
-
-**✅ Works correctly / Работает корректно:**
+**✅ Works correctly:**
 ```php
 /**
  * @Config(settings={theme:'dark'; lang:'ru'})
@@ -133,17 +126,14 @@ class PageController
  */
 ```
 
-**❌ Breaks array parsing / Ломает парсинг массива:**
+**❌ Breaks array parsing:**
 ```php
 /**
  * @Config(settings={url:'http://site.com:8080'})
  */
 ```
 > **Note:** These limitations apply only to legacy annotations. PHP 8+ attributes do not have these restrictions.
-
-> **Примечание:** Эти ограничения касаются только устаревших аннотаций. Атрибуты PHP 8+ не имеют этих ограничений.
-
-**✅ All cases work correctly / Все случаи работают корректно:**
+**✅ All cases work correctly:**
 ```php
 #[Config(settings: ['theme' => 'dark', 'lang' => 'ru'])]
 #[Routing(url: 'http://site.com?a=1&b=2')]
@@ -160,13 +150,3 @@ This project is licensed under the **Mozilla Public License 2.0 (MPL-2.0)** — 
 
 📄 Full license text: [LICENSE](./LICENSE)  
 🌐 Official MPL-2.0 page: https://mozilla.org/MPL/2.0/
-
---------------------------
-Проект распространяется под лицензией **Mozilla Public License 2.0 (MPL-2.0)**. Это означает:
- - Вы можете свободно использовать, изменять и распространять код.
- - При изменении файлов, содержащих исходный код из этого репозитория, вы обязаны оставить их открытыми под той же лицензией.
- - Вы **обязаны сохранять уведомления об авторстве** и ссылку на оригинал.
- - Вы можете встраивать код в проприетарные проекты, если исходные файлы остаются под MPL.
-
-📄  Полный текст лицензии (на английском): [LICENSE](./LICENSE)  
-🌐 Официальная страница: https://mozilla.org/MPL/2.0/
