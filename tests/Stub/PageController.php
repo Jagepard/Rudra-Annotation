@@ -35,8 +35,9 @@ class PageController
      * @Middleware('Middleware', params = {int1 : '123'})
      * @Annotation(param1, param2 = 'param2', param3={param1;param2:'param2'})
      */
-    public function indexAction(): void
+    public function indexAction() 
     {
+        
     }
 
     #[Routing(url:'')]
@@ -45,9 +46,13 @@ class PageController
     #[Validate(name:'min:150', phone:'max:9')]
     #[Middleware("'Middleware'", params:['int1' => '123'])]
     #[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
-    public function secondAction()
+    public function secondAction() 
     {
+        
     }
-
-    public function withoutDocblock(): void {}
+    
+    public function withoutDocblock() 
+    {
+        
+    }
 }
