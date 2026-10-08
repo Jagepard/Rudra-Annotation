@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Jagepard/Rudra-Annotation/badge.svg?branch=master)](https://coveralls.io/github/Jagepard/Rudra-Annotation?branch=master)
 -----
 
-## Annotations and attributes reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md "Documentation API")
+## Annotations and attributes reader | [API](https://github.com/Jagepard/Rudra-Annotation/blob/master/docs.md 'Documentation API')
 #### Installation
 ```composer require rudra/annotation```
 
@@ -17,7 +17,7 @@ $annotation = new Annotation();
 #### 🎯 Recommended: PHP 8+ Attributes
 ```php
 $annotation->getAttributes(PageController::class);
-$annotation->getAttributes(PageController::class, "indexAction");
+$annotation->getAttributes(PageController::class, 'indexAction');
 ```
 ```php
 #[Routing(url:'')]
@@ -25,7 +25,7 @@ $annotation->getAttributes(PageController::class, "indexAction");
 #[assertResult(false)]
 #[Validate(name:'min:150', phone:'max:9')]
 #[Middleware('Middleware', params:['int1' => '123'])]
-#[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
+#[Annotation('param1', param2:'param2', param3:['param1', 'param2' => 'param2'])]
 class PageController
 {
     #[Routing(url:'')]
@@ -33,7 +33,7 @@ class PageController
     #[assertResult(false)]
     #[Validate(name:'min:150', phone:'max:9')]
     #[Middleware('Middleware', params:['int1' => '123'])]
-    #[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
+    #[Annotation('param1', param2:'param2', param3:['param1', 'param2' => 'param2'])]
     public function indexAction()
     {
         // Your code
@@ -45,7 +45,7 @@ class PageController
 > For new projects, use PHP 8+ attributes.
 ```php
 $annotation->getAnnotations(PageController::class);
-$annotation->getAnnotations(PageController::class, "indexAction");
+$annotation->getAnnotations(PageController::class, 'indexAction');
 ```
 ```php
 /**
@@ -75,24 +75,24 @@ class PageController
 #### 📊 Result in both cases:
 ```php
 [
-    'Routing' => [['url' => ""]],
+    'Routing' => [['url' => '']],
     'Defaults' => [
         [
-            'name' => "user1",
-            'lastname' => "sample",
-            'age' => "0",
+            'name' => 'user1',
+            'lastname' => 'sample',
+            'age' => '0',
             'address' => [
-                'country' => "Russia",
-                'state' => "Tambov",
+                'country' => 'Russia',
+                'state' => 'Tambov',
             ],
-            'phone' => "000-00000000",
+            'phone' => '000-00000000',
         ],
     ],
-    'assertResult' => [["false"]],
+    'assertResult' => [['false']],
     'Validate' => [
         [
-            'name' => "min:150",
-            'phone' => "max:9",
+            'name' => 'min:150',
+            'phone' => 'max:9',
         ],
     ],
     'Middleware' => [
@@ -103,13 +103,13 @@ class PageController
             ],
         ],
     ],
-    "Annotation" => [
+    'Annotation' => [
         [
-            "param1",
-            "param2" => "param2",
-            "param3" => [
-                "param1",
-                "param2" => "param2",
+            'param1',
+            'param2' => 'param2',
+            'param3' => [
+                'param1',
+                'param2' => 'param2',
             ],
         ],
     ],
