@@ -19,7 +19,7 @@ class Annotation implements AnnotationInterface
      * in the line  ',', example: key='param', key2='param2'
      * in the array ';', example: {key:'param'; key2:'param2'}
      */
-    public const array DELIMITER = ["string" => ',', "array" => ';'];
+    public const array DELIMITER = ['string' => ',', 'array' => ';'];
 
     /**
      * Assignment mark
@@ -27,7 +27,7 @@ class Annotation implements AnnotationInterface
      * in the line  '=', example: key='param'
      * in the array ':', example: {key:'param'}
      */
-    public const array ASSIGNMENT = ["string" => '=', "array" => ':'];
+    public const array ASSIGNMENT = ['string' => '=', 'array' => ':'];
 
     /**
      * Each parameter must be on its own line.
@@ -84,15 +84,15 @@ class Annotation implements AnnotationInterface
          * $matches[1][0] - Annotation         
          * $matches[2][0] - param1, param2 = 'param2', param3={param1;param2:'param2'}
          */
-        if (preg_match_all("/@([A-Za-z0-9_-]+)\((.*?)\)/", $docBlock, $matches)) {
+        if (preg_match_all('/@([A-Za-z0-9_-]+)\((.*?)\)/', $docBlock, $matches)) {
             $count = count($matches[0]);
             $extractor = new ParamsExtractor();
 
-            // $annotations = ["Annotation" => [[0 => "param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]]]
+            // $annotations = ['Annotation' => [[0 => 'param1', 'param2' => 'param2', 'param3' => ['param1', 'param2' => 'param2']]]]
             for ($i = 0; $i < $count; $i++) {
                 $annotations[$matches[1][$i]][] = $extractor->getParams(
-                    str_getcsv(trim($matches[2][$i]), self::DELIMITER["string"], '"', ''),
-                    self::ASSIGNMENT["string"]
+                    str_getcsv(trim($matches[2][$i]), self::DELIMITER['string'], '"', ''),
+                    self::ASSIGNMENT['string']
                 );
             }
         }

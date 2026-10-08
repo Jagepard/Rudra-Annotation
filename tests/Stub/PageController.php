@@ -24,7 +24,7 @@ namespace Rudra\Annotation\Tests\Stub;
 #[assertResult('false')]
 #[Validate(name:'min:150', phone:'max:9')]
 #[Middleware("'Middleware'", params:['int1' => '123'])]
-#[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
+#[Annotation('param1', param2:'param2', param3:['param1', 'param2' => 'param2'])]
 class PageController
 {
     /**
@@ -44,7 +44,7 @@ class PageController
     #[assertResult('false')]
     #[Validate(name:'min:150', phone:'max:9')]
     #[Middleware("'Middleware'", params:['int1' => '123'])]
-    #[Annotation("param1", param2:'param2', param3:['param1', 'param2' => 'param2'])]
+    #[Annotation('param1', param2:'param2', param3:['param1', 'param2' => 'param2'])]
     public function secondAction() 
     {
     }

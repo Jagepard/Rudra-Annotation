@@ -16,8 +16,8 @@ class ParamsExtractor
     /**
      * Parses an array of parameter strings into an associative array
      * 
-     * `from: "param1, param2 = 'param2', param3={param1;param2:'param2'}"`
-     * `to: ["param1", "param2" => "param2", "param3" => ["param1", "param2" => "param2"]]`
+     * `from: 'param1, param2 = 'param2', param3={param1;param2:'param2'}'`
+     * `to: ['param1', 'param2' => 'param2', 'param3' => ['param1', 'param2' => 'param2']]`
      */
     public function getParams(array $exploded, string $assignment): array
     {
@@ -45,11 +45,11 @@ class ParamsExtractor
     private function handleData(string $data, array $exploded): ?array
     {
         // If in data an array of type param3={param1;param2:'param2'}
-        if (preg_match("/=\s*{/", $data) && preg_match("/{(.*)}/", $exploded[1], $matches)) {
+        if (preg_match('/=\s*{/', $data) && preg_match('/{(.*)}/', $exploded[1], $matches)) {
             return [
                 trim($exploded[0]) => $this->getParams(
-                    explode(Annotation::DELIMITER["array"], trim($matches[1])),
-                    Annotation::ASSIGNMENT["array"]
+                    explode(Annotation::DELIMITER['array'], trim($matches[1])),
+                    Annotation::ASSIGNMENT['array']
                 ),
             ];
         }

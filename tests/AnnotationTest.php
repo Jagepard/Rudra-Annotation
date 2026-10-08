@@ -29,41 +29,41 @@ class AnnotationTest extends \PHPUnit\Framework\TestCase
          */
          ";
     private array $result = [
-        "Routing" => [["url" => ""]],
-        "Defaults" => [
+        'Routing' => [['url' => '']],
+        'Defaults' => [
             [
-                "name" => "user1",
-                "lastname" => "sample",
-                "age" => "0",
-                "address" => [
-                    "country" => "Russia",
-                    "state" => "Tambov",
+                'name' => 'user1',
+                'lastname' => 'sample',
+                'age' => '0',
+                'address' => [
+                    'country' => 'Russia',
+                    'state' => 'Tambov',
                 ],
-                "phone" => "000-00000000",
+                'phone' => '000-00000000',
             ],
         ],
-        "assertResult" => [["false"]],
-        "Validate" => [
+        'assertResult' => [['false']],
+        'Validate' => [
             [
-                "name" => "min:150",
-                "phone" => "max:9",
+                'name' => 'min:150',
+                'phone' => 'max:9',
             ],
         ],
-        "Middleware" => [
+        'Middleware' => [
             [
                 "'Middleware'",
-                "params" => [
-                    "int1" => "123",
+                'params' => [
+                    'int1' => '123',
                 ],
             ],
         ],
-        "Annotation" => [
+        'Annotation' => [
             [
-                "param1",
-                "param2" => "param2",
-                "param3" => [
-                    "param1",
-                    "param2" => "param2",
+                'param1',
+                'param2' => 'param2',
+                'param3' => [
+                    'param1',
+                    'param2' => 'param2',
                 ],
             ],
         ],
@@ -85,7 +85,7 @@ class AnnotationTest extends \PHPUnit\Framework\TestCase
 
     public function testParseAnnotations(): void
     {
-        $parseAnnotations = $this->getMethod("parseAnnotations");
+        $parseAnnotations = $this->getMethod('parseAnnotations');
         $this->assertEquals($this->result, $parseAnnotations->invokeArgs($this->annotation, [$this->docBlock]));
     }
 
@@ -96,7 +96,7 @@ class AnnotationTest extends \PHPUnit\Framework\TestCase
 
     public function testGetMethodAnnotations(): void
     {
-        $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class, "indexAction"));
+        $this->assertEquals($this->result, $this->annotation->getAnnotations(PageController::class, 'indexAction'));
     }
 
     public function testGetClassAttributes(): void
@@ -106,12 +106,12 @@ class AnnotationTest extends \PHPUnit\Framework\TestCase
 
     public function testGetMethodAttributes(): void
     {
-        $this->assertEquals($this->result, $this->annotation->getAttributes(PageController::class, "secondAction"));
+        $this->assertEquals($this->result, $this->annotation->getAttributes(PageController::class, 'secondAction'));
     }
 
     public function testGetMethodWithoutAnnotations(): void
     {
-        $this->assertEquals([], $this->annotation->getAnnotations(PageController::class, "withoutDocblock"));
+        $this->assertEquals([], $this->annotation->getAnnotations(PageController::class, 'withoutDocblock'));
     }
 
     public function testParseAnnotationsWithEqualsInValue(): void
@@ -124,20 +124,20 @@ class AnnotationTest extends \PHPUnit\Framework\TestCase
         ";
         
         $expected = [
-            "Routing" => [
+            'Routing' => [
                 [
-                    "url" => "site/com?a=1&b=2",
-                    "method" => "GET",
+                    'url' => 'site/com?a=1&b=2',
+                    'method' => 'GET',
                 ],
             ],
-            "Validate" => [
+            'Validate' => [
                 [
-                    "pattern" => "^[a-z]+=[0-9]+$",
+                    'pattern' => '^[a-z]+=[0-9]+$',
                 ],
             ],
         ];
 
-        $parseAnnotations = $this->getMethod("parseAnnotations");
+        $parseAnnotations = $this->getMethod('parseAnnotations');
         $this->assertEquals($expected, $parseAnnotations->invokeArgs($this->annotation, [$docBlock]));
     }
 }
