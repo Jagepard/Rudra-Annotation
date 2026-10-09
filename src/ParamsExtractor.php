@@ -13,6 +13,10 @@ namespace Rudra\Annotation;
 
 class ParamsExtractor
 {
+    public function __construct(private string $delimiter, private string $assignment)
+    {
+    }
+
     /**
      * Parses an array of parameter strings into an associative array
      * 
@@ -48,8 +52,8 @@ class ParamsExtractor
         if (preg_match('/=\s*{/', $data) && preg_match('/{(.*)}/', $exploded[1], $matches)) {
             return [
                 trim($exploded[0]) => $this->getParams(
-                    explode(Annotation::DELIMITER['array'], trim($matches[1])),
-                    Annotation::ASSIGNMENT['array']
+                    explode($this->delimiter, trim($matches[1])),
+                    $this->assignment
                 ),
             ];
         }
